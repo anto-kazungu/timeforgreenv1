@@ -1,0 +1,135 @@
+<div class="dashboard-container">
+  <div class="header">
+    <div class="profile-section" (click)="goToProfile()">
+      <div class="profile-avatar">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Ccircle cx='30' cy='30' r='30' fill='%23FFD700'/%3E%3C/svg%3E" alt="Profile">
+      </div>
+      <div class="user-info">
+        <span class="user-name">{{ userName }}</span>
+        <span class="user-level">Level 1</span>
+      </div>
+    </div>
+    
+    <div class="points-badge">
+      <div class="points-info">
+        <span class="points-label">Green Points</span>
+        <span class="points-value">{{ greenPoints }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="welcome-section">
+      <h1 class="greeting">Welcome Back, {{ userName }}!</h1>
+      <p class="tagline">Let's make the world greener together 🌍</p>
+    </div>
+
+    <nav class="nav-tabs">
+      <button 
+        class="nav-tab" 
+        [class.active]="activeTab === 'communities'"
+        (click)="navigateToTab('communities')"
+      >
+        Communities
+      </button>
+      <button 
+        class="nav-tab" 
+        [class.active]="activeTab === 'trainings'"
+        (click)="navigateToTab('trainings')"
+      >
+        Trainings
+      </button>
+      <button 
+        class="nav-tab" 
+        [class.active]="activeTab === 'rewards'"
+        (click)="navigateToTab('rewards')"
+      >
+        Rewards
+      </button>
+      <button 
+        class="nav-tab" 
+        [class.active]="activeTab === 'events'"
+        (click)="navigateToTab('events')"
+      >
+        Events
+      </button>
+    </nav>
+
+    <div class="posts-section">
+      <h2>📰 Latest Posts</h2>
+      <div class="posts-list">
+        <div class="post-card" *ngFor="let post of posts" (click)="viewPost(post.id)">
+          <div class="post-header" [style.background]="post.gradient">
+            <h3>{{ post.title }}</h3>
+            <span class="post-category">{{ post.category }}</span>
+          </div>
+          <div class="post-body">
+            <p class="post-content">{{ post.content.substring(0, 150) }}...</p>
+            <div class="post-meta">
+              <span class="post-author">By {{ post.author }}</span>
+              <span class="post-time">{{ getTimeAgo(post.timestamp) }}</span>
+            </div>
+            <div class="post-stats">
+              <span class="stat-item">❤️ {{ post.likes }}</span>
+              <span class="stat-item">💬 {{ post.comments.length }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-header">
+      <h2>🔥 Trending in Your Communities</h2>
+    </div>
+
+    <div class="trending-grid">
+      <div class="trending-item large" *ngFor="let item of trendingItems.slice(0, 2)" (click)="viewTrendingItem(item)">
+        <div class="trending-image" [style.background]="item.gradient">
+          <div class="trending-overlay">
+            <span class="trending-label">{{ item.label }}</span>
+            <span class="trending-engagement">{{ item.engagement }} active</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="trending-grid-small">
+      <div class="trending-item small" *ngFor="let item of trendingItems.slice(2, 5)" (click)="viewTrendingItem(item)">
+        <div class="trending-image" [style.background]="item.gradient">
+          <div class="trending-overlay">
+            <span class="trending-label">{{ item.label }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="trending-grid">
+      <div class="trending-item large" *ngFor="let item of trendingItems.slice(5, 7)" (click)="viewTrendingItem(item)">
+        <div class="trending-image" [style.background]="item.gradient">
+          <div class="trending-overlay">
+            <span class="trending-label">{{ item.label }}</span>
+            <span class="trending-engagement">{{ item.engagement }} active</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="quick-actions">
+      <h2>Quick Actions</h2>
+      <div class="actions-grid">
+        <button class="action-card" (click)="navigateToTab('communities')">
+          Join Community
+        </button>
+        <button class="action-card" (click)="navigateToTab('events')">
+          Find Events
+        </button>
+        <button class="action-card" (click)="navigateToTab('rewards')">
+          Redeem Rewards
+        </button>
+        <button class="action-card" (click)="logout()">
+          Logout
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

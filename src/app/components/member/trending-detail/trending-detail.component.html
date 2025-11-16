@@ -1,0 +1,71 @@
+<div class="detail-container">
+  @if (post) {
+    <div class="header">
+      <button class="back-btn" (click)="goBack()">← Back</button>
+      <button class="logout-btn" (click)="logout()">Logout</button>
+    </div>
+
+    <div class="content">
+      <div class="post-detail">
+        <div class="post-banner" [style.background]="post.gradient">
+          <h1>{{ post.title }}</h1>
+          <div class="post-info">
+            <span class="category-badge">{{ post.category }}</span>
+            <span class="post-author">By {{ post.author }}</span>
+            <span class="post-time">{{ getTimeAgo(post.timestamp) }}</span>
+          </div>
+        </div>
+
+        <div class="post-content-section">
+          <p class="post-text">{{ post.content }}</p>
+
+          <div class="interaction-bar">
+            <button class="like-btn" [class.liked]="post.liked" (click)="toggleLike()">
+              <span class="icon">{{ post.liked ? '❤️' : '🤍' }}</span>
+              <span class="count">{{ post.likes }}</span>
+            </button>
+            <button class="comment-btn">
+              <span class="icon">💬</span>
+              <span class="count">{{ post.comments.length }}</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="comments-section">
+          <h2>Comments ({{ post.comments.length }})</h2>
+
+          <div class="add-comment">
+            <textarea 
+              [(ngModel)]="newComment" 
+              placeholder="Share your thoughts..."
+              rows="3"
+            ></textarea>
+            <button class="submit-comment-btn" (click)="addComment()">Post Comment</button>
+          </div>
+
+          <div class="comments-list">
+            @if (post.comments.length === 0) {
+              <p class="no-comments">No comments yet. Be the first to comment!</p>
+            }
+            @for (comment of post.comments; track comment.id) {
+              <div class="comment-card">
+                <div class="comment-header">
+                  <div class="comment-avatar">{{ comment.author.charAt(0) }}</div>
+                  <div class="comment-info">
+                    <span class="comment-author">{{ comment.author }}</span>
+                    <span class="comment-time">{{ getTimeAgo(comment.timestamp) }}</span>
+                  </div>
+                </div>
+                <p class="comment-text">{{ comment.content }}</p>
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  } @else {
+    <div class="loading">
+      <p>Loading post...</p>
+    </div>
+  }
+</div>

@@ -1,0 +1,32 @@
+<div class="events-container">
+  <div class="header">
+    <button class="back-btn" (click)="goBack()">← Back</button>
+    <button class="logout-btn" (click)="logout()">Logout</button>
+  </div>
+  
+  <div class="content">
+    <h1 class="page-title">Events</h1>
+    <p class="subtitle">Join upcoming environmental events in your community</p>
+    
+    <div class="events-list">
+      <div class="event-card" *ngFor="let event of events">
+        <div class="event-date">
+          <div class="date-day">{{ event.day }}</div>
+          <div class="date-month">{{ event.month }}</div>
+        </div>
+        <div class="event-details">
+          <h3>{{ event.title }}</h3>
+          <p class="event-location">📍 {{ event.location }}</p>
+          <p class="event-time">🕐 {{ event.time }}</p>
+          <p class="event-description">{{ event.description }}</p>
+          <div class="event-footer">
+            <span class="attendees">{{ event.attendees }} attending</span>
+            <button class="join-btn" [class.joined]="event.joined" (click)="toggleJoin(event)">
+              {{ event.joined ? 'Joined ✓' : 'Join Event' }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

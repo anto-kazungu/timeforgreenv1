@@ -1,0 +1,74 @@
+<div class="community-container">
+  <div class="header">
+    <button class="back-btn" (click)="goBack()">← Back</button>
+    <button class="logout-btn" (click)="logout()">Logout</button>
+  </div>
+  
+  <div class="content">
+    <div class="title-section">
+      <h1 class="page-title">My Communities</h1>
+      <button class="add-btn" (click)="showJoinModal = true">+ Join Community</button>
+    </div>
+
+    @if (userCommunities.length === 0) {
+      <div class="empty-state">
+        <p>You haven't joined any communities yet.</p>
+        <p>Click "Join Community" to get started!</p>
+      </div>
+    } @else {
+      <div class="communities-grid">
+        <div class="community-card" *ngFor="let community of userCommunities" (click)="viewCommunity(community.id)">
+          <div class="community-header" [style.background]="community.gradient">
+            <h3>{{ community.name }}</h3>
+            <span class="member-count">{{ community.members }} members</span>
+          </div>
+          <div class="community-body">
+            <p class="community-description">{{ community.description }}</p>
+            <div class="community-meta">
+              <span class="category">{{ community.category }}</span>
+              <button class="leave-btn" (click)="leaveCommunity(community.id, $event)">Leave</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+
+  @if (showJoinModal) {
+    <div class="modal-overlay" (click)="showJoinModal = false">
+      <div class="modal-content" (click)="$event.stopPropagation()">
+        <h2>Join a Community</h2>
+        <p>Enter the community code to join</p>
+        
+        <form (ngSubmit)="joinCommunity()">
+          <input 
+            type="text" 
+            [(ngModel)]="communityCode" 
+            name="code"
+            placeholder="Enter community code"
+            class="code-input"
+            required
+          />
+          
+          @if (joinMessage) {
+            <div class="message" [class.error]="!joinSuccess" [class.success]="joinSuccess">
+              {{ joinMessage }}
+            </div>
+          }
+
+          <div class="available-codes">
+            <p><strong>Available Community Codes:</strong></p>
+            <div class="codes-list">
+              <span class="code-chip" *ngFor="let code of availableCodes">{{ code }}</span>
+            </div>
+          </div>
+          
+          <div class="modal-actions">
+            <button type="button" class="cancel-btn" (click)="closeJoinModal()">Cancel</button>
+            <button type="submit" class="submit-btn">Join</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  }
+</div>

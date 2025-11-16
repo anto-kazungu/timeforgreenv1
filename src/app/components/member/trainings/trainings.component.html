@@ -1,0 +1,56 @@
+<div class="trainings-container">
+  <div class="header">
+    <button class="back-btn" (click)="goBack()">← Back</button>
+    <button class="logout-btn" (click)="logout()">Logout</button>
+  </div>
+  
+  <div class="content">
+    <h1 class="page-title">Trainings</h1>
+    <p class="subtitle">Learn and grow with our environmental training programs</p>
+    
+    @if (ongoingTrainings.length > 0) {
+      <div class="section">
+        <h2 class="section-title">📚 Ongoing Courses</h2>
+        <div class="trainings-grid">
+          <div class="training-card enrolled" *ngFor="let training of ongoingTrainings">
+            <div class="training-image" [style.background]="training.gradient">
+              <span class="training-badge">{{ training.duration }}</span>
+              <span class="enrolled-badge">✓ Enrolled</span>
+            </div>
+            <div class="training-info">
+              <h3>{{ training.title }}</h3>
+              <p>{{ training.description }}</p>
+              <div class="training-meta">
+                <span class="participants">👥 {{ training.participants }} enrolled</span>
+                <span class="level">{{ training.level }}</span>
+              </div>
+              <button class="continue-btn">Continue Learning</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="separator"></div>
+    }
+    
+    <div class="section">
+      <h2 class="section-title">🎓 Available Courses</h2>
+      <div class="trainings-grid">
+        <div class="training-card" *ngFor="let training of availableTrainings">
+          <div class="training-image" [style.background]="training.gradient">
+            <span class="training-badge">{{ training.duration }}</span>
+          </div>
+          <div class="training-info">
+            <h3>{{ training.title }}</h3>
+            <p>{{ training.description }}</p>
+            <div class="training-meta">
+              <span class="participants">👥 {{ training.participants }} enrolled</span>
+              <span class="level">{{ training.level }}</span>
+            </div>
+            <button class="enroll-btn" (click)="enrollInCourse(training.id)">Enroll Now</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

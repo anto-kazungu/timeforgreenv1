@@ -1,0 +1,80 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+button {
+  font-family: inherit;
+}
+
+input {
+  font-family: inherit;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+/* Material Snackbar Custom Styles */
+.success-snackbar {
+  background-color: #00d084 !important;
+  color: white !important;
+}
+
+.success-snackbar .mat-mdc-snack-bar-label {
+  color: white !important;
+}
+
+.success-snackbar .mat-mdc-button {
+  color: white !important;
+}
+
+.error-snackbar {
+  background-color: #ff5252 !important;
+  color: white !important;
+}
+
+.error-snackbar .mat-mdc-snack-bar-label {
+  color: white !important;
+}
+
+.error-snackbar .mat-mdc-button {
+  color: white !important;
+}
+
+.info-snackbar {
+  background-color: #2196f3 !important;
+  color: white !important;
+}
+
+.info-snackbar .mat-mdc-snack-bar-label {
+  color: white !important;
+}
+
+.info-snackbar .mat-mdc-button {
+  color: white !important;
+}
+
+.warning-snackbar {
+  background-color: #ff9800 !important;
+  color: white !important;
+}
+
+.warning-snackbar .mat-mdc-snack-bar-label {
+  color: white !important;
+}
+
+.warning-snackbar .mat-mdc-button {
+  color: white !important;
+}
+
+.mat-mdc-snack-bar-container {
+  margin: 8px !important;
+}

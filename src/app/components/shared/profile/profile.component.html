@@ -1,0 +1,65 @@
+<div class="profile-container" [class.celebrating]="showCelebration">
+  <!-- Confetti Container -->
+  @if (showCelebration) {
+    <div class="confetti-container">
+      @for (confetti of confettiPieces; track confetti.id) {
+        <div 
+          class="confetti" 
+          [style.left.%]="confetti.left"
+          [style.animation-delay]="confetti.delay"
+          [style.background-color]="confetti.color"
+        ></div>
+      }
+    </div>
+  }
+  
+  <div class="content">
+    <h1 class="greeting" [class.celebrate-bounce]="showCelebration">Hureeey!!!</h1>
+    <p class="subtitle" [class.celebrate-fade]="showCelebration">You Just Went Green</p>
+    
+    <p class="question" [class.celebrate-fade]="showCelebration">How do you want to save our environmet?</p>
+    
+    <div class="options">
+      <button 
+        class="option-btn" 
+        [class.celebrate-slide]="showCelebration"
+        [style.animation-delay]="'0.2s'"
+        (click)="goToWelcome()"
+      >
+        Become a Member
+      </button>
+      <button 
+        class="option-btn" 
+        [class.celebrate-slide]="showCelebration"
+        [style.animation-delay]="'0.3s'"
+        (click)="goToWelcome()"
+      >
+        Become a Community organiser
+      </button>
+      <button 
+        class="option-btn" 
+        [class.celebrate-slide]="showCelebration"
+        [style.animation-delay]="'0.4s'"
+        (click)="goToWelcome()"
+      >
+        Become a Mentor
+      </button>
+      <button 
+        class="option-btn" 
+        [class.celebrate-slide]="showCelebration"
+        [style.animation-delay]="'0.5s'"
+        (click)="goToWelcome()"
+      >
+        Support Work
+      </button>
+    </div>
+    
+    <button 
+      class="why-btn" 
+      [class.celebrate-pulse]="showCelebration"
+      (click)="goToWhyGoGreen()"
+    >
+      Why Go Green?
+    </button>
+  </div>
+</div>

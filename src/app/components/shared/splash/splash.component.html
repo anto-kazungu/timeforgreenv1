@@ -1,0 +1,62 @@
+<div class="splash-container">
+  @if (!videoStarted) {
+    <div class="initial-screen">
+      <div class="content-wrapper">
+        <div class="logo-section">
+          <img src="./assets/logo.png" alt="Logo" class="logo-image">
+          <h2 class="app-name">Time For Green</h2>
+        </div>
+        
+        <h1 class="title">HOW<br>IT'S<br>GOING...</h1>
+        
+        <p class="tagline">Discover the reality of our environment</p>
+        
+        <button class="play-btn" (click)="startVideo()">
+          <span class="play-icon">▶</span>
+          <span class="play-text">Watch Now</span>
+        </button>
+      </div>
+    </div>
+  }
+
+  @if (videoStarted) {
+    <div class="video-screen">
+      <div class="video-frame">
+        <div class="video-header">
+          <div class="header-left">
+            <img src="favicon.ico" alt="Logo" class="logo-small">
+            <span class="brand-text">Time For Green</span>
+          </div>
+          <div class="header-right">
+            <div class="credit-badge">
+              <span class="credit-icon">🎬</span>
+              <span class="credit-text">DW Documentary</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="video-wrapper">
+          <iframe
+            [src]="videoUrl"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+            class="youtube-video"
+          ></iframe>
+        </div>
+        
+        @if (showGoGreenButton) {
+          <div class="button-container">
+            <div class="button-content">
+              <p class="button-message">Ready to change the narrative?</p>
+              <button class="go-green-btn" (click)="goToProfile()">
+                <span class="btn-text">GO GREEN</span>
+                <span class="btn-arrow">→</span>
+              </button>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  }
+</div>

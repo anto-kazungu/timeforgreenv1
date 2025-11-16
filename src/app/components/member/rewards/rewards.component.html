@@ -1,0 +1,38 @@
+<div class="rewards-container">
+  <div class="header">
+    <button class="back-btn" (click)="goBack()">← Back</button>
+    <button class="logout-btn" (click)="logout()">Logout</button>
+  </div>
+  
+  <div class="content">
+    <div class="points-card">
+      <h2>Your Green Points</h2>
+      <div class="points-display">{{ totalPoints }}</div>
+      <p>Keep going green to earn more!</p>
+    </div>
+
+    <h1 class="page-title">Rewards</h1>
+    <p class="subtitle">Redeem your green points for amazing rewards</p>
+    
+    <div class="rewards-grid">
+      <div class="reward-card" *ngFor="let reward of rewards">
+        <div class="reward-image" [style.background]="reward.gradient">
+          <span class="points-badge">{{ reward.points }} pts</span>
+        </div>
+        <div class="reward-info">
+          <h3>{{ reward.title }}</h3>
+          <p>{{ reward.description }}</p>
+          <button 
+            class="redeem-btn" 
+            [disabled]="totalPoints < reward.points || reward.claimed"
+            [class.disabled]="totalPoints < reward.points || reward.claimed"
+            [class.claimed]="reward.claimed"
+            (click)="redeemReward(reward)"
+          >
+            {{ reward.claimed ? 'Claimed ✓' : (totalPoints >= reward.points ? 'Redeem' : 'Not enough points') }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

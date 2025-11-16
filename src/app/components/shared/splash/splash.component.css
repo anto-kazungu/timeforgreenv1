@@ -1,0 +1,459 @@
+.splash-container {
+  min-height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  position: relative;
+  background: #000;
+}
+
+/* Initial Screen Styles */
+.initial-screen {
+  height: 100vh;
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)),
+    url('/assets/road-pollution.jpg');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  position: relative;
+}
+
+.content-wrapper {
+  text-align: center;
+  padding: 2rem;
+  max-width: 600px;
+}
+
+.logo-section {
+  margin-bottom: 2rem;
+  animation: fadeInDown 1s ease-out;
+}
+
+.logo-image {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 1rem;
+  display: block;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
+}
+
+.app-name {
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #00d084;
+}
+
+.title {
+  font-size: 4.5rem;
+  font-weight: 900;
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.8);
+  animation: fadeInUp 1s ease-out 0.3s backwards;
+  letter-spacing: 3px;
+}
+
+.tagline {
+  font-size: 1.3rem;
+  margin-bottom: 3rem;
+  opacity: 0.9;
+  animation: fadeIn 1s ease-out 0.6s backwards;
+  font-weight: 300;
+  letter-spacing: 1px;
+}
+
+.play-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.2rem 3rem;
+  border-radius: 60px;
+  background: linear-gradient(135deg, #00d084 0%, #00b870 100%);
+  border: none;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 10px 30px rgba(0, 208, 132, 0.4);
+  animation: fadeInUp 1s ease-out 0.9s backwards, pulse 2s infinite 2s;
+}
+
+.play-btn:hover {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 15px 40px rgba(0, 208, 132, 0.6);
+}
+
+.play-icon {
+  font-size: 1.5rem;
+  color: white;
+}
+
+.play-text {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+/* Video Screen Styles */
+.video-screen {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+.video-frame {
+  width: 100%;
+  max-width: 100%;
+  height: calc(100vh - 2rem);
+  background: #000;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+  animation: scaleIn 0.6s ease-out;
+  display: flex;
+  flex-direction: column;
+}
+
+.video-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  background: rgba(0, 0, 0, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  flex-shrink: 0;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.logo-small {
+  width: 35px;
+  height: 35px;
+  border-radius: 8px;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.brand-text {
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+}
+
+.credit-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.credit-icon {
+  font-size: 1rem;
+}
+
+.credit-text {
+  color: white;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.video-wrapper {
+  position: relative;
+  flex: 1;
+  width: 100%;
+  background: #000;
+  overflow: hidden;
+}
+
+.youtube-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.button-container {
+  padding: 1.5rem 1.5rem;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.98), rgba(0, 0, 0, 0.85));
+  backdrop-filter: blur(10px);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  flex-shrink: 0;
+}
+
+.button-content {
+  text-align: center;
+  animation: slideUpFade 0.6s ease-out;
+}
+
+.button-message {
+  color: white;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  font-weight: 300;
+  letter-spacing: 1px;
+}
+
+.go-green-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  background: linear-gradient(135deg, #00d084 0%, #00b870 100%);
+  color: white;
+  border: none;
+  padding: 1rem 2.5rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+  border-radius: 60px;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 10px 30px rgba(0, 208, 132, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  animation: buttonPulse 2s infinite;
+}
+
+.go-green-btn:hover {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 15px 40px rgba(0, 208, 132, 0.6);
+  animation: none;
+}
+
+.btn-text {
+  font-size: 1.2rem;
+}
+
+.btn-arrow {
+  font-size: 1.5rem;
+  transition: transform 0.3s;
+}
+
+.go-green-btn:hover .btn-arrow {
+  transform: translateX(5px);
+}
+
+/* Animations */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideUpFade {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes buttonPulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 10px 30px rgba(0, 208, 132, 0.4);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 15px 40px rgba(0, 208, 132, 0.6), 0 0 0 15px rgba(0, 208, 132, 0.1);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .video-screen {
+    padding: 0.5rem;
+  }
+
+  .video-frame {
+    border-radius: 12px;
+    height: calc(100vh - 1rem);
+  }
+
+  .title {
+    font-size: 3rem;
+  }
+
+  .tagline {
+    font-size: 1.1rem;
+  }
+
+  .play-btn {
+    padding: 1rem 2.5rem;
+  }
+
+  .play-text {
+    font-size: 1rem;
+  }
+
+  .video-header {
+    padding: 0.8rem 1rem;
+  }
+
+  .brand-text {
+    font-size: 0.9rem;
+  }
+
+  .logo-small {
+    width: 30px;
+    height: 30px;
+  }
+
+  .credit-badge {
+    padding: 0.4rem 0.8rem;
+  }
+
+  .credit-text {
+    font-size: 0.75rem;
+  }
+
+  .button-container {
+    padding: 1.2rem 1rem;
+  }
+
+  .button-message {
+    font-size: 1rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .go-green-btn {
+    padding: 0.9rem 2rem;
+    font-size: 1rem;
+  }
+
+  .btn-text {
+    font-size: 1rem;
+  }
+
+  .btn-arrow {
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 2.5rem;
+  }
+
+  .logo-image {
+    width: 60px;
+    height: 60px;
+  }
+
+  .app-name {
+    font-size: 1.2rem;
+  }
+
+  .video-screen {
+    padding: 0.25rem;
+  }
+
+  .video-frame {
+    border-radius: 8px;
+    height: calc(100vh - 0.5rem);
+  }
+
+  .video-header {
+    padding: 0.6rem 0.8rem;
+  }
+
+  .brand-text {
+    display: none;
+  }
+
+  .button-container {
+    padding: 1rem 0.8rem;
+  }
+}
+
+@media (orientation: landscape) and (max-height: 600px) {
+  .video-frame {
+    height: calc(100vh - 1rem);
+  }
+
+  .video-header {
+    padding: 0.5rem 1rem;
+  }
+
+  .button-container {
+    padding: 0.8rem 1rem;
+  }
+
+  .button-message {
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .go-green-btn {
+    padding: 0.7rem 2rem;
+    font-size: 1rem;
+  }
+}

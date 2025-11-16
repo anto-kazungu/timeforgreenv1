@@ -1,0 +1,74 @@
+<div class="community-detail-container">
+  @if (community) {
+    <div class="header">
+      <button class="back-btn" (click)="goBack()">← Back</button>
+      <button class="logout-btn" (click)="logout()">Logout</button>
+    </div>
+
+    <div class="content">
+      <div class="community-banner" [style.background]="community.gradient">
+        <h1>{{ community.name }}</h1>
+        <p class="banner-description">{{ community.description }}</p>
+      </div>
+
+      <div class="community-info">
+        <div class="info-card">
+          <div class="info-item">
+            <span class="info-label">Members</span>
+            <span class="info-value">{{ community.members }}</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Category</span>
+            <span class="info-value">{{ community.category }}</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Created</span>
+            <span class="info-value">{{ community.dateCreated | date: 'MMM d, yyyy' }}</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Code</span>
+            <span class="info-value code">{{ community.code }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="feeds-section">
+        <h2>Community Feed</h2>
+        
+        @if (community.feeds.length === 0) {
+          <div class="empty-feed">
+            <p>No posts yet. Be the first to share something!</p>
+          </div>
+        } @else {
+          <div class="feeds-list">
+            <div class="feed-card" *ngFor="let feed of community.feeds">
+              <div class="feed-header">
+                <div class="feed-author">
+                  <div class="author-avatar">{{ feed.author.charAt(0) }}</div>
+                  <div class="author-info">
+                    <span class="author-name">{{ feed.author }}</span>
+                    <span class="feed-time">{{ getTimeAgo(feed.timestamp) }}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="feed-content">
+                <p>{{ feed.content }}</p>
+              </div>
+              <div class="feed-actions">
+                <button class="like-btn" (click)="toggleLike(feed)">
+                  <span [class.liked]="feed.liked">❤️</span> {{ feed.likes }}
+                </button>
+                <button class="comment-btn">💬 Comment</button>
+                <button class="share-btn">🔗 Share</button>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  } @else {
+    <div class="loading">
+      <p>Loading community...</p>
+    </div>
+  }
+</div>
