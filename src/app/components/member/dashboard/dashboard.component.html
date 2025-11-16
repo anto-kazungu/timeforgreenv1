@@ -6,7 +6,10 @@
       </div>
       <div class="user-info">
         <span class="user-name">{{ userName }}</span>
-        <span class="user-level">{{ levelIcon }} Level {{ userLevel }} - {{ levelName }}</span>
+        <span class="user-level">
+          <span class="material-symbols-outlined level-icon-small">{{ levelIcon }}</span>
+          Level {{ userLevel }} - {{ levelName }}
+        </span>
       </div>
     </div>
     

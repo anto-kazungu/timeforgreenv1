@@ -27,8 +27,8 @@ export class LevelService {
       name: 'Rookie',
       minXP: 0,
       maxXP: 499,
-      icon: '🌱',
-      color: '#81C784',
+      icon: 'eco',
+      color: '#7ac9a7',
       description: 'Just starting your green journey'
     },
     {
@@ -36,8 +36,8 @@ export class LevelService {
       name: 'Helper',
       minXP: 500,
       maxXP: 1499,
-      icon: '🌿',
-      color: '#66BB6A',
+      icon: 'nature',
+      color: '#5dbd94',
       description: 'Making a positive impact'
     },
     {
@@ -45,8 +45,8 @@ export class LevelService {
       name: 'Warrior',
       minXP: 1500,
       maxXP: 3499,
-      icon: '🌳',
-      color: '#4CAF50',
+      icon: 'park',
+      color: '#3aa479',
       description: 'Fighting for the environment'
     },
     {
@@ -54,8 +54,8 @@ export class LevelService {
       name: 'Guardian',
       minXP: 3500,
       maxXP: 6999,
-      icon: '🛡️',
-      color: '#43A047',
+      icon: 'shield',
+      color: '#32946e',
       description: 'Protecting our planet'
     },
     {
@@ -63,8 +63,8 @@ export class LevelService {
       name: 'Champion',
       minXP: 7000,
       maxXP: Infinity,
-      icon: '👑',
-      color: '#2E7D32',
+      icon: 'workspace_premium',
+      color: '#1c6851',
       description: 'Environmental hero and leader'
     }
   ];
