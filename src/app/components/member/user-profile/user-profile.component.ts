@@ -4,6 +4,9 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 import { CommunityService } from '../../../services/community.service';
+import { TrainingService } from '../../../services/training.service';
+import { PointsService } from '../../../services/points.service';
+import { XPService } from '../../../services/xp.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -20,7 +23,16 @@ export class UserProfileComponent implements OnInit {
   bio = '';
   greenPoints = 850;
   userLevel = 1;
+  levelName = 'Rookie';
+  levelIcon = '🌱';
+  levelColor = '#81C784';
+  levelProgress = 0;
+  xpToNextLevel = 0;
+  nextLevelName = '';
+  userXP = 850;
   communitiesCount = 0;
+  eventsAttended = 0;
+  trainingsCompleted = 0;
   updateMessage = '';
   updateSuccess = false;
 
@@ -60,7 +72,10 @@ export class UserProfileComponent implements OnInit {
   constructor(
     private router: Router,
     private authService: AuthService,
-    private communityService: CommunityService
+    private communityService: CommunityService,
+    private trainingService: TrainingService,
+    private pointsService: PointsService,
+    private xpService: XPService
   ) {}
 
   ngOnInit() {
@@ -74,6 +89,39 @@ export class UserProfileComponent implements OnInit {
     }
 
     this.communitiesCount = this.communityService.getUserCommunities().length;
+    
+    // Get events attended count
+    const joinedEvents = localStorage.getItem('joinedEvents');
+    if (joinedEvents) {
+      this.eventsAttended = JSON.parse(joinedEvents).length;
+    }
+    
+    // Get trainings completed count
+    this.trainingsCompleted = this.trainingService.getOngoingTrainings().length;
+    
+    // Subscribe to green points changes
+    this.pointsService.points$.subscribe(points => {
+      this.greenPoints = points;
+    });
+    
+    // Subscribe to XP and level changes
+    this.xpService.xp$.subscribe(xp => {
+      this.userXP = xp;
+      this.updateLevelInfo();
+    });
+  }
+  
+  private updateLevelInfo() {
+    const currentLevel = this.xpService.getCurrentLevel();
+    const nextLevel = this.xpService.getNextLevel();
+    
+    this.userLevel = currentLevel.level;
+    this.levelName = currentLevel.name;
+    this.levelIcon = currentLevel.icon;
+    this.levelColor = currentLevel.color;
+    this.levelProgress = this.xpService.getLevelProgress();
+    this.xpToNextLevel = this.xpService.getXPToNextLevel();
+    this.nextLevelName = nextLevel ? nextLevel.name : 'Max Level';
   }
 
   updateProfile() {

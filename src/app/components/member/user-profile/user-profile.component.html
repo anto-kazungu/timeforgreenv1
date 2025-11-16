@@ -13,6 +13,17 @@
       <h1>{{ user?.firstName }} {{ user?.lastName }}</h1>
       <p class="user-email">{{ user?.email }}</p>
       
+      <div class="level-badge" [style.background]="levelColor">
+        <span class="level-icon">{{ levelIcon }}</span>
+        <div class="level-info">
+          <span class="level-title">Level {{ userLevel }} - {{ levelName }}</span>
+          <div class="level-progress-container">
+            <div class="level-progress-bar" [style.width.%]="levelProgress"></div>
+          </div>
+          <span class="level-progress-text">{{ levelProgress }}% to {{ nextLevelName }} ({{ xpToNextLevel }} XP needed)</span>
+        </div>
+      </div>
+
       <div class="stats-row">
         <div class="stat-card">
           <span class="stat-value">{{ greenPoints }}</span>
@@ -20,11 +31,24 @@
         </div>
         <div class="stat-card">
           <span class="stat-value">Level {{ userLevel }}</span>
-          <span class="stat-label">Current Level</span>
+          <span class="stat-label">{{ levelName }}</span>
         </div>
         <div class="stat-card">
           <span class="stat-value">{{ communitiesCount }}</span>
           <span class="stat-label">Communities</span>
+        </div>
+      </div>
+
+      <div class="stats-row secondary">
+        <div class="stat-card">
+          <span class="stat-icon">🎓</span>
+          <span class="stat-value">{{ trainingsCompleted }}</span>
+          <span class="stat-label">Trainings Completed</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-icon">📅</span>
+          <span class="stat-value">{{ eventsAttended }}</span>
+          <span class="stat-label">Events Attended</span>
         </div>
       </div>
     </div>

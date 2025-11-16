@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 import { PostService, Post } from '../../../services/post.service';
 import { PointsService } from '../../../services/points.service';
+import { XPService } from '../../../services/xp.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,6 +16,9 @@ export class DashboardComponent implements OnInit {
   activeTab = 'communities';
   userName = 'User';
   greenPoints = 850;
+  userLevel = 1;
+  levelName = 'Rookie';
+  levelIcon = '🌱';
   posts: Post[] = [];
 
   trendingItems = [
@@ -59,7 +63,8 @@ export class DashboardComponent implements OnInit {
     private router: Router, 
     private authService: AuthService,
     private postService: PostService,
-    private pointsService: PointsService
+    private pointsService: PointsService,
+    private xpService: XPService
   ) {}
 
   ngOnInit() {
@@ -69,10 +74,25 @@ export class DashboardComponent implements OnInit {
     }
     this.posts = this.postService.getAllPosts();
     
-    // Subscribe to points changes
+    // Subscribe to green points changes
     this.pointsService.points$.subscribe(points => {
       this.greenPoints = points;
     });
+    
+    // Subscribe to XP changes and update level
+    this.xpService.xp$.subscribe(() => {
+      this.updateLevelInfo();
+    });
+    
+    // Initial level update
+    this.updateLevelInfo();
+  }
+  
+  private updateLevelInfo() {
+    const currentLevel = this.xpService.getCurrentLevel();
+    this.userLevel = currentLevel.level;
+    this.levelName = currentLevel.name;
+    this.levelIcon = currentLevel.icon;
   }
 
   navigateToTab(tab: string) {
