@@ -1,0 +1,99 @@
+<div class="manage-modules-container">
+  <!-- Header -->
+  <div class="header">
+    <button class="back-btn" (click)="goBack()">
+      <span class="material-icons">arrow_back</span>
+    </button>
+    <div class="header-content">
+      <h1>Manage Training Modules</h1>
+      <p class="subtitle">View and manage your educational content</p>
+    </div>
+    <button class="create-btn" (click)="createNew()">
+      <span class="material-icons">add</span>
+      Create New
+    </button>
+  </div>
+
+  <!-- Status Filter -->
+  <div class="status-filter">
+    <button 
+      *ngFor="let filter of statusFilters"
+      [class.active]="selectedStatus === filter.value"
+      (click)="onStatusChange(filter.value)"
+      class="filter-btn">
+      {{ filter.label }}
+    </button>
+  </div>
+
+  <!-- Modules Grid -->
+  <div class="modules-grid">
+    <div *ngFor="let module of filteredModules" class="module-card">
+      <div class="module-header">
+        <div class="status-badge" [style.background]="getStatusColor(module.status)">
+          <span class="material-icons">{{ getStatusIcon(module.status) }}</span>
+          <span>{{ module.status | titlecase }}</span>
+        </div>
+        <div class="expertise-badge">{{ mentorService.getExpertiseAreaLabel(module.expertiseArea) }}</div>
+      </div>
+
+      <h3>{{ module.title }}</h3>
+      <p class="module-description">{{ module.description }}</p>
+
+      <div class="module-meta">
+        <div class="meta-item">
+          <span class="material-icons">schedule</span>
+          <span>{{ module.duration }} min</span>
+        </div>
+        <div class="meta-item">
+          <span class="material-icons">signal_cellular_alt</span>
+          <span>{{ module.level | titlecase }}</span>
+        </div>
+        <div class="meta-item">
+          <span class="material-icons">people</span>
+          <span>{{ module.enrolledCount }} enrolled</span>
+        </div>
+        <div class="meta-item" *ngIf="module.rating > 0">
+          <span class="material-icons">star</span>
+          <span>{{ module.rating.toFixed(1) }}</span>
+        </div>
+      </div>
+
+      <div class="module-topics">
+        <span *ngFor="let topic of module.topics.slice(0, 3)" class="topic-tag">{{ topic }}</span>
+        <span *ngIf="module.topics.length > 3" class="more-topics">+{{ module.topics.length - 3 }} more</span>
+      </div>
+
+      <div class="module-resources">
+        <span class="resource-count">
+          <span class="material-icons">folder</span>
+          {{ module.resources.length }} resources
+        </span>
+        <span class="created-date">Created {{ module.createdDate.toLocaleDateString() }}</span>
+      </div>
+
+      <div class="module-actions">
+        <button (click)="editModule(module.id)" class="action-btn edit">
+          <span class="material-icons">edit</span>
+          Edit
+        </button>
+        <button (click)="toggleStatus(module.id)" class="action-btn toggle">
+          <span class="material-icons">{{ module.status === 'published' ? 'archive' : 'publish' }}</span>
+          {{ module.status === 'published' ? 'Archive' : 'Publish' }}
+        </button>
+        <button (click)="deleteModule(module.id)" class="action-btn delete">
+          <span class="material-icons">delete</span>
+          Delete
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="filteredModules.length === 0" class="no-modules">
+    <span class="material-icons">library_books</span>
+    <p>No modules found</p>
+    <button (click)="createNew()" class="create-first-btn">
+      <span class="material-icons">add_circle</span>
+      Create Your First Module
+    </button>
+  </div>
+</div>

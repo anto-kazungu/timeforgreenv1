@@ -1,0 +1,66 @@
+<div class="donation-history-container">
+  <!-- Header -->
+  <div class="header">
+    <button class="back-btn" (click)="goBack()">
+      <span class="material-icons">arrow_back</span>
+    </button>
+    <div class="header-content">
+      <h1>Donation History</h1>
+      <div class="total-donated">
+        <span class="label">Total Donated:</span>
+        <span class="amount">${{ totalDonated.toLocaleString() }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Filter Tabs -->
+  <div class="filter-tabs">
+    <button 
+      *ngFor="let filter of filters"
+      [class.active]="selectedFilter === filter.value"
+      (click)="onFilterChange(filter.value)"
+      class="filter-btn">
+      {{ filter.label }}
+    </button>
+  </div>
+
+  <!-- Donations List -->
+  <div class="donations-list">
+    <div *ngFor="let donation of filteredDonations" class="donation-card">
+      <div class="donation-header">
+        <div class="project-info">
+          <h3>{{ donation.projectTitle }}</h3>
+          <p class="project-category">{{ donation.paymentMethod }}</p>
+        </div>
+        <div class="donation-amount">${{ donation.amount.toLocaleString() }}</div>
+      </div>
+
+      <div class="donation-details">
+        <div class="detail-item">
+          <span class="material-icons">calendar_today</span>
+          <span>{{ formatDate(donation.date) }}</span>
+        </div>
+        <div class="detail-item">
+          <span class="material-icons">payment</span>
+          <span>{{ donation.paymentMethod }}</span>
+        </div>
+        <div class="detail-item status" [style.color]="getStatusColor(donation.status)">
+          <span class="material-icons">{{ getStatusIcon(donation.status) }}</span>
+          <span>{{ donation.status | titlecase }}</span>
+        </div>
+      </div>
+
+      <div class="donation-actions">
+        <button class="action-btn" (click)="downloadReceipt(donation.id)">
+          <span class="material-icons">download</span>
+          Download Receipt
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="filteredDonations.length === 0" class="no-donations">
+    <span class="material-icons">receipt_long</span>
+    <p>No donations found</p>
+  </div>
+</div>

@@ -1,1 +1,95 @@
-<p>organizer-dashboard works!</p>
+<div class="dashboard-container">
+  <div class="header">
+    <div class="profile-section" (click)="goToProfile()">
+      <div class="profile-avatar">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Ccircle cx='30' cy='30' r='30' fill='%23FFD700'/%3E%3C/svg%3E" alt="Profile">
+      </div>
+      <div class="user-info">
+        <span class="user-name">{{ userName }}</span>
+        <span class="user-level">
+          <span class="material-symbols-outlined level-icon-small">{{ levelIcon }}</span>
+          Level {{ userLevel }} - {{ levelName }}
+        </span>
+      </div>
+    </div>
+    
+    <div class="points-badge">
+      <div class="points-info">
+        <span class="points-label">Green Points</span>
+        <span class="points-value">{{ greenPoints }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="welcome-section">
+      <h1 class="greeting">Welcome, {{ userName }}!</h1>
+      <p class="tagline">Manage your communities and inspire change 🌱</p>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card" *ngFor="let stat of stats">
+        <div class="stat-icon" [style.color]="stat.color">
+          <span class="material-symbols-outlined">{{ stat.icon }}</span>
+        </div>
+        <div class="stat-info">
+          <span class="stat-value">{{ stat.value }}</span>
+          <span class="stat-label">{{ stat.label }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-header">
+      <h2>🏘️ Your Communities</h2>
+    </div>
+
+    <div class="communities-grid" *ngIf="managedCommunities.length > 0">
+      <div class="community-card" *ngFor="let community of managedCommunities" (click)="viewCommunity(community.id)">
+        <div class="community-header">
+          <div class="community-icon" [style.background]="community.gradient">
+            <span class="material-symbols-outlined">groups</span>
+          </div>
+          <h3>{{ community.name }}</h3>
+        </div>
+        <p class="community-description">{{ community.description }}</p>
+        <div class="community-stats">
+          <div class="community-stat">
+            <span class="material-symbols-outlined">people</span>
+            <span>{{ community.members }} members</span>
+          </div>
+          <div class="community-stat">
+            <span class="material-symbols-outlined">article</span>
+            <span>{{ community.feeds.length }} posts</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="empty-state" *ngIf="managedCommunities.length === 0">
+      <span class="material-symbols-outlined empty-icon">groups</span>
+      <h3>No Communities Yet</h3>
+      <p>Create your first community to get started!</p>
+      <button class="create-btn" (click)="navigateTo('/organizer/create-community')">
+        <span class="material-symbols-outlined">add_circle</span>
+        Create Community
+      </button>
+    </div>
+
+    <div class="quick-actions">
+      <h2>Quick Actions</h2>
+      <div class="actions-grid">
+        <button class="action-card" *ngFor="let action of quickActions" (click)="navigateTo(action.route)">
+          <span class="material-symbols-outlined action-icon">{{ action.icon }}</span>
+          <span class="action-label">{{ action.label }}</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="logout-section">
+      <button class="logout-btn" (click)="logout()">
+        <span class="material-symbols-outlined">logout</span>
+        Logout
+      </button>
+    </div>
+  </div>
+</div>

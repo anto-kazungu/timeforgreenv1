@@ -1,12 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
-interface User {
+export type UserRole = 'member' | 'organizer' | 'mentor' | 'donor' | 'admin';
+
+export interface User {
+  id: string;
   username: string;
   email: string;
   password: string;
   firstName: string;
   lastName: string;
+  role: UserRole;
+  bio?: string;
 }
 
 @Injectable({
@@ -14,12 +19,60 @@ interface User {
 })
 export class AuthService {
   private users: User[] = [
+    // Member Test User
     {
-      username: 'greenuser',
-      email: 'user@justgogreen.com',
-      password: 'green123',
-      firstName: 'Green',
-      lastName: 'User'
+      id: 'user-member',
+      username: 'member',
+      email: 'member@justgogreen.com',
+      password: 'member123',
+      firstName: 'Sarah',
+      lastName: 'Green',
+      role: 'member',
+      bio: 'Passionate about environmental conservation and sustainable living.'
+    },
+    // Organizer Test User
+    {
+      id: 'user-organizer',
+      username: 'organizer',
+      email: 'organizer@justgogreen.com',
+      password: 'organizer123',
+      firstName: 'James',
+      lastName: 'Community',
+      role: 'organizer',
+      bio: 'Community organizer dedicated to bringing people together for environmental action.'
+    },
+    // Mentor Test User
+    {
+      id: 'user-mentor',
+      username: 'mentor',
+      email: 'mentor@justgogreen.com',
+      password: 'mentor123',
+      firstName: 'Dr. Maria',
+      lastName: 'Educator',
+      role: 'mentor',
+      bio: 'Environmental scientist and educator with 15 years of experience in sustainability.'
+    },
+    // Donor Test User
+    {
+      id: 'user-donor',
+      username: 'donor',
+      email: 'donor@justgogreen.com',
+      password: 'donor123',
+      firstName: 'David',
+      lastName: 'Philanthropist',
+      role: 'donor',
+      bio: 'Supporting environmental initiatives through funding and resources.'
+    },
+    // Admin Test User
+    {
+      id: 'user-admin',
+      username: 'admin',
+      email: 'admin@justgogreen.com',
+      password: 'admin123',
+      firstName: 'Admin',
+      lastName: 'System',
+      role: 'admin',
+      bio: 'Platform administrator managing the Just Go Green ecosystem.'
     }
   ];
 
@@ -44,24 +97,88 @@ export class AuthService {
       this.currentUser = user;
       this.isAuthenticated = true;
       localStorage.setItem('currentUser', JSON.stringify(user));
+      
+      // Redirect based on role
+      this.redirectByRole(user.role);
       return true;
     }
     return false;
   }
 
-  signup(username: string, email: string, password: string, firstName: string, lastName: string): boolean {
+  private redirectByRole(role: UserRole): void {
+    switch (role) {
+      case 'member':
+        this.router.navigate(['/dashboard']);
+        break;
+      case 'organizer':
+        this.router.navigate(['/organizer']);
+        break;
+      case 'mentor':
+        this.router.navigate(['/mentor']);
+        break;
+      case 'donor':
+        this.router.navigate(['/donor']);
+        break;
+      case 'admin':
+        this.router.navigate(['/admin']);
+        break;
+      default:
+        this.router.navigate(['/dashboard']);
+    }
+  }
+
+  signup(username: string, email: string, password: string, firstName: string, lastName: string, role: UserRole = 'member'): boolean {
     // Check if user already exists
     const existingUser = this.users.find(u => u.email === email || u.username === username);
     if (existingUser) {
       return false;
     }
 
-    const newUser: User = { username, email, password, firstName, lastName };
+    const newUser: User = { 
+      id: `user-${Date.now()}`, 
+      username, 
+      email, 
+      password, 
+      firstName, 
+      lastName, 
+      role 
+    };
     this.users.push(newUser);
     this.currentUser = newUser;
     this.isAuthenticated = true;
     localStorage.setItem('currentUser', JSON.stringify(newUser));
     return true;
+  }
+
+  getUserRole(): UserRole | null {
+    return this.currentUser?.role || null;
+  }
+
+  hasRole(role: UserRole): boolean {
+    return this.currentUser?.role === role;
+  }
+
+  canAccessRoute(requiredRole: UserRole): boolean {
+    if (!this.isAuthenticated || !this.currentUser) {
+      return false;
+    }
+    return this.currentUser.role === requiredRole;
+  }
+
+  getRoleDashboard(): string {
+    const role = this.getUserRole();
+    switch (role) {
+      case 'organizer':
+        return '/organizer';
+      case 'mentor':
+        return '/mentor';
+      case 'donor':
+        return '/donor';
+      case 'admin':
+        return '/admin';
+      default:
+        return '/dashboard';
+    }
   }
 
   logout(): void {

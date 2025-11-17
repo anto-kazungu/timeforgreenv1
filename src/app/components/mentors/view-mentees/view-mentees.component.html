@@ -1,0 +1,166 @@
+<div class="view-mentees-container">
+  <!-- Header -->
+  <div class="header">
+    <button class="back-btn" (click)="goBack()">
+      <span class="material-icons">arrow_back</span>
+    </button>
+    <div class="header-content">
+      <h1>Mentees & Questions</h1>
+      <p class="subtitle">Manage your students and answer their questions</p>
+    </div>
+  </div>
+
+  <!-- View Toggle -->
+  <div class="view-toggle">
+    <button 
+      [class.active]="selectedView === 'mentees'"
+      (click)="switchView('mentees')"
+      class="toggle-btn">
+      <span class="material-icons">people</span>
+      Mentees ({{ mentees.length }})
+    </button>
+    <button 
+      [class.active]="selectedView === 'questions'"
+      (click)="switchView('questions')"
+      class="toggle-btn">
+      <span class="material-icons">help</span>
+      Questions ({{ getPendingQuestions().length }} pending)
+    </button>
+  </div>
+
+  <!-- Mentees View -->
+  <div *ngIf="selectedView === 'mentees'" class="mentees-section">
+    <div class="mentees-grid">
+      <div *ngFor="let mentee of mentees" class="mentee-card">
+        <div class="mentee-header">
+          <div class="mentee-avatar">
+            <span class="material-icons">person</span>
+          </div>
+          <div class="mentee-info">
+            <h3>{{ mentee.name }}</h3>
+            <p class="mentee-email">{{ mentee.email }}</p>
+          </div>
+        </div>
+
+        <div class="mentee-stats">
+          <div class="stat-item">
+            <span class="stat-label">Enrolled Modules</span>
+            <span class="stat-value">{{ mentee.enrolledModules.length }}</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Completed</span>
+            <span class="stat-value">{{ mentee.completedModules.length }}</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Questions Asked</span>
+            <span class="stat-value">{{ mentee.questionsAsked }}</span>
+          </div>
+        </div>
+
+        <div class="progress-section">
+          <div class="progress-header">
+            <span>Average Progress</span>
+            <span class="progress-percent">{{ getAverageProgress(mentee).toFixed(0) }}%</span>
+          </div>
+          <div class="progress-bar">
+            <div 
+              class="progress-fill" 
+              [style.width.%]="getAverageProgress(mentee)"
+              [style.background]="getProgressColor(getAverageProgress(mentee))"></div>
+          </div>
+        </div>
+
+        <div class="mentee-footer">
+          <span class="joined-date">
+            <span class="material-icons">calendar_today</span>
+            Joined {{ mentee.joinedDate.toLocaleDateString() }}
+          </span>
+          <span class="last-active">
+            <span class="material-icons">schedule</span>
+            Active {{ getTimeAgo(mentee.lastActive) }}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="mentees.length === 0" class="no-data">
+      <span class="material-icons">people_outline</span>
+      <p>No mentees yet</p>
+      <p class="hint">Students will appear here when they enroll in your modules</p>
+    </div>
+  </div>
+
+  <!-- Questions View -->
+  <div *ngIf="selectedView === 'questions'" class="questions-section">
+    <!-- Pending Questions -->
+    <div class="questions-group" *ngIf="getPendingQuestions().length > 0">
+      <h2>Pending Questions</h2>
+      <div class="questions-list">
+        <div *ngFor="let question of getPendingQuestions()" class="question-card pending">
+          <div class="question-header">
+            <div class="mentee-info">
+              <span class="material-icons">person</span>
+              <div>
+                <h4>{{ question.menteeName }}</h4>
+                <p class="module-name">{{ question.moduleName }}</p>
+              </div>
+            </div>
+            <span class="time-badge">{{ getTimeAgo(question.askedDate) }}</span>
+          </div>
+
+          <div class="question-content">
+            <p class="question-text">{{ question.question }}</p>
+          </div>
+
+          <div class="question-actions">
+            <button (click)="answerQuestion(question.id)" class="answer-btn">
+              <span class="material-icons">reply</span>
+              Answer Question
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Answered Questions -->
+    <div class="questions-group" *ngIf="getAnsweredQuestions().length > 0">
+      <h2>Answered Questions</h2>
+      <div class="questions-list">
+        <div *ngFor="let question of getAnsweredQuestions()" class="question-card answered">
+          <div class="question-header">
+            <div class="mentee-info">
+              <span class="material-icons">person</span>
+              <div>
+                <h4>{{ question.menteeName }}</h4>
+                <p class="module-name">{{ question.moduleName }}</p>
+              </div>
+            </div>
+            <span class="answered-badge">
+              <span class="material-icons">check_circle</span>
+              Answered
+            </span>
+          </div>
+
+          <div class="question-content">
+            <p class="question-label">Question:</p>
+            <p class="question-text">{{ question.question }}</p>
+            
+            <p class="answer-label">Your Answer:</p>
+            <p class="answer-text">{{ question.answer }}</p>
+          </div>
+
+          <div class="question-footer">
+            <span class="asked-date">Asked {{ getTimeAgo(question.askedDate) }}</span>
+            <span class="answered-date">Answered {{ getTimeAgo(question.answeredDate!) }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="questions.length === 0" class="no-data">
+      <span class="material-icons">help_outline</span>
+      <p>No questions yet</p>
+      <p class="hint">Questions from your mentees will appear here</p>
+    </div>
+  </div>
+</div>

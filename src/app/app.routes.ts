@@ -17,6 +17,7 @@ import { AdminDashboardComponent } from './components/admin/admin-dashboard/admi
 import { MentorDashboardComponent } from './components/mentors/mentor-dashboard/mentor-dashboard.component';
 import { DonorDashboardComponent } from './components/donors/donor-dashboard/donor-dashboard.component';
 import { OrganizerDashboardComponent } from './components/organizers/organizer-dashboard/organizer-dashboard.component';
+import { CreateCommunityComponent } from './components/organizers/create-community/create-community.component';
 import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
@@ -40,7 +41,26 @@ export const routes: Routes = [
   
   // Role-specific dashboards
   { path: 'admin', component: AdminDashboardComponent, canActivate: [authGuard] },
+  
+  // Mentor routes
   { path: 'mentor', component: MentorDashboardComponent, canActivate: [authGuard] },
+  { path: 'mentor/dashboard', component: MentorDashboardComponent, canActivate: [authGuard] },
+  { path: 'mentor/create-training', loadComponent: () => import('./components/mentors/create-training/create-training.component').then(m => m.CreateTrainingComponent), canActivate: [authGuard] },
+  { path: 'mentor/modules', loadComponent: () => import('./components/mentors/manage-modules/manage-modules.component').then(m => m.ManageModulesComponent), canActivate: [authGuard] },
+  { path: 'mentor/mentees', loadComponent: () => import('./components/mentors/view-mentees/view-mentees.component').then(m => m.ViewMenteesComponent), canActivate: [authGuard] },
+  { path: 'mentor/sessions', loadComponent: () => import('./components/mentors/schedule-session/schedule-session.component').then(m => m.ScheduleSessionComponent), canActivate: [authGuard] },
+  
+  // Donor routes
   { path: 'donor', component: DonorDashboardComponent, canActivate: [authGuard] },
-  { path: 'organizer', component: OrganizerDashboardComponent, canActivate: [authGuard] }
+  { path: 'donor/dashboard', component: DonorDashboardComponent, canActivate: [authGuard] },
+  { path: 'donor/projects', loadComponent: () => import('./components/donors/browse-projects/browse-projects.component').then(m => m.BrowseProjectsComponent), canActivate: [authGuard] },
+  { path: 'donor/history', loadComponent: () => import('./components/donors/donation-history/donation-history.component').then(m => m.DonationHistoryComponent), canActivate: [authGuard] },
+  { path: 'donor/impact', loadComponent: () => import('./components/donors/impact-report/impact-report.component').then(m => m.ImpactReportComponent), canActivate: [authGuard] },
+  { path: 'donor/needs', loadComponent: () => import('./components/donors/community-needs/community-needs.component').then(m => m.CommunityNeedsComponent), canActivate: [authGuard] },
+  
+  // Organizer routes
+  { path: 'organizer', component: OrganizerDashboardComponent, canActivate: [authGuard] },
+  { path: 'organizer/create-community', component: CreateCommunityComponent, canActivate: [authGuard] },
+  { path: 'organizer/manage', loadComponent: () => import('./components/organizers/manage-communities/manage-communities.component').then(m => m.ManageCommunitiesComponent), canActivate: [authGuard] },
+  { path: 'organizer/posts', loadComponent: () => import('./components/organizers/community-posts/community-posts.component').then(m => m.CommunityPostsComponent), canActivate: [authGuard] }
 ];

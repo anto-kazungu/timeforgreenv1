@@ -1,0 +1,143 @@
+<div class="create-community-container">
+  <div class="header">
+    <button class="back-btn" (click)="cancel()">
+      <span class="material-symbols-outlined">arrow_back</span>
+      Back
+    </button>
+    <h1>Create New Community</h1>
+  </div>
+
+  <div class="form-container">
+    <form (ngSubmit)="createCommunity()">
+      <!-- Community Name -->
+      <div class="form-group">
+        <label>
+          <span class="material-symbols-outlined">groups</span>
+          Community Name *
+        </label>
+        <input 
+          type="text" 
+          [(ngModel)]="communityName" 
+          name="communityName"
+          placeholder="e.g., Green Warriors Kenya"
+          required
+        />
+      </div>
+
+      <!-- Description -->
+      <div class="form-group">
+        <label>
+          <span class="material-symbols-outlined">description</span>
+          Description *
+        </label>
+        <textarea 
+          [(ngModel)]="description" 
+          name="description"
+          placeholder="Describe your community's mission and goals..."
+          rows="4"
+          required
+        ></textarea>
+      </div>
+
+      <!-- Category -->
+      <div class="form-group">
+        <label>
+          <span class="material-symbols-outlined">category</span>
+          Category
+        </label>
+        <div class="category-grid">
+          <div 
+            class="category-option" 
+            *ngFor="let cat of categories"
+            [class.selected]="category === cat.value"
+            (click)="category = cat.value"
+          >
+            <span class="material-symbols-outlined">{{ cat.icon }}</span>
+            <span>{{ cat.label }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Color Theme -->
+      <div class="form-group">
+        <label>
+          <span class="material-symbols-outlined">palette</span>
+          Color Theme
+        </label>
+        <div class="gradient-selector">
+          <div 
+            class="gradient-option" 
+            *ngFor="let gradient of gradients"
+            [style.background]="gradient"
+            [class.selected]="selectedGradient === gradient"
+            (click)="selectGradient(gradient)"
+          >
+            <span class="material-symbols-outlined check-icon" *ngIf="selectedGradient === gradient">check_circle</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Community Code -->
+      <div class="form-group">
+        <label>
+          <span class="material-symbols-outlined">key</span>
+          Community Code
+        </label>
+        <div class="code-input-group">
+          <input 
+            type="text" 
+            [(ngModel)]="generatedCode" 
+            name="generatedCode"
+            placeholder="Click generate to create code"
+            readonly
+          />
+          <button type="button" class="generate-btn" (click)="generateCode()">
+            <span class="material-symbols-outlined">refresh</span>
+            Generate
+          </button>
+        </div>
+        <small>Members will use this code to join your community</small>
+      </div>
+
+      <!-- Privacy -->
+      <div class="form-group">
+        <label class="checkbox-label">
+          <input 
+            type="checkbox" 
+            [(ngModel)]="isPrivate" 
+            name="isPrivate"
+          />
+          <span class="material-symbols-outlined">lock</span>
+          Make this community private
+        </label>
+        <small>Private communities require approval to join</small>
+      </div>
+
+      <!-- Preview -->
+      <div class="preview-section">
+        <h3>Preview</h3>
+        <div class="community-preview">
+          <div class="preview-header" [style.background]="selectedGradient">
+            <h4>{{ communityName || 'Community Name' }}</h4>
+          </div>
+          <div class="preview-body">
+            <p>{{ description || 'Community description will appear here...' }}</p>
+            <div class="preview-code" *ngIf="generatedCode">
+              <span class="material-symbols-outlined">key</span>
+              <span>Code: {{ generatedCode }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="form-actions">
+        <button type="button" class="cancel-btn" (click)="cancel()">Cancel</button>
+        <button type="submit" class="create-btn">
+          <span class="material-symbols-outlined">add_circle</span>
+          Create Community
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

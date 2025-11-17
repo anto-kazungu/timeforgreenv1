@@ -23,11 +23,10 @@ export class WelcomeComponent {
     }
 
     const success = this.authService.login(this.emailOrUsername, this.password);
-    if (success) {
-      this.router.navigate(['/dashboard']);
-    } else {
-      this.errorMessage = 'Invalid credentials. Try: user&#64;justgogreen.com / green123';
+    if (!success) {
+      this.errorMessage = 'Invalid credentials. Check the test credentials above.';
     }
+    // Note: AuthService handles redirect based on user role
   }
 
   goToSignup() {

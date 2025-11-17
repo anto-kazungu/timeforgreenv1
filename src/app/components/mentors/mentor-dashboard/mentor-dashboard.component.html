@@ -1,1 +1,200 @@
-<p>mentor-dashboard works!</p>
+<div class="dashboard-container">
+  <div class="header">
+    <div class="profile-section" (click)="goToProfile()">
+      <div class="profile-avatar">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Ccircle cx='30' cy='30' r='30' fill='%23FFD700'/%3E%3C/svg%3E" alt="Profile">
+      </div>
+      <div class="user-info">
+        <span class="user-name">{{ userName }}</span>
+        <span class="user-level">
+          <span class="material-symbols-outlined level-icon-small">{{ levelIcon }}</span>
+          Level {{ userLevel }} - {{ levelName }}
+        </span>
+      </div>
+    </div>
+    
+    <div class="points-badge">
+      <div class="points-info">
+        <span class="points-label">Green Points</span>
+        <span class="points-value">{{ greenPoints }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="welcome-section">
+      <h1 class="greeting">Welcome, {{ userName }}!</h1>
+      <p class="tagline">Inspire and educate the next generation of environmental champions 🌱</p>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card" *ngFor="let stat of stats">
+        <div class="stat-icon" [style.color]="stat.color">
+          <span class="material-symbols-outlined">{{ stat.icon }}</span>
+        </div>
+        <div class="stat-info">
+          <span class="stat-value">{{ stat.value }}</span>
+          <span class="stat-label">{{ stat.label }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="main-content">
+      <!-- Training Modules Section -->
+      <div class="section">
+        <div class="section-header">
+          <h2>📚 Your Training Modules</h2>
+          <button class="action-btn" (click)="navigateTo('/mentor/create-training')">
+            <span class="material-symbols-outlined">add_circle</span>
+            Create Module
+          </button>
+        </div>
+
+        <div class="modules-grid" *ngIf="trainingModules.length > 0">
+          <div class="module-card" *ngFor="let module of trainingModules" (click)="viewModule(module.id)">
+            <div class="module-header" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%)">
+              <div class="module-badge">{{ module.level | titlecase }}</div>
+              <h3>{{ module.title }}</h3>
+            </div>
+            <div class="module-body">
+              <p class="module-description">{{ module.description }}</p>
+              <div class="module-stats">
+                <div class="stat-item">
+                  <span class="material-symbols-outlined">people</span>
+                  <span>{{ module.enrolledCount }} enrolled</span>
+                </div>
+                <div class="stat-item">
+                  <span class="material-symbols-outlined">star</span>
+                  <span>{{ module.rating }}/5</span>
+                </div>
+                <div class="stat-item">
+                  <span class="material-symbols-outlined">schedule</span>
+                  <span>{{ module.duration }}</span>
+                </div>
+              </div>
+              <div class="module-status">
+                <span class="status-badge" [class.published]="module.status === 'published'">
+                  {{ module.status | titlecase }}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="empty-state" *ngIf="trainingModules.length === 0">
+          <span class="material-symbols-outlined empty-icon">library_books</span>
+          <h3>No Training Modules Yet</h3>
+          <p>Create your first training module to start mentoring!</p>
+          <button class="create-btn" (click)="navigateTo('/mentor/create-training')">
+            <span class="material-symbols-outlined">add_circle</span>
+            Create Training Module
+          </button>
+        </div>
+      </div>
+
+      <!-- Recent Mentees Section -->
+      <div class="section">
+        <div class="section-header">
+          <h2>👥 Recent Mentees</h2>
+          <button class="action-btn" (click)="navigateTo('/mentor/mentees')">
+            <span class="material-symbols-outlined">visibility</span>
+            View All
+          </button>
+        </div>
+
+        <div class="mentees-list" *ngIf="recentMentees.length > 0">
+          <div class="mentee-card" *ngFor="let mentee of recentMentees" (click)="viewMentee(mentee.id)">
+            <div class="mentee-avatar">
+              <span class="material-symbols-outlined">person</span>
+            </div>
+            <div class="mentee-info">
+              <h4>{{ mentee.name }}</h4>
+              <p>{{ mentee.enrolledModules.length }} modules enrolled</p>
+              <div class="progress-info">
+                <span>Overall Progress</span>
+                <div class="progress-bar">
+                  <div class="progress-fill" 
+                       [style.width.%]="(mentee.completedModules.length / mentee.enrolledModules.length) * 100"
+                       [style.background]="getProgressColor((mentee.completedModules.length / mentee.enrolledModules.length) * 100)">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="mentee-stats">
+              <div class="stat">
+                <span class="material-symbols-outlined">school</span>
+                <span>{{ mentee.completedModules.length }}/{{ mentee.enrolledModules.length }} completed</span>
+              </div>
+              <div class="last-active">
+                Last active: {{ mentee.lastActive | date:'short' }}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="empty-state" *ngIf="recentMentees.length === 0">
+          <span class="material-symbols-outlined empty-icon">people</span>
+          <h3>No Active Mentees</h3>
+          <p>Create training modules to attract mentees!</p>
+        </div>
+      </div>
+
+      <!-- Upcoming Sessions Section -->
+      <div class="section">
+        <div class="section-header">
+          <h2>📅 Upcoming Sessions</h2>
+          <button class="action-btn" (click)="navigateTo('/mentor/sessions')">
+            <span class="material-symbols-outlined">add_circle</span>
+            Schedule Session
+          </button>
+        </div>
+
+        <div class="sessions-list" *ngIf="upcomingSessions.length > 0">
+          <div class="session-card" *ngFor="let session of upcomingSessions" (click)="viewSession(session.id)">
+            <div class="session-time">
+              <div class="time-badge">{{ getTimeUntilSession(session.date) }}</div>
+              <div class="session-date">{{ session.date | date:'MMM d, h:mm a' }}</div>
+            </div>
+            <div class="session-info">
+              <h4>{{ session.title }}</h4>
+              <p>{{ session.description }}</p>
+              <div class="session-meta">
+                <span class="session-type">{{ session.expertiseArea }}</span>
+                <span class="participants">{{ session.currentAttendees }}/{{ session.maxAttendees }} attendees</span>
+              </div>
+            </div>
+            <div class="session-actions">
+              <button class="join-btn" *ngIf="session.meetingLink">
+                <span class="material-symbols-outlined">video_call</span>
+                Join
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="empty-state" *ngIf="upcomingSessions.length === 0">
+          <span class="material-symbols-outlined empty-icon">event</span>
+          <h3>No Upcoming Sessions</h3>
+          <p>Schedule a session to connect with your mentees!</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="quick-actions">
+      <h2>Quick Actions</h2>
+      <div class="actions-grid">
+        <button class="action-card" *ngFor="let action of quickActions" (click)="navigateTo(action.route)">
+          <span class="material-symbols-outlined action-icon">{{ action.icon }}</span>
+          <span class="action-label">{{ action.label }}</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="logout-section">
+      <button class="logout-btn" (click)="logout()">
+        <span class="material-symbols-outlined">logout</span>
+        Logout
+      </button>
+    </div>
+  </div>
+</div>

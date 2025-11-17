@@ -1,0 +1,215 @@
+<div class="schedule-session-container">
+  <!-- Header -->
+  <div class="header">
+    <button class="back-btn" (click)="goBack()">
+      <span class="material-icons">arrow_back</span>
+    </button>
+    <div class="header-content">
+      <h1>Consultation Sessions</h1>
+      <p class="subtitle">Schedule live Q&A sessions with your mentees</p>
+    </div>
+    <button class="create-btn" (click)="toggleCreateForm()">
+      <span class="material-icons">{{ showCreateForm ? 'close' : 'add' }}</span>
+      {{ showCreateForm ? 'Cancel' : 'Schedule New' }}
+    </button>
+  </div>
+
+  <!-- Create Form -->
+  <div *ngIf="showCreateForm" class="create-form">
+    <h2>Schedule New Session</h2>
+    
+    <div class="form-group">
+      <label>Session Title *</label>
+      <input 
+        type="text" 
+        [(ngModel)]="newSession.title"
+        placeholder="e.g., Q&A: Environmental Law for Activists"
+        class="form-control">
+    </div>
+
+    <div class="form-group">
+      <label>Description *</label>
+      <textarea 
+        [(ngModel)]="newSession.description"
+        placeholder="Describe what will be covered in this session..."
+        rows="3"
+        class="form-control"></textarea>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>Expertise Area *</label>
+        <select [(ngModel)]="newSession.expertiseArea" class="form-control">
+          <option *ngFor="let area of expertiseAreas" [value]="area.value">
+            {{ area.label }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Date & Time *</label>
+        <input 
+          type="datetime-local" 
+          [(ngModel)]="newSession.date"
+          class="form-control">
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>Duration (minutes) *</label>
+        <select [(ngModel)]="newSession.duration" class="form-control">
+          <option *ngFor="let dur of durations" [value]="dur">{{ dur }} minutes</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Max Attendees *</label>
+        <input 
+          type="number" 
+          [(ngModel)]="newSession.maxAttendees"
+          min="1"
+          max="100"
+          class="form-control">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Meeting Link (Optional)</label>
+      <input 
+        type="url" 
+        [(ngModel)]="newSession.meetingLink"
+        placeholder="https://meet.example.com/session"
+        class="form-control">
+    </div>
+
+    <div class="form-group">
+      <label>Topics to Cover *</label>
+      <div class="topics-input">
+        <input 
+          type="text" 
+          [(ngModel)]="newTopic"
+          (keyup.enter)="addTopic()"
+          placeholder="Add a topic (press Enter)"
+          class="form-control">
+        <button (click)="addTopic()" class="add-btn">
+          <span class="material-icons">add</span>
+        </button>
+      </div>
+      <div class="topics-list">
+        <div *ngFor="let topic of newSession.topics; let i = index" class="topic-chip">
+          <span>{{ topic }}</span>
+          <button (click)="removeTopic(i)" class="remove-btn">
+            <span class="material-icons">close</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <button (click)="createSession()" class="submit-btn">
+      <span class="material-icons">event</span>
+      Schedule Session
+    </button>
+  </div>
+
+  <!-- Upcoming Sessions -->
+  <div *ngIf="getUpcomingSessions().length > 0" class="sessions-section">
+    <h2>Upcoming Sessions</h2>
+    <div class="sessions-list">
+      <div *ngFor="let session of getUpcomingSessions()" class="session-card upcoming">
+        <div class="session-header">
+          <div class="session-info">
+            <h3>{{ session.title }}</h3>
+            <p class="session-desc">{{ session.description }}</p>
+          </div>
+          <div class="status-badge" [style.background]="getStatusColor(session.status)">
+            {{ session.status | titlecase }}
+          </div>
+        </div>
+
+        <div class="session-meta">
+          <div class="meta-item">
+            <span class="material-icons">calendar_today</span>
+            <span>{{ session.date.toLocaleDateString() }}</span>
+          </div>
+          <div class="meta-item">
+            <span class="material-icons">schedule</span>
+            <span>{{ session.date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) }}</span>
+          </div>
+          <div class="meta-item">
+            <span class="material-icons">timer</span>
+            <span>{{ session.duration }} min</span>
+          </div>
+          <div class="meta-item">
+            <span class="material-icons">people</span>
+            <span>{{ session.currentAttendees }}/{{ session.maxAttendees }}</span>
+          </div>
+        </div>
+
+        <div class="session-topics">
+          <span *ngFor="let topic of session.topics" class="topic-tag">{{ topic }}</span>
+        </div>
+
+        <div class="session-footer">
+          <div class="time-until">
+            <span class="material-icons">access_time</span>
+            <span>{{ getTimeUntil(session.date) }}</span>
+          </div>
+          <div class="session-actions">
+            <button *ngIf="session.meetingLink" class="action-btn join">
+              <span class="material-icons">video_call</span>
+              Join
+            </button>
+            <button (click)="deleteSession(session.id)" class="action-btn cancel">
+              <span class="material-icons">cancel</span>
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Past Sessions -->
+  <div *ngIf="getPastSessions().length > 0" class="sessions-section">
+    <h2>Past Sessions</h2>
+    <div class="sessions-list">
+      <div *ngFor="let session of getPastSessions()" class="session-card past">
+        <div class="session-header">
+          <div class="session-info">
+            <h3>{{ session.title }}</h3>
+            <p class="session-desc">{{ session.description }}</p>
+          </div>
+          <div class="status-badge completed">
+            <span class="material-icons">check_circle</span>
+            Completed
+          </div>
+        </div>
+
+        <div class="session-meta">
+          <div class="meta-item">
+            <span class="material-icons">calendar_today</span>
+            <span>{{ session.date.toLocaleDateString() }}</span>
+          </div>
+          <div class="meta-item">
+            <span class="material-icons">people</span>
+            <span>{{ session.currentAttendees }} attended</span>
+          </div>
+        </div>
+
+        <div class="session-topics">
+          <span *ngFor="let topic of session.topics" class="topic-tag">{{ topic }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="sessions.length === 0 && !showCreateForm" class="no-sessions">
+    <span class="material-icons">event_available</span>
+    <p>No sessions scheduled yet</p>
+    <button (click)="toggleCreateForm()" class="create-first-btn">
+      <span class="material-icons">add_circle</span>
+      Schedule Your First Session
+    </button>
+  </div>
+</div>

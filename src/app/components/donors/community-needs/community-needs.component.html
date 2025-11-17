@@ -1,0 +1,77 @@
+<div class="community-needs-container">
+  <!-- Header -->
+  <div class="header">
+    <button class="back-btn" (click)="goBack()">
+      <span class="material-icons">arrow_back</span>
+    </button>
+    <div class="header-content">
+      <h1>Community Needs</h1>
+      <p class="subtitle">Help communities with urgent environmental needs</p>
+    </div>
+  </div>
+
+  <!-- Urgency Filter -->
+  <div class="urgency-filter">
+    <button 
+      *ngFor="let filter of urgencyFilters"
+      [class.active]="selectedUrgency === filter.value"
+      (click)="onUrgencyChange(filter.value)"
+      class="filter-btn">
+      {{ filter.label }}
+    </button>
+  </div>
+
+  <!-- Needs List -->
+  <div class="needs-list">
+    <div *ngFor="let need of filteredNeeds" class="need-card">
+      <div class="need-header">
+        <div class="urgency-badge" [style.background]="getUrgencyColor(need.urgency)">
+          <span class="material-icons">{{ getUrgencyIcon(need.urgency) }}</span>
+          <span>{{ need.urgency | titlecase }}</span>
+        </div>
+        <div class="need-location">
+          <span class="material-icons">location_on</span>
+          <span>{{ need.communityName }}</span>
+        </div>
+      </div>
+
+      <h3>{{ need.title }}</h3>
+      <p class="need-description">{{ need.description }}</p>
+
+      <div class="need-details">
+        <div class="detail-item">
+          <span class="material-icons">category</span>
+          <span>{{ need.category }}</span>
+        </div>
+        <div class="detail-item">
+          <span class="material-icons">calendar_today</span>
+          <span>Requested {{ need.dateRequested.toLocaleDateString() }}</span>
+        </div>
+      </div>
+
+      <div class="funding-section">
+        <div class="funding-header">
+          <span class="funded-amount">${{ need.fundedAmount.toLocaleString() }}</span>
+          <span class="funding-goal">of ${{ need.estimatedCost.toLocaleString() }}</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" [style.width.%]="getProgress(need)"></div>
+        </div>
+        <div class="funding-stats">
+          <span>{{ getProgress(need).toFixed(0) }}% funded</span>
+          <span>{{ need.backers }} backers</span>
+        </div>
+      </div>
+
+      <button class="fund-btn" (click)="fundNeed(need.id)">
+        <span class="material-icons">volunteer_activism</span>
+        Fund This Need
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="filteredNeeds.length === 0" class="no-needs">
+    <span class="material-icons">check_circle</span>
+    <p>No needs found in this category</p>
+  </div>
+</div>

@@ -121,7 +121,7 @@ export class RewardsComponent implements OnInit {
   }
 
   goBack() {
-    this.router.navigate(['/dashboard']);
+    this.router.navigate([this.authService.getRoleDashboard()]);
   }
 
   logout() {

@@ -1,0 +1,71 @@
+<div class="browse-projects-container">
+  <!-- Header -->
+  <div class="header">
+    <button class="back-btn" (click)="goBack()">
+      <span class="material-icons">arrow_back</span>
+    </button>
+    <h1>Browse Projects</h1>
+  </div>
+
+  <!-- Category Filter -->
+  <div class="category-filter">
+    <button 
+      *ngFor="let cat of categories"
+      [class.active]="selectedCategory === cat.value"
+      (click)="onCategoryChange(cat.value)"
+      class="category-btn">
+      {{ cat.label }}
+    </button>
+  </div>
+
+  <!-- Projects Grid -->
+  <div class="projects-grid">
+    <div *ngFor="let project of filteredProjects" class="project-card">
+      <div class="project-image" [style.background-image]="'url(' + project.imageUrl + ')'"></div>
+      
+      <div class="project-content">
+        <h3>{{ project.title }}</h3>
+        <p class="project-description">{{ project.description }}</p>
+        
+        <div class="project-meta">
+          <span class="location">
+            <span class="material-icons">location_on</span>
+            {{ project.location }}
+          </span>
+          <span class="category-badge">{{ project.category }}</span>
+        </div>
+
+        <div class="progress-section">
+          <div class="progress-bar">
+            <div class="progress-fill" [style.width.%]="getProgress(project)"></div>
+          </div>
+          <div class="progress-info">
+            <span class="raised">${{ project.currentAmount.toLocaleString() }} raised</span>
+            <span class="goal">of ${{ project.targetAmount.toLocaleString() }}</span>
+          </div>
+        </div>
+
+        <div class="project-stats">
+          <div class="stat">
+            <span class="material-icons">people</span>
+            <span>{{ project.backers }} backers</span>
+          </div>
+          <div class="stat">
+            <span class="material-icons">schedule</span>
+            <span>{{ project.daysLeft }} days left</span>
+          </div>
+        </div>
+
+        <button class="donate-btn" (click)="donateToProject(project.id)">
+          <span class="material-icons">volunteer_activism</span>
+          Donate Now
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="filteredProjects.length === 0" class="no-projects">
+    <span class="material-icons">search_off</span>
+    <p>No projects found in this category</p>
+  </div>
+</div>

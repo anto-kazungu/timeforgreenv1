@@ -1,0 +1,107 @@
+<div class="impact-report-container">
+  <!-- Header -->
+  <div class="header">
+    <button class="back-btn" (click)="goBack()">
+      <span class="material-icons">arrow_back</span>
+    </button>
+    <div class="header-content">
+      <h1>Your Impact Report</h1>
+      <p class="subtitle">See the difference you're making in the world</p>
+    </div>
+  </div>
+
+  <!-- Hero Section -->
+  <div class="hero-section">
+    <div class="hero-content">
+      <h2>Thank You for Making a Difference!</h2>
+      <p>Your contributions are creating real, measurable impact in communities around the world.</p>
+    </div>
+  </div>
+
+  <!-- Impact Stats Grid -->
+  <div class="impact-grid">
+    <div *ngFor="let stat of impactStats" class="impact-card" [style.border-left-color]="stat.color">
+      <div class="impact-icon" [style.background]="stat.color">
+        <span class="material-icons">{{ stat.icon }}</span>
+      </div>
+      <div class="impact-content">
+        <div class="impact-value">{{ stat.value }}</div>
+        <div class="impact-label">{{ stat.label }}</div>
+        <div class="impact-description">{{ stat.description }}</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Impact Breakdown -->
+  <div class="impact-breakdown">
+    <h2>Environmental Impact Breakdown</h2>
+    
+    <div class="breakdown-item">
+      <div class="breakdown-header">
+        <span class="material-icons">eco</span>
+        <h3>Carbon Footprint Reduction</h3>
+      </div>
+      <div class="breakdown-content">
+        <div class="breakdown-stat">
+          <span class="stat-value">{{ impact.co2Reduced }}</span>
+          <span class="stat-unit">tons of CO₂</span>
+        </div>
+        <p>Equivalent to taking {{ (impact.co2Reduced * 0.22).toFixed(0) }} cars off the road for a year</p>
+      </div>
+    </div>
+
+    <div class="breakdown-item">
+      <div class="breakdown-header">
+        <span class="material-icons">park</span>
+        <h3>Reforestation Efforts</h3>
+      </div>
+      <div class="breakdown-content">
+        <div class="breakdown-stat">
+          <span class="stat-value">{{ impact.treesPlanted }}</span>
+          <span class="stat-unit">trees planted</span>
+        </div>
+        <p>These trees will absorb approximately {{ (impact.treesPlanted * 22).toFixed(0) }} kg of CO₂ annually</p>
+      </div>
+    </div>
+
+    <div class="breakdown-item">
+      <div class="breakdown-header">
+        <span class="material-icons">recycling</span>
+        <h3>Waste Management</h3>
+      </div>
+      <div class="breakdown-content">
+        <div class="breakdown-stat">
+          <span class="stat-value">{{ impact.wasteRecycled }}</span>
+          <span class="stat-unit">kg recycled</span>
+        </div>
+        <p>Prevented {{ (impact.wasteRecycled * 0.5).toFixed(0) }} kg of waste from reaching landfills</p>
+      </div>
+    </div>
+
+    <div class="breakdown-item">
+      <div class="breakdown-header">
+        <span class="material-icons">people</span>
+        <h3>Community Impact</h3>
+      </div>
+      <div class="breakdown-content">
+        <div class="breakdown-stat">
+          <span class="stat-value">{{ impact.livesImpacted }}</span>
+          <span class="stat-unit">lives improved</span>
+        </div>
+        <p>Your donations have directly benefited {{ impact.livesImpacted }} people across {{ impact.projectsFunded }} communities</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Actions -->
+  <div class="actions-section">
+    <button class="action-btn primary" (click)="downloadReport()">
+      <span class="material-icons">download</span>
+      Download Full Report
+    </button>
+    <button class="action-btn secondary" (click)="shareImpact()">
+      <span class="material-icons">share</span>
+      Share Your Impact
+    </button>
+  </div>
+</div>

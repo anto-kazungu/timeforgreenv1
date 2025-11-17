@@ -1,0 +1,110 @@
+.donation-dialog {
+  min-width: 400px;
+}
+
+.project-name {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.project-name .material-icons {
+  font-size: 24px;
+}
+
+.suggested-amounts h3,
+.custom-amount h3 {
+  font-size: 14px;
+  color: #4a5568;
+  margin: 0 0 12px 0;
+  font-weight: 600;
+}
+
+.amount-buttons {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+.amount-btn {
+  padding: 15px;
+  border: 2px solid #e2e8f0;
+  background: white;
+  border-radius: 10px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #4a5568;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.amount-btn:hover {
+  border-color: #667eea;
+  color: #667eea;
+  transform: translateY(-2px);
+}
+
+.amount-btn.selected {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-color: transparent;
+}
+
+.custom-amount {
+  margin-bottom: 20px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.min-amount {
+  font-size: 12px;
+  color: #718096;
+  margin: 5px 0 0 0;
+}
+
+.total-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background: #f7fafc;
+  border-radius: 10px;
+  margin-top: 20px;
+}
+
+.total-label {
+  font-size: 16px;
+  color: #4a5568;
+  font-weight: 500;
+}
+
+.total-amount {
+  font-size: 32px;
+  font-weight: 700;
+  color: #667eea;
+}
+
+mat-dialog-content {
+  padding: 20px 24px;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+mat-dialog-actions {
+  padding: 16px 24px;
+  border-top: 1px solid #e2e8f0;
+}
+
+::ng-deep .mat-mdc-dialog-container {
+  border-radius: 15px !important;
+}

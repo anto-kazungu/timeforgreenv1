@@ -1,1 +1,236 @@
-<p>donor-dashboard works!</p>
+<div class="dashboard-container">
+  <div class="header">
+    <div class="profile-section" (click)="goToProfile()">
+      <div class="profile-avatar">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Ccircle cx='30' cy='30' r='30' fill='%23FFD700'/%3E%3C/svg%3E" alt="Profile">
+      </div>
+      <div class="user-info">
+        <span class="user-name">{{ userName }}</span>
+        <span class="user-level">
+          <span class="material-symbols-outlined level-icon-small">{{ levelIcon }}</span>
+          Level {{ userLevel }} - {{ levelName }}
+        </span>
+      </div>
+    </div>
+    
+    <div class="points-badge">
+      <div class="points-info">
+        <span class="points-label">Green Points</span>
+        <span class="points-value">{{ greenPoints }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="welcome-section">
+      <h1 class="greeting">Welcome, {{ userName }}!</h1>
+      <p class="tagline">Your generosity is creating positive environmental impact 💚</p>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card" *ngFor="let stat of stats">
+        <div class="stat-icon" [style.color]="stat.color">
+          <span class="material-symbols-outlined">{{ stat.icon }}</span>
+        </div>
+        <div class="stat-info">
+          <span class="stat-value">{{ stat.value }}</span>
+          <span class="stat-label">{{ stat.label }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="main-content">
+      <!-- Impact Overview Section -->
+      <div class="section">
+        <div class="section-header">
+          <h2>🌍 Your Environmental Impact</h2>
+          <button class="action-btn" (click)="navigateTo('/donor/impact')">
+            <span class="material-symbols-outlined">analytics</span>
+            View Full Report
+          </button>
+        </div>
+
+        <div class="impact-grid">
+          <div class="impact-card trees">
+            <div class="impact-icon">🌳</div>
+            <div class="impact-number">{{ donationImpact.treesPlanted }}</div>
+            <div class="impact-label">Trees Planted</div>
+          </div>
+          <div class="impact-card waste">
+            <div class="impact-icon">♻️</div>
+            <div class="impact-number">{{ donationImpact.wasteRecycled }}kg</div>
+            <div class="impact-label">Waste Recycled</div>
+          </div>
+          <div class="impact-card co2">
+            <div class="impact-icon">🌱</div>
+            <div class="impact-number">{{ donationImpact.co2Reduced }}</div>
+            <div class="impact-label">Tons CO₂ Reduced</div>
+          </div>
+          <div class="impact-card lives">
+            <div class="impact-icon">❤️</div>
+            <div class="impact-number">{{ donationImpact.livesImpacted }}</div>
+            <div class="impact-label">Lives Impacted</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Active Projects Section -->
+      <div class="section">
+        <div class="section-header">
+          <h2>🚀 Active Projects</h2>
+          <button class="action-btn" (click)="navigateTo('/donor/projects')">
+            <span class="material-symbols-outlined">search</span>
+            Browse All
+          </button>
+        </div>
+
+        <div class="projects-grid" *ngIf="activeProjects.length > 0">
+          <div class="project-card" *ngFor="let project of activeProjects" (click)="viewProject(project.id)">
+            <div class="project-header" [style.background]="project.gradient">
+              <div class="project-category">{{ project.category }}</div>
+              <h3>{{ project.title }}</h3>
+            </div>
+            <div class="project-body">
+              <p class="project-description">{{ project.description }}</p>
+              <div class="project-progress">
+                <div class="progress-info">
+                  <span class="progress-text">
+                    ${{ project.currentAmount.toLocaleString() }} of ${{ project.targetAmount.toLocaleString() }}
+                  </span>
+                  <span class="progress-percentage">{{ getProjectProgress(project) | number:'1.0-0' }}%</span>
+                </div>
+                <div class="progress-bar">
+                  <div class="progress-fill" [style.width.%]="getProjectProgress(project)"></div>
+                </div>
+              </div>
+              <div class="project-meta">
+                <span class="donors">{{ project.donorCount }} donors</span>
+                <span class="location">📍 {{ project.location }}</span>
+              </div>
+              <button class="donate-btn" (click)="donateToProject(project.id); $event.stopPropagation()">
+                <span class="material-symbols-outlined">volunteer_activism</span>
+                Donate Now
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="empty-state" *ngIf="activeProjects.length === 0">
+          <span class="material-symbols-outlined empty-icon">campaign</span>
+          <h3>No Active Projects</h3>
+          <p>Check back later for new projects to support!</p>
+        </div>
+      </div>
+
+      <!-- Community Needs Section -->
+      <div class="section">
+        <div class="section-header">
+          <h2>🆘 Urgent Community Needs</h2>
+          <button class="action-btn" (click)="navigateTo('/donor/needs')">
+            <span class="material-symbols-outlined">help</span>
+            View All Needs
+          </button>
+        </div>
+
+        <div class="needs-list" *ngIf="communityNeeds.length > 0">
+          <div class="need-card" *ngFor="let need of communityNeeds" (click)="viewNeed(need.id)">
+            <div class="need-header">
+              <div class="urgency-badge" [style.background]="getUrgencyColor(need.urgency)">
+                {{ need.urgency | titlecase }}
+              </div>
+              <h4>{{ need.title }}</h4>
+            </div>
+            <div class="need-body">
+              <p class="need-description">{{ need.description }}</p>
+              <div class="need-meta">
+                <span class="community">🏘️ {{ need.communityName }}</span>
+                <span class="requested-by">👤 {{ need.requestedBy }}</span>
+              </div>
+              <div class="need-progress">
+                <div class="progress-info">
+                  <span class="progress-text">
+                    ${{ need.fundedAmount.toLocaleString() }} of ${{ need.estimatedCost.toLocaleString() }}
+                  </span>
+                  <span class="progress-percentage">{{ getNeedProgress(need) | number:'1.0-0' }}%</span>
+                </div>
+                <div class="progress-bar">
+                  <div class="progress-fill" [style.width.%]="getNeedProgress(need)"></div>
+                </div>
+              </div>
+              <button class="fund-btn" (click)="fundNeed(need.id); $event.stopPropagation()">
+                <span class="material-symbols-outlined">payments</span>
+                Fund This Need
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="empty-state" *ngIf="communityNeeds.length === 0">
+          <span class="material-symbols-outlined empty-icon">help</span>
+          <h3>No Urgent Needs</h3>
+          <p>All community needs are currently being addressed!</p>
+        </div>
+      </div>
+
+      <!-- Recent Donations Section -->
+      <div class="section">
+        <div class="section-header">
+          <h2>📋 Recent Donations</h2>
+          <button class="action-btn" (click)="navigateTo('/donor/history')">
+            <span class="material-symbols-outlined">history</span>
+            View All
+          </button>
+        </div>
+
+        <div class="donations-list" *ngIf="recentDonations.length > 0">
+          <div class="donation-card" *ngFor="let donation of recentDonations">
+            <div class="donation-icon">
+              <span class="material-symbols-outlined">volunteer_activism</span>
+            </div>
+            <div class="donation-info">
+              <h4>{{ donation.projectTitle }}</h4>
+              <p class="donation-message" *ngIf="donation.message">{{ donation.message }}</p>
+              <div class="donation-meta">
+                <span class="donation-date">{{ getTimeAgo(donation.date) }}</span>
+                <span class="payment-method">{{ donation.paymentMethod }}</span>
+              </div>
+            </div>
+            <div class="donation-amount">
+              <span class="amount">${{ donation.amount.toLocaleString() }}</span>
+              <span class="status" [class.completed]="donation.status === 'completed'">
+                {{ donation.status | titlecase }}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="empty-state" *ngIf="recentDonations.length === 0">
+          <span class="material-symbols-outlined empty-icon">volunteer_activism</span>
+          <h3>No Donations Yet</h3>
+          <p>Start making a difference by supporting a project!</p>
+          <button class="create-btn" (click)="navigateTo('/donor/projects')">
+            <span class="material-symbols-outlined">search</span>
+            Browse Projects
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="quick-actions">
+      <h2>Quick Actions</h2>
+      <div class="actions-grid">
+        <button class="action-card" *ngFor="let action of quickActions" (click)="navigateTo(action.route)">
+          <span class="material-symbols-outlined action-icon">{{ action.icon }}</span>
+          <span class="action-label">{{ action.label }}</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="logout-section">
+      <button class="logout-btn" (click)="logout()">
+        <span class="material-symbols-outlined">logout</span>
+        Logout
+      </button>
+    </div>
+  </div>
+</div>

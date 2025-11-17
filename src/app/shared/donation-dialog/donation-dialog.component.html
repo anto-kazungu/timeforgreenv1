@@ -1,0 +1,55 @@
+<div class="donation-dialog">
+  <h2 mat-dialog-title>{{ data.title }}</h2>
+  
+  <mat-dialog-content>
+    <div class="project-name">
+      <span class="material-icons">volunteer_activism</span>
+      <span>{{ data.projectName }}</span>
+    </div>
+
+    <div class="suggested-amounts">
+      <h3>Select Amount</h3>
+      <div class="amount-buttons">
+        <button 
+          *ngFor="let amt of data.suggestedAmounts"
+          [class.selected]="selectedAmount === amt"
+          (click)="selectAmount(amt)"
+          class="amount-btn">
+          ${{ amt }}
+        </button>
+      </div>
+    </div>
+
+    <div class="custom-amount">
+      <h3>Or Enter Custom Amount</h3>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Amount ($)</mat-label>
+        <input 
+          matInput 
+          type="number" 
+          [(ngModel)]="customAmount"
+          (ngModelChange)="onCustomAmountChange()"
+          [min]="data.minAmount"
+          placeholder="Enter amount">
+        <span matPrefix>$&nbsp;</span>
+      </mat-form-field>
+      <p class="min-amount" *ngIf="data.minAmount">Minimum donation: ${{ data.minAmount }}</p>
+    </div>
+
+    <div class="total-section" *ngIf="isValidAmount()">
+      <div class="total-label">Your Donation:</div>
+      <div class="total-amount">${{ amount.toFixed(2) }}</div>
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button (click)="onCancel()">Cancel</button>
+    <button 
+      mat-raised-button 
+      color="primary" 
+      (click)="onConfirm()"
+      [disabled]="!isValidAmount()">
+      Donate ${{ amount.toFixed(2) }}
+    </button>
+  </mat-dialog-actions>
+</div>

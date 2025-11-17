@@ -33,7 +33,27 @@
       </div>
 
       <div class="feeds-section">
-        <h2>Community Feed</h2>
+        <div class="section-header">
+          <h2>Community Feed</h2>
+          <button class="create-post-btn" (click)="togglePostForm()">
+            <span class="material-symbols-outlined">add_circle</span>
+            {{ showPostForm ? 'Cancel' : 'Create Post' }}
+          </button>
+        </div>
+
+        @if (showPostForm) {
+          <div class="post-form">
+            <textarea 
+              [(ngModel)]="newPostContent" 
+              placeholder="Share something with the community..."
+              rows="4"
+            ></textarea>
+            <div class="post-form-actions">
+              <button class="cancel-post-btn" (click)="cancelPost()">Cancel</button>
+              <button class="submit-post-btn" (click)="createPost()">Post</button>
+            </div>
+          </div>
+        }
         
         @if (community.feeds.length === 0) {
           <div class="empty-feed">

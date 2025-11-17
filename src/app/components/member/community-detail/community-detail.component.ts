@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 import { CommunityService, Community, Feed } from '../../../services/community.service';
@@ -7,12 +8,15 @@ import { DialogService } from '../../../services/dialog.service';
 
 @Component({
   selector: 'app-community-detail',
-  imports: [CommonModule],
+  standalone: true,
+  imports: [CommonModule, FormsModule],
   templateUrl: './community-detail.component.html',
   styleUrl: './community-detail.component.css'
 })
 export class CommunityDetailComponent implements OnInit {
   community: Community | undefined;
+  newPostContent = '';
+  showPostForm = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -50,12 +54,51 @@ export class CommunityDetailComponent implements OnInit {
   }
 
   toggleLike(feed: Feed) {
-    if (!feed.hasOwnProperty('liked')) {
-      (feed as any).liked = false;
+    if (this.community) {
+      this.communityService.likePost(this.community.id, feed.id);
+      // Reload community to get updated data
+      this.community = this.communityService.getCommunityById(this.community.id);
     }
-    
-    (feed as any).liked = !(feed as any).liked;
-    feed.likes += (feed as any).liked ? 1 : -1;
+  }
+
+  togglePostForm() {
+    this.showPostForm = !this.showPostForm;
+    if (!this.showPostForm) {
+      this.newPostContent = '';
+    }
+  }
+
+  createPost() {
+    if (!this.newPostContent.trim()) {
+      alert('Please enter some content for your post');
+      return;
+    }
+
+    if (this.community) {
+      const currentUser = this.authService.getCurrentUser();
+      const authorName = currentUser ? `${currentUser.firstName} ${currentUser.lastName}` : 'Anonymous';
+      const authorId = currentUser?.id || 'anonymous';
+
+      this.communityService.addPost(this.community.id, {
+        author: authorName,
+        authorId: authorId,
+        content: this.newPostContent.trim()
+      });
+
+      // Reload community to show new post
+      this.community = this.communityService.getCommunityById(this.community.id);
+      
+      // Reset form
+      this.newPostContent = '';
+      this.showPostForm = false;
+      
+      alert('Post created successfully!');
+    }
+  }
+
+  cancelPost() {
+    this.newPostContent = '';
+    this.showPostForm = false;
   }
 
   goBack() {

@@ -1,0 +1,78 @@
+<div class="manage-container">
+  <div class="header">
+    <button class="back-btn" (click)="goBack()">
+      <span class="material-symbols-outlined">arrow_back</span>
+      Back
+    </button>
+    <button class="logout-btn" (click)="logout()">
+      <span class="material-symbols-outlined">logout</span>
+      Logout
+    </button>
+  </div>
+
+  <div class="content">
+    <div class="title-section">
+      <h1 class="page-title">Manage Communities</h1>
+      <p class="subtitle">View and manage all your communities</p>
+    </div>
+
+    <div class="communities-grid" *ngIf="communities.length > 0">
+      <div class="community-card" *ngFor="let community of communities">
+        <div class="community-header" [style.background]="community.gradient">
+          <div class="community-icon">
+            <span class="material-symbols-outlined">groups</span>
+          </div>
+          <h3>{{ community.name }}</h3>
+        </div>
+
+        <div class="community-body">
+          <p class="community-description">{{ community.description }}</p>
+          
+          <div class="community-stats">
+            <div class="stat-item">
+              <span class="material-symbols-outlined">people</span>
+              <span>{{ community.members }} members</span>
+            </div>
+            <div class="stat-item">
+              <span class="material-symbols-outlined">article</span>
+              <span>{{ community.feeds.length }} posts</span>
+            </div>
+          </div>
+
+          <div class="community-meta">
+            <span class="category-badge">{{ community.category }}</span>
+            <span class="code-badge">
+              <span class="material-symbols-outlined">key</span>
+              {{ community.code }}
+            </span>
+          </div>
+
+          <div class="community-actions">
+            <button class="action-btn edit-btn" (click)="editCommunity(community.id)">
+              <span class="material-symbols-outlined">edit</span>
+              Edit
+            </button>
+            <button class="action-btn view-btn" (click)="viewPosts(community.id)">
+              <span class="material-symbols-outlined">visibility</span>
+              View Posts
+            </button>
+            <button class="action-btn delete-btn" (click)="deleteCommunity(community.id)">
+              <span class="material-symbols-outlined">delete</span>
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="empty-state" *ngIf="communities.length === 0">
+      <span class="material-symbols-outlined empty-icon">groups</span>
+      <h3>No Communities Yet</h3>
+      <p>Create your first community to get started!</p>
+      <button class="create-btn" (click)="goBack()">
+        <span class="material-symbols-outlined">add_circle</span>
+        Go to Dashboard
+      </button>
+    </div>
+  </div>
+</div>

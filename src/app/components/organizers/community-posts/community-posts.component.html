@@ -1,0 +1,94 @@
+<div class="posts-container">
+  <div class="header">
+    <button class="back-btn" (click)="goBack()">
+      <span class="material-symbols-outlined">arrow_back</span>
+      Back
+    </button>
+    <button class="logout-btn" (click)="logout()">
+      <span class="material-symbols-outlined">logout</span>
+      Logout
+    </button>
+  </div>
+
+  <div class="content">
+    <div class="title-section">
+      <h1 class="page-title">Community Posts</h1>
+      <p class="subtitle">View and manage posts from your communities</p>
+    </div>
+
+    <div class="main-layout">
+      <!-- Communities Sidebar -->
+      <div class="communities-sidebar">
+        <h3>Your Communities</h3>
+        <div class="community-list">
+          <div 
+            class="community-item" 
+            *ngFor="let community of communities"
+            [class.active]="selectedCommunity?.id === community.id"
+            (click)="selectCommunity(community.id)"
+          >
+            <div class="community-color" [style.background]="community.gradient"></div>
+            <div class="community-info">
+              <span class="community-name">{{ community.name }}</span>
+              <span class="post-count">{{ community.feeds.length }} posts</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Posts Section -->
+      <div class="posts-section">
+        <div class="section-header" *ngIf="selectedCommunity">
+          <div class="community-badge" [style.background]="selectedCommunity.gradient">
+            <span class="material-symbols-outlined">groups</span>
+            <span>{{ selectedCommunity.name }}</span>
+          </div>
+          <span class="total-posts">{{ posts.length }} posts</span>
+        </div>
+
+        <div class="posts-list" *ngIf="posts.length > 0">
+          <div class="post-card" *ngFor="let post of posts">
+            <div class="post-header">
+              <div class="author-info">
+                <div class="author-avatar">
+                  <span class="material-symbols-outlined">person</span>
+                </div>
+                <div class="author-details">
+                  <span class="author-name">{{ post.author }}</span>
+                  <span class="post-time">{{ getTimeAgo(post.timestamp) }}</span>
+                </div>
+              </div>
+              <button class="delete-post-btn" (click)="deletePost(post.id)">
+                <span class="material-symbols-outlined">delete</span>
+              </button>
+            </div>
+
+            <div class="post-content">
+              <p>{{ post.content }}</p>
+              <img *ngIf="post.image" [src]="post.image" alt="Post image" class="post-image">
+            </div>
+
+            <div class="post-footer">
+              <div class="post-stat">
+                <span class="material-symbols-outlined">favorite</span>
+                <span>{{ post.likes }} likes</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="empty-posts" *ngIf="posts.length === 0 && selectedCommunity">
+          <span class="material-symbols-outlined empty-icon">article</span>
+          <h3>No Posts Yet</h3>
+          <p>This community doesn't have any posts yet.</p>
+        </div>
+
+        <div class="no-community" *ngIf="!selectedCommunity">
+          <span class="material-symbols-outlined empty-icon">groups</span>
+          <h3>No Community Selected</h3>
+          <p>Select a community from the sidebar to view its posts.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

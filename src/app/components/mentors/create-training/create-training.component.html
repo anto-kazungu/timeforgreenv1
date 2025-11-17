@@ -1,0 +1,179 @@
+<div class="create-training-container">
+  <!-- Header -->
+  <div class="header">
+    <button class="back-btn" (click)="goBack()">
+      <span class="material-icons">arrow_back</span>
+    </button>
+    <div class="header-content">
+      <h1>Create Training Module</h1>
+      <p class="subtitle">Share your expertise with the community</p>
+    </div>
+  </div>
+
+  <div class="form-container">
+    <!-- Basic Information -->
+    <div class="form-section">
+      <h2>Basic Information</h2>
+      
+      <div class="form-group">
+        <label>Module Title *</label>
+        <input 
+          type="text" 
+          [(ngModel)]="module.title"
+          placeholder="e.g., Environmental Law Basics for Communities"
+          class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label>Description *</label>
+        <textarea 
+          [(ngModel)]="module.description"
+          placeholder="Describe what participants will learn in this module..."
+          rows="4"
+          class="form-control"></textarea>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Expertise Area *</label>
+          <select [(ngModel)]="module.expertiseArea" class="form-control">
+            <option *ngFor="let area of expertiseAreas" [value]="area.value">
+              {{ area.label }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Level *</label>
+          <select [(ngModel)]="module.level" class="form-control">
+            <option *ngFor="let level of levels" [value]="level.value">
+              {{ level.label }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Duration (minutes) *</label>
+          <input 
+            type="number" 
+            [(ngModel)]="module.duration"
+            min="15"
+            step="15"
+            class="form-control">
+        </div>
+      </div>
+    </div>
+
+    <!-- Topics -->
+    <div class="form-section">
+      <h2>Topics Covered</h2>
+      
+      <div class="topics-input">
+        <input 
+          type="text" 
+          [(ngModel)]="newTopic"
+          (keyup.enter)="addTopic()"
+          placeholder="Add a topic (press Enter)"
+          class="form-control">
+        <button (click)="addTopic()" class="add-btn">
+          <span class="material-icons">add</span>
+        </button>
+      </div>
+
+      <div class="topics-list">
+        <div *ngFor="let topic of module.topics; let i = index" class="topic-chip">
+          <span>{{ topic }}</span>
+          <button (click)="removeTopic(i)" class="remove-btn">
+            <span class="material-icons">close</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Resources -->
+    <div class="form-section">
+      <h2>Learning Resources</h2>
+      
+      <div class="resource-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Resource Type</label>
+            <select [(ngModel)]="newResource.type" class="form-control">
+              <option *ngFor="let type of resourceTypes" [value]="type.value">
+                {{ type.label }}
+              </option>
+            </select>
+          </div>
+
+          <div class="form-group flex-2">
+            <label>Title</label>
+            <input 
+              type="text" 
+              [(ngModel)]="newResource.title"
+              placeholder="Resource title"
+              class="form-control">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>URL</label>
+          <input 
+            type="url" 
+            [(ngModel)]="newResource.url"
+            placeholder="https://..."
+            class="form-control">
+        </div>
+
+        <div class="form-group">
+          <label>Description (Optional)</label>
+          <input 
+            type="text" 
+            [(ngModel)]="newResource.description"
+            placeholder="Brief description of this resource"
+            class="form-control">
+        </div>
+
+        <button (click)="addResource()" class="add-resource-btn">
+          <span class="material-icons">add_circle</span>
+          Add Resource
+        </button>
+      </div>
+
+      <div class="resources-list">
+        <div *ngFor="let resource of module.resources; let i = index" class="resource-card">
+          <div class="resource-icon">
+            <span class="material-icons">
+              {{ getResourceTypeInfo(resource.type)?.icon }}
+            </span>
+          </div>
+          <div class="resource-info">
+            <h4>{{ resource.title }}</h4>
+            <p class="resource-type">{{ getResourceTypeInfo(resource.type)?.label }}</p>
+            <p class="resource-url">{{ resource.url }}</p>
+            <p *ngIf="resource.description" class="resource-desc">{{ resource.description }}</p>
+          </div>
+          <button (click)="removeResource(i)" class="delete-btn">
+            <span class="material-icons">delete</span>
+          </button>
+        </div>
+
+        <div *ngIf="module.resources!.length === 0" class="no-resources">
+          <span class="material-icons">folder_open</span>
+          <p>No resources added yet</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="actions-section">
+      <button (click)="saveDraft()" class="action-btn secondary">
+        <span class="material-icons">save</span>
+        Save as Draft
+      </button>
+      <button (click)="publish()" class="action-btn primary">
+        <span class="material-icons">publish</span>
+        Publish Module
+      </button>
+    </div>
+  </div>
+</div>

@@ -31,11 +31,13 @@ export class SignupComponent {
       this.email,
       this.password,
       this.firstName,
-      this.lastName
+      this.lastName,
+      'member' // Default role for new signups
     );
 
     if (success) {
-      this.successMessage = 'Account created successfully!';
+      this.successMessage = 'Account created successfully! Redirecting...';
+      // AuthService handles redirect based on role (member by default)
       setTimeout(() => {
         this.router.navigate(['/dashboard']);
       }, 1000);
