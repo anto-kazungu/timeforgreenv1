@@ -55,3 +55,15 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+# Database
+database/.env
+database/node_modules
+database/*.sql.backup
+database/backup_*.sql
+*.log
+
+# Environment variables
+.env
+.env.local
+.env.production

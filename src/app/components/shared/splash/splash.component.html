@@ -1,31 +1,76 @@
 <div class="splash-container">
   @if (!videoStarted) {
     <div class="initial-screen">
-      <div class="content-wrapper">
-        <div class="logo-section">
-          <img src="./assets/logov2.png" alt="Logo" class="logo-image">
-          <h2 class="app-name">Time For Green</h2>
+      <!-- Animated background elements -->
+      <div class="bg-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+      </div>
+
+      <div class="content-grid">
+        <!-- Left side - Logo and branding -->
+        <div class="left-section">
+          <div class="logo-container">
+            <div class="logo-wrapper">
+              <img src="./assets/logov2.png" alt="Just Go Green Logo" class="logo-image">
+              <div class="logo-glow"></div>
+            </div>
+            <h2 class="brand-name">Just Go Green</h2>
+            <p class="brand-tagline">Time For Green Action</p>
+          </div>
         </div>
-        
-        <h1 class="title">HOW<br>IT'S<br>GOING...</h1>
-        
-        <p class="tagline">Discover the reality of our environment</p>
-        
-        <button class="play-btn" (click)="startVideo()">
-          <span class="play-icon">▶</span>
-          <span class="play-text">Watch Now</span>
-        </button>
+
+        <!-- Right side - Content -->
+        <div class="right-section">
+          <div class="content-card">
+            <span class="badge">Environmental Reality</span>
+            <h1 class="main-title">
+              <span class="title-line">How It's</span>
+              <span class="title-line highlight">Going...</span>
+            </h1>
+            <p class="description">
+              Discover the reality of our environment and join the movement to create positive change for our planet.
+            </p>
+            <button class="cta-button" (click)="startVideo()">
+              <span class="button-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M8 5v14l11-7z" fill="currentColor"/>
+                </svg>
+              </span>
+              <span class="button-text">Watch Documentary</span>
+              <span class="button-shine"></span>
+            </button>
+            <div class="stats-row">
+              <div class="stat-item">
+                <span class="stat-icon">🌍</span>
+                <span class="stat-text">Global Impact</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-icon">🎬</span>
+                <span class="stat-text">DW Documentary</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   }
 
   @if (videoStarted) {
     <div class="video-screen">
-      <div class="video-frame">
+      <!-- Background gradient -->
+      <div class="video-bg-gradient"></div>
+
+      <div class="video-container">
+        <!-- Header -->
         <div class="video-header">
           <div class="header-left">
-            <img src="./assets/logov2.png" alt="Logo" class="logo-small">
-            <span class="brand-text">Time For Green</span>
+            <img src="./assets/logov2.png" alt="Logo" class="header-logo">
+            <div class="header-brand">
+              <span class="header-title">Just Go Green</span>
+              <span class="header-subtitle">Environmental Documentary</span>
+            </div>
           </div>
           <div class="header-right">
             <div class="credit-badge">
@@ -35,27 +80,38 @@
           </div>
         </div>
 
-        <div class="video-wrapper">
-          <iframe
-            [src]="videoUrl"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-            class="youtube-video"
-          ></iframe>
-        </div>
-        
-        @if (showGoGreenButton) {
-          <div class="button-container">
-            <div class="button-content">
-              <p class="button-message">This happened because someone somewhere did not care about our environment. Ready to change the narrative?</p>
-              <button class="go-green-btn" (click)="goToProfile()">
-                <span class="btn-text">GO GREEN</span>
-                <span class="btn-arrow">→</span>
-              </button>
-            </div>
+        <!-- Video Card with integrated action -->
+        <div class="video-card">
+          <div class="video-wrapper">
+            <iframe
+              [src]="videoUrl"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+              class="youtube-video"
+            ></iframe>
           </div>
-        }
+
+          <!-- Action Button Inside Video Card -->
+          @if (showGoGreenButton) {
+            <div class="action-footer">
+              <div class="action-content">
+                <p class="action-message">
+                  This happened because someone somewhere didn't care about our environment. 
+                  <strong>Ready to change the narrative?</strong>
+                </p>
+                <button class="action-button" (click)="goToProfile()">
+                  <span class="action-button-text">Start Your Green Journey</span>
+                  <span class="action-button-icon">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                      <path d="M7.5 15l5-5-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </span>
+                </button>
+              </div>
+            </div>
+          }
+        </div>
       </div>
     </div>
   }
