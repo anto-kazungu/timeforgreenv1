@@ -24,7 +24,10 @@
   <div class="content">
     <div class="welcome-section">
       <h1 class="greeting">Welcome, {{ userName }}!</h1>
-      <p class="tagline">Your generosity is creating positive environmental impact 💚</p>
+      <p class="tagline">
+        Your generosity is creating positive environmental impact 
+        <span class="material-symbols-outlined tagline-icon">favorite</span>
+      </p>
     </div>
 
     <div class="stats-grid">
@@ -43,7 +46,10 @@
       <!-- Impact Overview Section -->
       <div class="section">
         <div class="section-header">
-          <h2>🌍 Your Environmental Impact</h2>
+          <h2>
+            <span class="material-symbols-outlined section-icon">public</span>
+            Your Environmental Impact
+          </h2>
           <button class="action-btn" (click)="navigateTo('/donor/impact')">
             <span class="material-symbols-outlined">analytics</span>
             View Full Report
@@ -52,22 +58,30 @@
 
         <div class="impact-grid">
           <div class="impact-card trees">
-            <div class="impact-icon">🌳</div>
+            <div class="impact-icon">
+              <span class="material-symbols-outlined">park</span>
+            </div>
             <div class="impact-number">{{ donationImpact.treesPlanted }}</div>
             <div class="impact-label">Trees Planted</div>
           </div>
           <div class="impact-card waste">
-            <div class="impact-icon">♻️</div>
+            <div class="impact-icon">
+              <span class="material-symbols-outlined">recycling</span>
+            </div>
             <div class="impact-number">{{ donationImpact.wasteRecycled }}kg</div>
             <div class="impact-label">Waste Recycled</div>
           </div>
           <div class="impact-card co2">
-            <div class="impact-icon">🌱</div>
+            <div class="impact-icon">
+              <span class="material-symbols-outlined">eco</span>
+            </div>
             <div class="impact-number">{{ donationImpact.co2Reduced }}</div>
             <div class="impact-label">Tons CO₂ Reduced</div>
           </div>
           <div class="impact-card lives">
-            <div class="impact-icon">❤️</div>
+            <div class="impact-icon">
+              <span class="material-symbols-outlined">favorite</span>
+            </div>
             <div class="impact-number">{{ donationImpact.livesImpacted }}</div>
             <div class="impact-label">Lives Impacted</div>
           </div>
@@ -77,7 +91,10 @@
       <!-- Active Projects Section -->
       <div class="section">
         <div class="section-header">
-          <h2>🚀 Active Projects</h2>
+          <h2>
+            <span class="material-symbols-outlined section-icon">rocket_launch</span>
+            Active Projects
+          </h2>
           <button class="action-btn" (click)="navigateTo('/donor/projects')">
             <span class="material-symbols-outlined">search</span>
             Browse All
@@ -105,7 +122,10 @@
               </div>
               <div class="project-meta">
                 <span class="donors">{{ project.donorCount }} donors</span>
-                <span class="location">📍 {{ project.location }}</span>
+                <span class="location">
+                  <span class="material-symbols-outlined location-icon">location_on</span>
+                  {{ project.location }}
+                </span>
               </div>
               <button class="donate-btn" (click)="donateToProject(project.id); $event.stopPropagation()">
                 <span class="material-symbols-outlined">volunteer_activism</span>
@@ -125,7 +145,10 @@
       <!-- Community Needs Section -->
       <div class="section">
         <div class="section-header">
-          <h2>🆘 Urgent Community Needs</h2>
+          <h2>
+            <span class="material-symbols-outlined section-icon">emergency</span>
+            Urgent Community Needs
+          </h2>
           <button class="action-btn" (click)="navigateTo('/donor/needs')">
             <span class="material-symbols-outlined">help</span>
             View All Needs
@@ -143,8 +166,14 @@
             <div class="need-body">
               <p class="need-description">{{ need.description }}</p>
               <div class="need-meta">
-                <span class="community">🏘️ {{ need.communityName }}</span>
-                <span class="requested-by">👤 {{ need.requestedBy }}</span>
+                <span class="community">
+                  <span class="material-symbols-outlined meta-icon">apartment</span>
+                  {{ need.communityName }}
+                </span>
+                <span class="requested-by">
+                  <span class="material-symbols-outlined meta-icon">person</span>
+                  {{ need.requestedBy }}
+                </span>
               </div>
               <div class="need-progress">
                 <div class="progress-info">

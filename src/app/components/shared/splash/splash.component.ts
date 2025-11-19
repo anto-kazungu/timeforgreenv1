@@ -16,17 +16,17 @@ export class SplashComponent {
 
   constructor(private router: Router, private sanitizer: DomSanitizer) {
     // Convert YouTube URL to embed URL with autoplay
-    const youtubeEmbedUrl = 'https://www.youtube.com/embed/f2rHlDLDvTw?autoplay=1&rel=0&modestbranding=1';
+    const youtubeEmbedUrl = 'https://www.youtube.com/embed/IBsK9KNFL7I?si=A_b6dYQlGaAEXjUp';
     this.videoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(youtubeEmbedUrl);
   }
 
   startVideo() {
     this.videoStarted = true;
     
-    // Show GO GREEN button after 1 minute (60 seconds)
+    // Show GO GREEN button after 1 minute (30 seconds)
     setTimeout(() => {
       this.showGoGreenButton = true;
-    }, 60000); // 60000 milliseconds = 1 minute
+    }, 30000); // 30000 milliseconds = 30 seconds
   }
 
   goToProfile() {

@@ -783,3 +783,42 @@
     align-items: center;
   }
 }
+
+/* Section Icons */
+.section-icon {
+  font-size: 1.5rem !important;
+  vertical-align: middle;
+  margin-right: 0.5rem;
+}
+
+.section-header h2 {
+  display: flex;
+  align-items: center;
+}
+
+/* Tagline Icon */
+.tagline-icon {
+  font-size: 1.2rem !important;
+  vertical-align: middle;
+  color: #f093fb;
+  margin-left: 0.3rem;
+}
+
+/* Impact Card Icons */
+.impact-icon .material-symbols-outlined {
+  font-size: 3rem !important;
+}
+
+/* Location Icon */
+.location-icon {
+  font-size: 1rem !important;
+  vertical-align: middle;
+  margin-right: 0.2rem;
+}
+
+/* Meta Icons */
+.meta-icon {
+  font-size: 1rem !important;
+  vertical-align: middle;
+  margin-right: 0.3rem;
+}

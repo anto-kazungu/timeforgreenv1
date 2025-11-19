@@ -1,91 +1,327 @@
 .profile-container {
-  min-height: 100vh;
-  background-color: #f5f5f5;
+  height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa 0%, #e8f5e9 100%);
   padding: 1rem;
   position: relative;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .profile-container.celebrating {
-  background: linear-gradient(135deg, #f5f7fa 0%, #e8f5e9 100%);
+  background: linear-gradient(135deg, #e8f5e9 0%, #f5f7fa 100%);
 }
 
-.header {
-  display: flex;
-  justify-content: flex-end;
-  margin-bottom: 2rem;
+/* Background Shapes */
+.bg-shapes {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0;
 }
 
-.menu-btn {
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  cursor: pointer;
+.shape {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.1;
+  animation: float 20s infinite ease-in-out;
+}
+
+.shape-1 {
+  width: 300px;
+  height: 300px;
+  background: linear-gradient(135deg, #00d084 0%, #00b870 100%);
+  top: -100px;
+  left: -100px;
+  animation-delay: 0s;
+}
+
+.shape-2 {
+  width: 200px;
+  height: 200px;
+  background: linear-gradient(135deg, #00e090 0%, #00d084 100%);
+  bottom: -50px;
+  right: -50px;
+  animation-delay: 5s;
+}
+
+.shape-3 {
+  width: 150px;
+  height: 150px;
+  background: linear-gradient(135deg, #00b870 0%, #008f5a 100%);
+  top: 50%;
+  right: 10%;
+  animation-delay: 10s;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(30px, -30px) scale(1.1);
+  }
+  66% {
+    transform: translate(-20px, 20px) scale(0.9);
+  }
 }
 
 .content {
-  max-width: 400px;
+  max-width: 1000px;
+  width: 100%;
   margin: 0 auto;
   text-align: center;
   position: relative;
   z-index: 1;
+  max-height: 100vh;
+  overflow-y: auto;
+  padding: 1rem;
+}
+
+/* Logo Section */
+.logo-section {
+  margin-bottom: 1rem;
+}
+
+.logo {
+  width: 70px;
+  height: 70px;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.1));
+}
+
+/* Celebration Message */
+.celebration-message {
+  margin-bottom: 1rem;
 }
 
 .greeting {
-  font-size: 2.5rem;
-  font-weight: bold;
-  margin-bottom: 0.5rem;
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+  color: #1a1a1a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+}
+
+.celebration-icon {
+  font-size: 2.2rem !important;
+  animation: bounce 2s infinite;
+  color: #00d084;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
 .subtitle {
   font-size: 1.2rem;
   color: #666;
-  margin-bottom: 2rem;
+  font-weight: 500;
+}
+
+.highlight {
+  background: linear-gradient(135deg, #00d084 0%, #00b870 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+}
+
+/* Question Section */
+.question-section {
+  margin-bottom: 1.5rem;
 }
 
 .question {
-  font-size: 1rem;
-  margin-bottom: 2rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 0.3rem;
 }
 
-.options {
-  display: flex;
-  flex-direction: column;
+.question-subtitle {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+/* Role Options Grid */
+.options-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   gap: 1rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 }
 
-.option-btn {
-  background-color: white;
-  border: 1px solid #ddd;
-  padding: 1rem;
-  border-radius: 8px;
+.role-card {
+  background: white;
+  border: 2px solid transparent;
+  padding: 1.2rem 1rem;
+  border-radius: 16px;
   cursor: pointer;
-  font-size: 1rem;
-  transition: all 0.3s;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  position: relative;
+  overflow: hidden;
+  text-align: center;
 }
 
-.option-btn:hover {
-  background-color: #f0f0f0;
+.role-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(135deg, #00d084 0%, #00b870 100%);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.role-card:hover::before {
+  transform: scaleX(1);
+}
+
+.role-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
   border-color: #00d084;
+}
+
+.role-icon {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 1rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.role-icon .material-symbols-outlined {
+  font-size: 2rem;
+  color: white;
+}
+
+.member-icon {
+  background: linear-gradient(135deg, #00d084 0%, #00b870 100%);
+}
+
+.organizer-icon {
+  background: linear-gradient(135deg, #00b870 0%, #008f5a 100%);
+}
+
+.mentor-icon {
+  background: linear-gradient(135deg, #00d084 0%, #00e090 100%);
+}
+
+.donor-icon {
+  background: linear-gradient(135deg, #00e090 0%, #00d084 100%);
+}
+
+.role-card:hover .role-icon {
+  transform: scale(1.1) rotate(5deg);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.role-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 0.5rem;
+}
+
+.role-description {
+  font-size: 0.85rem;
+  color: #666;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.role-badge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: linear-gradient(135deg, #00d084 0%, #00b870 100%);
+  color: white;
+  padding: 0.3rem 0.8rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(0, 208, 132, 0.3);
+}
+
+/* Action Buttons */
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
 }
 
 .why-btn {
   background: linear-gradient(135deg, #00d084 0%, #00b870 100%);
   color: white;
   border: none;
-  padding: 1rem 3rem;
-  font-size: 1.1rem;
+  padding: 0.8rem 2rem;
+  font-size: 1rem;
   font-weight: 600;
-  border-radius: 25px;
+  border-radius: 50px;
   cursor: pointer;
-  transition: all 0.3s;
-  box-shadow: 0 4px 12px rgba(0, 208, 132, 0.3);
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px rgba(0, 208, 132, 0.3);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .why-btn:hover {
-  transform: scale(1.05);
-  box-shadow: 0 6px 16px rgba(0, 208, 132, 0.4);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 208, 132, 0.4);
+}
+
+.why-btn .material-symbols-outlined {
+  font-size: 1.3rem;
+}
+
+.skip-btn {
+  background: transparent;
+  color: #666;
+  border: 2px solid #e0e0e0;
+  padding: 0.8rem 1.5rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.skip-btn:hover {
+  background: white;
+  border-color: #00d084;
+  color: #00d084;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.skip-btn .material-symbols-outlined {
+  font-size: 1.1rem;
 }
 
 /* Confetti Styles */
@@ -102,16 +338,17 @@
 
 .confetti {
   position: absolute;
-  width: 10px;
-  height: 10px;
-  top: -10px;
+  width: 12px;
+  height: 12px;
+  top: -20px;
   opacity: 0;
   animation: confettiFall 3s ease-in forwards;
+  border-radius: 2px;
 }
 
 @keyframes confettiFall {
   0% {
-    top: -10px;
+    top: -20px;
     opacity: 1;
     transform: translateX(0) rotateZ(0deg);
   }
@@ -197,13 +434,137 @@
 }
 
 /* Responsive */
-@media (max-width: 600px) {
-  .greeting {
-    font-size: 2rem;
+@media (max-width: 1024px) {
+  .options-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
-  
+}
+
+@media (max-width: 768px) {
+  .profile-container {
+    padding: 0.5rem;
+  }
+
+  .content {
+    padding: 0.5rem;
+  }
+
+  .logo {
+    width: 60px;
+    height: 60px;
+  }
+
+  .greeting {
+    font-size: 1.8rem;
+  }
+
+  .celebration-icon {
+    font-size: 1.8rem !important;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
+
+  .question {
+    font-size: 1rem;
+  }
+
+  .question-subtitle {
+    font-size: 0.85rem;
+  }
+
+  .options-grid {
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+    margin-bottom: 1rem;
+  }
+
+  .role-card {
+    padding: 1rem 0.8rem;
+  }
+
+  .role-icon {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 0.8rem;
+  }
+
+  .role-icon .material-symbols-outlined {
+    font-size: 1.8rem;
+  }
+
+  .role-title {
+    font-size: 1rem;
+  }
+
+  .role-description {
+    font-size: 0.8rem;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+    width: 100%;
+    gap: 0.8rem;
+  }
+
+  .why-btn,
+  .skip-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 0.7rem 1.5rem;
+  }
+
   .confetti {
     width: 8px;
     height: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .greeting {
+    font-size: 1.5rem;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .celebration-icon {
+    font-size: 1.5rem !important;
+  }
+
+  .celebration-message {
+    margin-bottom: 0.8rem;
+  }
+
+  .question-section {
+    margin-bottom: 1rem;
+  }
+
+  .options-grid {
+    margin-bottom: 1rem;
+  }
+}
+
+@media (min-height: 900px) {
+  .content {
+    max-height: none;
+  }
+  
+  .logo {
+    width: 90px;
+    height: 90px;
+  }
+  
+  .greeting {
+    font-size: 2.5rem;
+  }
+  
+  .options-grid {
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  .role-card {
+    padding: 1.5rem 1.2rem;
   }
 }

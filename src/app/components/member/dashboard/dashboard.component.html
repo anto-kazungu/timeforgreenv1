@@ -24,7 +24,10 @@
   <div class="content">
     <div class="welcome-section">
       <h1 class="greeting">Welcome Back, {{ userName }}!</h1>
-      <p class="tagline">Let's make the world greener together 🌍</p>
+      <p class="tagline">
+        Let's make the world greener together 
+        <span class="material-symbols-outlined tagline-icon">public</span>
+      </p>
     </div>
 
     <nav class="nav-tabs">
@@ -59,7 +62,10 @@
     </nav>
 
     <div class="posts-section">
-      <h2>📰 Latest Posts</h2>
+      <h2>
+        <span class="material-symbols-outlined section-icon">article</span>
+        Latest Posts
+      </h2>
       <div class="posts-list">
         <div class="post-card" *ngFor="let post of posts" (click)="viewPost(post.id)">
           <div class="post-header" [style.background]="post.gradient">
@@ -73,8 +79,14 @@
               <span class="post-time">{{ getTimeAgo(post.timestamp) }}</span>
             </div>
             <div class="post-stats">
-              <span class="stat-item">❤️ {{ post.likes }}</span>
-              <span class="stat-item">💬 {{ post.comments.length }}</span>
+              <span class="stat-item">
+                <span class="material-symbols-outlined stat-icon">favorite</span>
+                {{ post.likes }}
+              </span>
+              <span class="stat-item">
+                <span class="material-symbols-outlined stat-icon">chat_bubble</span>
+                {{ post.comments.length }}
+              </span>
             </div>
           </div>
         </div>
@@ -82,7 +94,10 @@
     </div>
 
     <div class="section-header">
-      <h2>🔥 Trending in Your Communities</h2>
+      <h2>
+        <span class="material-symbols-outlined section-icon">local_fire_department</span>
+        Trending in Your Communities
+      </h2>
     </div>
 
     <div class="trending-grid">

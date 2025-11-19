@@ -1,1 +1,273 @@
-<p>admin-dashboard works!</p>
+<div class="dashboard-container">
+  <!-- Header -->
+  <div class="header">
+    <div class="profile-section" (click)="goToProfile()">
+      <div class="profile-avatar">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Ccircle cx='30' cy='30' r='30' fill='%23FFD700'/%3E%3C/svg%3E" alt="Profile">
+      </div>
+      <div class="user-info">
+        <span class="user-name">{{adminName}}</span>
+        <span class="user-level">
+          <span class="material-symbols-outlined level-icon-small">shield</span>
+          Administrator
+        </span>
+      </div>
+    </div>
+    
+    <div class="points-badge">
+      <div class="points-info">
+        <span class="points-label">System Status</span>
+        <span class="points-value">✓ Active</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="content">
+    <div class="welcome-section">
+      <h1 class="greeting">Admin Dashboard</h1>
+      <p class="tagline">Manage users, content, and system settings 🛡️</p>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <nav class="nav-tabs">
+      <button 
+        class="nav-tab" 
+        [class.active]="activeTab === 'overview'"
+        (click)="switchTab('overview')">
+        Overview
+      </button>
+      <button 
+        class="nav-tab" 
+        [class.active]="activeTab === 'users'"
+        (click)="switchTab('users')">
+        User Management
+      </button>
+      <button 
+        class="nav-tab" 
+        [class.active]="activeTab === 'content'"
+        (click)="switchTab('content')">
+        Content
+      </button>
+      <button 
+        class="nav-tab" 
+        [class.active]="activeTab === 'reports'"
+        (click)="switchTab('reports')">
+        Reports
+      </button>
+    </nav>
+    <!-- Overview Tab -->
+    @if (activeTab === 'overview') {
+      <div class="main-content">
+        <!-- Stats Grid -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon users-icon">👥</div>
+            <div class="stat-info">
+              <h3>{{systemStats.totalUsers}}</h3>
+              <p>Total Users</p>
+              <span class="stat-change positive">+12% this month</span>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon active-icon">✅</div>
+            <div class="stat-info">
+              <h3>{{systemStats.activeUsers}}</h3>
+              <p>Active Users</p>
+              <span class="stat-change positive">+8% this week</span>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon community-icon">🌍</div>
+            <div class="stat-info">
+              <h3>{{systemStats.totalCommunities}}</h3>
+              <p>Communities</p>
+              <span class="stat-change positive">+3 new</span>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon posts-icon">📝</div>
+            <div class="stat-info">
+              <h3>{{systemStats.totalPosts}}</h3>
+              <p>Total Posts</p>
+              <span class="stat-change positive">+15 today</span>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon donation-icon">💰</div>
+            <div class="stat-info">
+              <h3>${{systemStats.totalDonations.toLocaleString()}}</h3>
+              <p>Total Donations</p>
+              <span class="stat-change positive">+$50K this month</span>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon training-icon">📚</div>
+            <div class="stat-info">
+              <h3>{{systemStats.totalTrainings}}</h3>
+              <p>Training Programs</p>
+              <span class="stat-change">5 active</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="activity-section">
+          <h2>Recent Activity</h2>
+          <div class="activity-list">
+            @for (activity of recentActivities; track activity.time) {
+              <div class="activity-item">
+                <div class="activity-icon">{{activity.icon}}</div>
+                <div class="activity-details">
+                  <p class="activity-action">{{activity.action}}</p>
+                  <p class="activity-user">{{activity.user}}</p>
+                </div>
+                <span class="activity-time">{{activity.time}}</span>
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+    }
+
+    <!-- Users Tab -->
+    @if (activeTab === 'users') {
+      <div class="main-content">
+        <div class="users-header">
+          <h2>User Management</h2>
+          <div class="users-controls">
+            <input 
+              type="text" 
+              class="search-input" 
+              placeholder="Search users..."
+              (input)="searchUsers($event)">
+            
+            <select class="role-filter" (change)="filterUsersByRole($any($event.target).value)">
+              <option value="all">All Roles</option>
+              <option value="member">Members</option>
+              <option value="organizer">Organizers</option>
+              <option value="mentor">Mentors</option>
+              <option value="donor">Donors</option>
+              <option value="admin">Admins</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="users-table">
+          <table>
+            <thead>
+              <tr>
+                <th>User</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Status</th>
+                <th>Joined</th>
+                <th>Last Active</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (user of filteredUsers; track user.id) {
+                <tr>
+                  <td>
+                    <div class="user-cell">
+                      <div class="user-avatar">{{user.firstName.charAt(0)}}{{user.lastName.charAt(0)}}</div>
+                      <div class="user-info">
+                        <p class="user-name">{{user.firstName}} {{user.lastName}}</p>
+                        <p class="user-username">{{ '@' + user.username}}</p>
+                      </div>
+                    </div>
+                  </td>
+                  <td>{{user.email}}</td>
+                  <td>
+                    <span class="role-badge" [ngClass]="getRoleBadgeClass(user.role)">
+                      {{user.role}}
+                    </span>
+                  </td>
+                  <td>
+                    <span class="status-badge" [ngClass]="getStatusBadgeClass(user.status)">
+                      {{user.status}}
+                    </span>
+                  </td>
+                  <td>{{formatDate(user.joinedDate)}}</td>
+                  <td>{{getTimeAgo(user.lastActive)}}</td>
+                  <td>
+                    <div class="action-buttons">
+                      <button 
+                        class="action-btn suspend-btn" 
+                        (click)="suspendUser(user.id)"
+                        [title]="user.status === 'active' ? 'Suspend User' : 'Activate User'">
+                        {{user.status === 'active' ? '🚫' : '✅'}}
+                      </button>
+                      <button 
+                        class="action-btn delete-btn" 
+                        (click)="deleteUser(user.id)"
+                        title="Delete User">
+                        🗑️
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+
+          @if (filteredUsers.length === 0) {
+            <div class="no-results">
+              <p>No users found matching your criteria</p>
+            </div>
+          }
+        </div>
+      </div>
+    }
+
+    <!-- Content Tab -->
+    @if (activeTab === 'content') {
+      <div class="main-content">
+        <h2>Content Management</h2>
+        <div class="content-stats">
+          <div class="content-card">
+            <h3>📝 Posts</h3>
+            <p class="content-number">{{systemStats.totalPosts}}</p>
+            <button class="manage-btn">Manage Posts</button>
+          </div>
+          <div class="content-card">
+            <h3>🌍 Communities</h3>
+            <p class="content-number">{{systemStats.totalCommunities}}</p>
+            <button class="manage-btn">Manage Communities</button>
+          </div>
+          <div class="content-card">
+            <h3>📚 Trainings</h3>
+            <p class="content-number">{{systemStats.totalTrainings}}</p>
+            <button class="manage-btn">Manage Trainings</button>
+          </div>
+        </div>
+      </div>
+    }
+
+    <!-- Reports Tab -->
+    @if (activeTab === 'reports') {
+      <div class="main-content">
+        <h2>Reports & Moderation</h2>
+        <div class="reports-placeholder">
+          <div class="placeholder-icon">⚠️</div>
+          <p>No pending reports</p>
+          <span class="placeholder-subtext">All content is currently in good standing</span>
+        </div>
+      </div>
+    }
+
+    <!-- Logout Section -->
+    <div class="logout-section">
+      <button class="logout-btn" (click)="logout()">
+        <span class="material-symbols-outlined">logout</span>
+        Logout
+      </button>
+    </div>
+  </div>
+</div>

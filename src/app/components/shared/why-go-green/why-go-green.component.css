@@ -9,12 +9,54 @@
   padding: 4rem 2rem;
   text-align: center;
   box-shadow: 0 4px 20px rgba(0, 208, 132, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-logo {
+  width: 100px;
+  height: 100px;
+  margin-bottom: 1.5rem;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.2));
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
 .hero-section h1 {
   font-size: 3rem;
   margin-bottom: 1rem;
   font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.hero-icon {
+  font-size: 3rem !important;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
 }
 
 .hero-subtitle {
@@ -58,6 +100,11 @@
   filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
 }
 
+.card-icon .material-symbols-outlined {
+  font-size: 4rem !important;
+  color: white;
+}
+
 .card-content {
   padding: 2.5rem;
 }
@@ -99,17 +146,25 @@
 }
 
 .action-section {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #00d084 0%, #00b870 100%);
   color: white;
   border-radius: 20px;
   padding: 3rem;
   text-align: center;
-  box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
+  box-shadow: 0 8px 24px rgba(0, 208, 132, 0.3);
 }
 
 .action-section h2 {
   font-size: 2.2rem;
   margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+}
+
+.action-icon {
+  font-size: 2.5rem !important;
 }
 
 .action-text {
@@ -144,7 +199,7 @@
 }
 
 .benefit-icon {
-  font-size: 2.5rem;
+  font-size: 2.5rem !important;
 }
 
 .benefit-text {
@@ -154,7 +209,7 @@
 
 .go-green-btn {
   background: white;
-  color: #667eea;
+  color: #00d084;
   border: none;
   padding: 1.2rem 3rem;
   font-size: 1.3rem;
@@ -168,9 +223,14 @@
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
 }
 
+.go-green-btn .material-symbols-outlined {
+  font-size: 1.5rem !important;
+}
+
 .go-green-btn:hover {
   transform: translateY(-4px) scale(1.05);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  background: #f0f0f0;
 }
 
 .btn-icon {

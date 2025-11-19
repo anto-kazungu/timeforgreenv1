@@ -35,6 +35,7 @@ export class UserProfileComponent implements OnInit {
   trainingsCompleted = 0;
   updateMessage = '';
   updateSuccess = false;
+  editMode = false;
 
   achievements = [
     {
@@ -166,5 +167,13 @@ export class UserProfileComponent implements OnInit {
 
   logout() {
     this.authService.logout();
+  }
+
+  getUnlockedCount(): number {
+    return this.achievements.filter(achievement => achievement.unlocked).length;
+  }
+
+  navigateTo(route: string) {
+    this.router.navigate([route]);
   }
 }

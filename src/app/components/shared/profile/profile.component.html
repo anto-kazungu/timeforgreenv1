@@ -13,53 +13,111 @@
     </div>
   }
   
+  <!-- Background Shapes -->
+  <div class="bg-shapes">
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
+    <div class="shape shape-3"></div>
+  </div>
+
   <div class="content">
-    <h1 class="greeting" [class.celebrate-bounce]="showCelebration">Hureeey!!!</h1>
-    <p class="subtitle" [class.celebrate-fade]="showCelebration">You Just Went Green</p>
+    <!-- Logo Section -->
+    <div class="logo-section" [class.celebrate-fade]="showCelebration">
+      <img src="./assets/logov2.png" alt="Just Go Green Logo" class="logo">
+    </div>
+
+    <!-- Celebration Message -->
+    <div class="celebration-message">
+      <h1 class="greeting" [class.celebrate-bounce]="showCelebration">
+        <span class="material-symbols-outlined celebration-icon">celebration</span>
+        Hooray!
+        <span class="material-symbols-outlined celebration-icon">eco</span>
+      </h1>
+      <p class="subtitle" [class.celebrate-fade]="showCelebration">
+        You Just Went <span class="highlight">Green</span>
+      </p>
+    </div>
     
-    <p class="question" [class.celebrate-fade]="showCelebration">How do you want to save our environmet?</p>
+    <!-- Question Section -->
+    <div class="question-section" [class.celebrate-fade]="showCelebration">
+      <h2 class="question">How would you like to make an impact?</h2>
+      <p class="question-subtitle">Choose your path to environmental action</p>
+    </div>
     
-    <div class="options">
+    <!-- Role Options Grid -->
+    <div class="options-grid">
       <button 
-        class="option-btn" 
+        class="role-card" 
         [class.celebrate-slide]="showCelebration"
         [style.animation-delay]="'0.2s'"
         (click)="goToWelcome()"
       >
-        Become a Member
+        <div class="role-icon member-icon">
+          <span class="material-symbols-outlined">person</span>
+        </div>
+        <h3 class="role-title">Member</h3>
+        <p class="role-description">Join communities and participate in environmental activities</p>
+        <div class="role-badge">Most Popular</div>
       </button>
+
       <button 
-        class="option-btn" 
+        class="role-card" 
         [class.celebrate-slide]="showCelebration"
         [style.animation-delay]="'0.3s'"
         (click)="goToWelcome()"
       >
-        Become a Community organiser
+        <div class="role-icon organizer-icon">
+          <span class="material-symbols-outlined">groups</span>
+        </div>
+        <h3 class="role-title">Organizer</h3>
+        <p class="role-description">Create and manage environmental communities</p>
       </button>
+
       <button 
-        class="option-btn" 
+        class="role-card" 
         [class.celebrate-slide]="showCelebration"
         [style.animation-delay]="'0.4s'"
         (click)="goToWelcome()"
       >
-        Become a Mentor
+        <div class="role-icon mentor-icon">
+          <span class="material-symbols-outlined">school</span>
+        </div>
+        <h3 class="role-title">Mentor</h3>
+        <p class="role-description">Share your expertise and educate others</p>
       </button>
+
       <button 
-        class="option-btn" 
+        class="role-card" 
         [class.celebrate-slide]="showCelebration"
         [style.animation-delay]="'0.5s'"
         (click)="goToWelcome()"
       >
-        Support Work
+        <div class="role-icon donor-icon">
+          <span class="material-symbols-outlined">volunteer_activism</span>
+        </div>
+        <h3 class="role-title">Donor</h3>
+        <p class="role-description">Support environmental projects financially</p>
       </button>
     </div>
     
-    <button 
-      class="why-btn" 
-      [class.celebrate-pulse]="showCelebration"
-      (click)="goToWhyGoGreen()"
-    >
-      Why Go Green?
-    </button>
+    <!-- Action Buttons -->
+    <div class="action-buttons" [class.celebrate-fade]="showCelebration">
+      <button 
+        class="why-btn" 
+        [class.celebrate-pulse]="showCelebration"
+        (click)="goToWhyGoGreen()"
+      >
+        <span class="material-symbols-outlined">info</span>
+        Why Go Green?
+      </button>
+      
+      <button 
+        class="skip-btn" 
+        (click)="goToWelcome()"
+      >
+        Skip for now
+        <span class="material-symbols-outlined">arrow_forward</span>
+      </button>
+    </div>
   </div>
 </div>

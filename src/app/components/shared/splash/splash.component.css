@@ -175,11 +175,12 @@
 }
 
 .main-title {
-  font-size: 4rem;
+  font-size: 3.5rem;
   font-weight: 900;
-  line-height: 1.1;
+  line-height: 1.2;
   margin: 0 0 1.5rem 0;
   color: #1a1a1a;
+  word-wrap: break-word;
 }
 
 .title-line {
@@ -678,5 +679,100 @@
   .action-button {
     padding: 1rem 2rem;
     font-size: 1rem;
+  }
+}
+
+/* Wangari Maathai Link */
+.wangari-link {
+  color: #00d084;
+  text-decoration: none;
+  font-weight: 600;
+  border-bottom: 2px solid transparent;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+.wangari-link:hover {
+  color: #00e090;
+  border-bottom-color: #00d084;
+  transform: translateY(-1px);
+}
+
+.wangari-link:active {
+  transform: translateY(0);
+}
+
+/* ============================================
+   RESPONSIVE ADJUSTMENTS
+   ============================================ */
+
+/* Tablet and smaller */
+@media (max-width: 1024px) {
+  .content-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .main-title {
+    font-size: 3rem;
+  }
+
+  .content-card {
+    padding: 2.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .main-title {
+    font-size: 2.5rem;
+  }
+
+  .content-card {
+    padding: 2rem;
+  }
+
+  .description {
+    font-size: 1rem;
+  }
+
+  .logo-image {
+    width: 140px;
+    height: 140px;
+  }
+
+  .brand-name {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-title {
+    font-size: 2rem;
+  }
+
+  .content-card {
+    padding: 1.5rem;
+  }
+
+  .badge {
+    font-size: 0.75rem;
+    padding: 0.4rem 1rem;
+  }
+
+  .description {
+    font-size: 0.95rem;
+  }
+
+  .logo-image {
+    width: 120px;
+    height: 120px;
+  }
+
+  .brand-name {
+    font-size: 1.5rem;
+  }
+
+  .brand-tagline {
+    font-size: 0.9rem;
   }
 }

@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-why-go-green',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './why-go-green.component.html',
   styleUrl: './why-go-green.component.css'
 })
