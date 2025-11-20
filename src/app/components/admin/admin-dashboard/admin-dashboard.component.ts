@@ -45,11 +45,11 @@ export class AdminDashboardComponent implements OnInit {
   searchQuery = '';
 
   recentActivities = [
-    { type: 'user', action: 'New user registered', user: 'Sarah Green', time: '5m ago', icon: '👤' },
-    { type: 'community', action: 'New community created', user: 'James Community', time: '15m ago', icon: '🌍' },
-    { type: 'post', action: 'Post reported', user: 'System', time: '1h ago', icon: '⚠️' },
-    { type: 'donation', action: 'Donation received', user: 'David Philanthropist', time: '2h ago', icon: '💰' },
-    { type: 'training', action: 'Training completed', user: 'Dr. Maria Educator', time: '3h ago', icon: '📚' }
+    { type: 'user', action: 'New user registered', user: 'Sarah Green', time: '5m ago', icon: 'person_add' },
+    { type: 'community', action: 'New community created', user: 'James Community', time: '15m ago', icon: 'public' },
+    { type: 'post', action: 'Post reported', user: 'System', time: '1h ago', icon: 'warning' },
+    { type: 'donation', action: 'Donation received', user: 'David Philanthropist', time: '2h ago', icon: 'payments' },
+    { type: 'training', action: 'Training completed', user: 'Dr. Maria Educator', time: '3h ago', icon: 'school' }
   ];
 
   constructor(
@@ -228,6 +228,10 @@ export class AdminDashboardComponent implements OnInit {
     if (days < 7) return `${days} days ago`;
     if (days < 30) return `${Math.floor(days / 7)} weeks ago`;
     return `${Math.floor(days / 30)} months ago`;
+  }
+
+  navigateToClimateNews() {
+    this.router.navigate(['/climate-news']);
   }
 
   logout() {

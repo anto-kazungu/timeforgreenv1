@@ -13,6 +13,7 @@ import { EventsComponent } from './components/member/events/events.component';
 import { UserProfileComponent } from './components/member/user-profile/user-profile.component';
 import { WhyGoGreenComponent } from './components/shared/why-go-green/why-go-green.component';
 import { TrendingDetailComponent } from './components/member/trending-detail/trending-detail.component';
+import { ClimatenewsComponent } from './components/shared/climatenews/climatenews.component';
 import { AdminDashboardComponent } from './components/admin/admin-dashboard/admin-dashboard.component';
 import { MentorDashboardComponent } from './components/mentors/mentor-dashboard/mentor-dashboard.component';
 import { DonorDashboardComponent } from './components/donors/donor-dashboard/donor-dashboard.component';
@@ -28,6 +29,7 @@ export const routes: Routes = [
   { path: 'welcome', component: WelcomeComponent },
   { path: 'login', component: LoginComponent, canActivate: [authGuard] },
   { path: 'signup', component: SignupComponent },
+  { path: 'climate-news', component: ClimatenewsComponent, canActivate: [authGuard] },
   
   // Member routes
   { path: 'dashboard', component: DashboardComponent, canActivate: [authGuard] },

@@ -70,7 +70,7 @@ export class BrowseProjectsComponent implements OnInit {
       if (amount) {
         this.dialogService.alert(
           'Donation Successful!',
-          `Thank you for your donation of $${amount.toFixed(2)} to ${project.title}. You're making a real difference!`
+          `Thank you for your donation of Ksh ${amount.toFixed(2)} to ${project.title}. You're making a real difference!`
         ).subscribe(() => {
           this.loadProjects();
         });

@@ -34,7 +34,7 @@ export class DonorDashboardComponent implements OnInit {
   };
 
   stats = [
-    { label: 'Total Donated', value: '$0', icon: 'payments', color: '#667eea' },
+    { label: 'Total Donated', value: 'Ksh 0', icon: 'payments', color: '#667eea' },
     { label: 'Projects Funded', value: 0, icon: 'campaign', color: '#f093fb' },
     { label: 'Lives Impacted', value: 0, icon: 'favorite', color: '#43e97b' },
     { label: 'CO₂ Reduced', value: '0 tons', icon: 'eco', color: '#fa709a' }
@@ -108,7 +108,7 @@ export class DonorDashboardComponent implements OnInit {
     this.donationImpact = this.donationService.getDonorImpact(donorId);
 
     // Update stats
-    this.stats[0].value = `$${this.donationImpact.totalDonated.toLocaleString()}`;
+    this.stats[0].value = `Ksh ${this.donationImpact.totalDonated.toLocaleString()}`;
     this.stats[1].value = this.donationImpact.projectsFunded;
     this.stats[2].value = this.donationImpact.livesImpacted;
     this.stats[3].value = `${this.donationImpact.co2Reduced} tons`;
@@ -132,11 +132,11 @@ export class DonorDashboardComponent implements OnInit {
 
   fundNeed(needId: string) {
     // Simple funding - in production would show donation form
-    const amount = prompt('Enter donation amount ($):');
+    const amount = prompt('Enter donation amount (Ksh):');
     if (amount && !isNaN(Number(amount))) {
       const currentUser = this.authService.getCurrentUser();
       if (currentUser && this.donationService.fundCommunityNeed(needId, Number(amount), currentUser.id)) {
-        alert(`Successfully donated $${amount}!`);
+        alert(`Successfully donated Ksh ${amount}!`);
         this.loadDonorData(); // Refresh data
       }
     }
@@ -173,6 +173,10 @@ export class DonorDashboardComponent implements OnInit {
 
   goToProfile() {
     this.router.navigate(['/profile-settings']);
+  }
+
+  navigateToClimateNews() {
+    this.router.navigate(['/climate-news']);
   }
 
   logout() {

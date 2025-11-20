@@ -105,7 +105,7 @@ export class EventsComponent implements OnInit {
         event.attendees++;
         this.pointsService.addPoints(75, `Joined event: ${event.title}`);
         this.saveJoinedEvents();
-        this.notificationService.showSuccess(`Joined ${event.title}! +75 points earned 🎉`);
+        this.notificationService.showSuccess(`Joined ${event.title}! +75 points earned`);
       }
     });
   }

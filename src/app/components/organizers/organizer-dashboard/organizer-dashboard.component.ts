@@ -105,6 +105,10 @@ export class OrganizerDashboardComponent implements OnInit {
     this.router.navigate(['/profile-settings']);
   }
 
+  navigateToClimateNews() {
+    this.router.navigate(['/climate-news']);
+  }
+
   logout() {
     this.authService.logout();
   }

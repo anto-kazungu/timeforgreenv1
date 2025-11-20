@@ -99,7 +99,7 @@ export class CommunityNeedsComponent implements OnInit {
         if (currentUser && this.donationService.fundCommunityNeed(needId, amount, currentUser.id)) {
           this.dialogService.alert(
             'Funding Successful!',
-            `Thank you for your $${amount.toFixed(2)} donation to help ${need.communityName}. Your contribution is making a real impact!`
+            `Thank you for your Ksh ${amount.toFixed(2)} donation to help ${need.communityName}. Your contribution is making a real impact!`
           ).subscribe(() => {
             this.loadNeeds();
           });

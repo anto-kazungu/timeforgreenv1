@@ -51,7 +51,7 @@ export class TrainingsComponent implements OnInit {
         const success = this.trainingService.enrollInTraining(trainingId, this.pointsService);
         if (success) {
           this.loadTrainings();
-          this.notificationService.showSuccess(`Enrolled in ${training.title}! +50 points earned 🎓`);
+          this.notificationService.showSuccess(`Enrolled in ${training.title}! +50 points earned`);
         } else {
           this.dialogService.alert('Already Enrolled', 'You are already enrolled in this training.');
         }

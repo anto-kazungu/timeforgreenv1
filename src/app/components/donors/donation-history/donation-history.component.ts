@@ -90,7 +90,7 @@ export class DonationHistoryComponent implements OnInit {
     if (donation) {
       this.dialogService.alert(
         'Receipt Downloaded',
-        `Receipt for your $${donation.amount.toFixed(2)} donation to "${donation.projectTitle}" has been downloaded successfully.`
+        `Receipt for your Ksh ${donation.amount.toFixed(2)} donation to "${donation.projectTitle}" has been downloaded successfully.`
       ).subscribe();
     }
   }

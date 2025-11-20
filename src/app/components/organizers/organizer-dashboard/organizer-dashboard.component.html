@@ -24,7 +24,7 @@
   <div class="content">
     <div class="welcome-section">
       <h1 class="greeting">Welcome, {{ userName }}!</h1>
-      <p class="tagline">Manage your communities and inspire change 🌱</p>
+      <p class="tagline">Manage your communities and inspire change</p>
     </div>
 
     <div class="stats-grid">
@@ -82,6 +82,20 @@
           <span class="material-symbols-outlined action-icon">{{ action.icon }}</span>
           <span class="action-label">{{ action.label }}</span>
         </button>
+      </div>
+    </div>
+
+    <!-- Climate News Banner -->
+    <div class="climate-news-banner" (click)="navigateToClimateNews()">
+      <div class="banner-icon">
+        <span class="material-symbols-outlined">campaign</span>
+      </div>
+      <div class="banner-content">
+        <h3>Community Action Insights</h3>
+        <p>Explore global environmental movements and community initiatives</p>
+      </div>
+      <div class="banner-action">
+        <span class="material-symbols-outlined">arrow_forward</span>
       </div>
     </div>
 

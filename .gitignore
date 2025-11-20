@@ -66,3 +66,5 @@ database/backup_*.sql
 .env
 .env.local
 .env.production
+environment.prod.ts
+environment.ts

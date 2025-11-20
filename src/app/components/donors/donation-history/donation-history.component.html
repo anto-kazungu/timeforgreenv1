@@ -8,7 +8,7 @@
       <h1>Donation History</h1>
       <div class="total-donated">
         <span class="label">Total Donated:</span>
-        <span class="amount">${{ totalDonated.toLocaleString() }}</span>
+        <span class="amount">Ksh {{ totalDonated.toLocaleString() }}</span>
       </div>
     </div>
   </div>
@@ -32,7 +32,7 @@
           <h3>{{ donation.projectTitle }}</h3>
           <p class="project-category">{{ donation.paymentMethod }}</p>
         </div>
-        <div class="donation-amount">${{ donation.amount.toLocaleString() }}</div>
+        <div class="donation-amount">Ksh {{ donation.amount.toLocaleString() }}</div>
       </div>
 
       <div class="donation-details">

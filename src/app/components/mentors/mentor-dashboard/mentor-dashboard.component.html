@@ -24,7 +24,7 @@
   <div class="content">
     <div class="welcome-section">
       <h1 class="greeting">Welcome, {{ userName }}!</h1>
-      <p class="tagline">Inspire and educate the next generation of environmental champions 🌱</p>
+      <p class="tagline">Inspire and educate the next generation of environmental champions <span class="material-symbols-outlined">eco</span></p>
     </div>
 
     <div class="stats-grid">
@@ -43,7 +43,7 @@
       <!-- Training Modules Section -->
       <div class="section">
         <div class="section-header">
-          <h2>📚 Your Training Modules</h2>
+          <h2><span class="material-symbols-outlined">menu_book</span> Your Training Modules</h2>
           <button class="action-btn" (click)="navigateTo('/mentor/create-training')">
             <span class="material-symbols-outlined">add_circle</span>
             Create Module
@@ -95,7 +95,7 @@
       <!-- Recent Mentees Section -->
       <div class="section">
         <div class="section-header">
-          <h2>👥 Recent Mentees</h2>
+          <h2><span class="material-symbols-outlined">group</span> Recent Mentees</h2>
           <button class="action-btn" (click)="navigateTo('/mentor/mentees')">
             <span class="material-symbols-outlined">visibility</span>
             View All
@@ -142,7 +142,7 @@
       <!-- Upcoming Sessions Section -->
       <div class="section">
         <div class="section-header">
-          <h2>📅 Upcoming Sessions</h2>
+          <h2><span class="material-symbols-outlined">event</span> Upcoming Sessions</h2>
           <button class="action-btn" (click)="navigateTo('/mentor/sessions')">
             <span class="material-symbols-outlined">add_circle</span>
             Schedule Session
@@ -187,6 +187,20 @@
           <span class="material-symbols-outlined action-icon">{{ action.icon }}</span>
           <span class="action-label">{{ action.label }}</span>
         </button>
+      </div>
+    </div>
+
+    <!-- Climate News Banner -->
+    <div class="climate-news-banner" (click)="navigateToClimateNews()">
+      <div class="banner-icon">
+        <span class="material-symbols-outlined">lightbulb</span>
+      </div>
+      <div class="banner-content">
+        <h3>Latest Environmental Research</h3>
+        <p>Stay updated with climate science and educational resources</p>
+      </div>
+      <div class="banner-action">
+        <span class="material-symbols-outlined">arrow_forward</span>
       </div>
     </div>
 

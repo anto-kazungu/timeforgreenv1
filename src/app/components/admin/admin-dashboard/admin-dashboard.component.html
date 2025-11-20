@@ -26,7 +26,7 @@
   <div class="content">
     <div class="welcome-section">
       <h1 class="greeting">Admin Dashboard</h1>
-      <p class="tagline">Manage users, content, and system settings 🛡️</p>
+      <p class="tagline">Manage users, content, and system settings <span class="material-symbols-outlined">shield</span></p>
     </div>
 
     <!-- Navigation Tabs -->
@@ -62,7 +62,7 @@
         <!-- Stats Grid -->
         <div class="stats-grid">
           <div class="stat-card">
-            <div class="stat-icon users-icon">👥</div>
+            <div class="stat-icon users-icon"><span class="material-symbols-outlined">group</span></div>
             <div class="stat-info">
               <h3>{{systemStats.totalUsers}}</h3>
               <p>Total Users</p>
@@ -71,7 +71,7 @@
           </div>
 
           <div class="stat-card">
-            <div class="stat-icon active-icon">✅</div>
+            <div class="stat-icon active-icon"><span class="material-symbols-outlined">check_circle</span></div>
             <div class="stat-info">
               <h3>{{systemStats.activeUsers}}</h3>
               <p>Active Users</p>
@@ -80,7 +80,7 @@
           </div>
 
           <div class="stat-card">
-            <div class="stat-icon community-icon">🌍</div>
+            <div class="stat-icon community-icon"><span class="material-symbols-outlined">public</span></div>
             <div class="stat-info">
               <h3>{{systemStats.totalCommunities}}</h3>
               <p>Communities</p>
@@ -89,7 +89,7 @@
           </div>
 
           <div class="stat-card">
-            <div class="stat-icon posts-icon">📝</div>
+            <div class="stat-icon posts-icon"><span class="material-symbols-outlined">article</span></div>
             <div class="stat-info">
               <h3>{{systemStats.totalPosts}}</h3>
               <p>Total Posts</p>
@@ -98,16 +98,16 @@
           </div>
 
           <div class="stat-card">
-            <div class="stat-icon donation-icon">💰</div>
+            <div class="stat-icon donation-icon"><span class="material-symbols-outlined">payments</span></div>
             <div class="stat-info">
-              <h3>${{systemStats.totalDonations.toLocaleString()}}</h3>
+              <h3>Ksh {{systemStats.totalDonations.toLocaleString()}}</h3>
               <p>Total Donations</p>
-              <span class="stat-change positive">+$50K this month</span>
+              <span class="stat-change positive">+Ksh 50K this month</span>
             </div>
           </div>
 
           <div class="stat-card">
-            <div class="stat-icon training-icon">📚</div>
+            <div class="stat-icon training-icon"><span class="material-symbols-outlined">school</span></div>
             <div class="stat-info">
               <h3>{{systemStats.totalTrainings}}</h3>
               <p>Training Programs</p>
@@ -122,7 +122,7 @@
           <div class="activity-list">
             @for (activity of recentActivities; track activity.time) {
               <div class="activity-item">
-                <div class="activity-icon">{{activity.icon}}</div>
+                <div class="activity-icon"><span class="material-symbols-outlined">{{activity.icon}}</span></div>
                 <div class="activity-details">
                   <p class="activity-action">{{activity.action}}</p>
                   <p class="activity-user">{{activity.user}}</p>
@@ -202,13 +202,13 @@
                         class="action-btn suspend-btn" 
                         (click)="suspendUser(user.id)"
                         [title]="user.status === 'active' ? 'Suspend User' : 'Activate User'">
-                        {{user.status === 'active' ? '🚫' : '✅'}}
+                        <span class="material-symbols-outlined">{{user.status === 'active' ? 'block' : 'check_circle'}}</span>
                       </button>
                       <button 
                         class="action-btn delete-btn" 
                         (click)="deleteUser(user.id)"
                         title="Delete User">
-                        🗑️
+                        <span class="material-symbols-outlined">delete</span>
                       </button>
                     </div>
                   </td>
@@ -232,17 +232,17 @@
         <h2>Content Management</h2>
         <div class="content-stats">
           <div class="content-card">
-            <h3>📝 Posts</h3>
+            <h3><span class="material-symbols-outlined">article</span> Posts</h3>
             <p class="content-number">{{systemStats.totalPosts}}</p>
             <button class="manage-btn">Manage Posts</button>
           </div>
           <div class="content-card">
-            <h3>🌍 Communities</h3>
+            <h3><span class="material-symbols-outlined">public</span> Communities</h3>
             <p class="content-number">{{systemStats.totalCommunities}}</p>
             <button class="manage-btn">Manage Communities</button>
           </div>
           <div class="content-card">
-            <h3>📚 Trainings</h3>
+            <h3><span class="material-symbols-outlined">school</span> Trainings</h3>
             <p class="content-number">{{systemStats.totalTrainings}}</p>
             <button class="manage-btn">Manage Trainings</button>
           </div>
@@ -255,12 +255,26 @@
       <div class="main-content">
         <h2>Reports & Moderation</h2>
         <div class="reports-placeholder">
-          <div class="placeholder-icon">⚠️</div>
+          <div class="placeholder-icon"><span class="material-symbols-outlined">warning</span></div>
           <p>No pending reports</p>
           <span class="placeholder-subtext">All content is currently in good standing</span>
         </div>
       </div>
     }
+
+    <!-- Climate News Banner -->
+    <div class="climate-news-banner" (click)="navigateToClimateNews()">
+      <div class="banner-icon">
+        <span class="material-symbols-outlined">newspaper</span>
+      </div>
+      <div class="banner-content">
+        <h3>Global Climate Updates</h3>
+        <p>Monitor worldwide environmental developments and climate action</p>
+      </div>
+      <div class="banner-action">
+        <span class="material-symbols-outlined">arrow_forward</span>
+      </div>
+    </div>
 
     <!-- Logout Section -->
     <div class="logout-section">

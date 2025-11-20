@@ -112,7 +112,7 @@
               <div class="project-progress">
                 <div class="progress-info">
                   <span class="progress-text">
-                    ${{ project.currentAmount.toLocaleString() }} of ${{ project.targetAmount.toLocaleString() }}
+                    Ksh {{ project.currentAmount.toLocaleString() }} of Ksh {{ project.targetAmount.toLocaleString() }}
                   </span>
                   <span class="progress-percentage">{{ getProjectProgress(project) | number:'1.0-0' }}%</span>
                 </div>
@@ -178,7 +178,7 @@
               <div class="need-progress">
                 <div class="progress-info">
                   <span class="progress-text">
-                    ${{ need.fundedAmount.toLocaleString() }} of ${{ need.estimatedCost.toLocaleString() }}
+                    Ksh {{ need.fundedAmount.toLocaleString() }} of Ksh {{ need.estimatedCost.toLocaleString() }}
                   </span>
                   <span class="progress-percentage">{{ getNeedProgress(need) | number:'1.0-0' }}%</span>
                 </div>
@@ -225,7 +225,7 @@
               </div>
             </div>
             <div class="donation-amount">
-              <span class="amount">${{ donation.amount.toLocaleString() }}</span>
+              <span class="amount">Ksh {{ donation.amount.toLocaleString() }}</span>
               <span class="status" [class.completed]="donation.status === 'completed'">
                 {{ donation.status | titlecase }}
               </span>
@@ -252,6 +252,20 @@
           <span class="material-symbols-outlined action-icon">{{ action.icon }}</span>
           <span class="action-label">{{ action.label }}</span>
         </button>
+      </div>
+    </div>
+
+    <!-- Climate News Banner -->
+    <div class="climate-news-banner" (click)="navigateToClimateNews()">
+      <div class="banner-icon">
+        <span class="material-symbols-outlined">eco</span>
+      </div>
+      <div class="banner-content">
+        <h3>Environmental Impact Stories</h3>
+        <p>Discover how your donations are making a difference worldwide</p>
+      </div>
+      <div class="banner-action">
+        <span class="material-symbols-outlined">arrow_forward</span>
       </div>
     </div>
 

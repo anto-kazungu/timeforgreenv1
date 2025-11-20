@@ -24,37 +24,37 @@ export class DashboardComponent implements OnInit {
   trendingItems = [
     { 
       label: 'Water Pollution', 
-      gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+      image: './assets/component-images/river.jpg',
       engagement: '45'
     },
     { 
       label: 'River Cleanup', 
-      gradient: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+      image: './assets/component-images/road-pollution.jpg',
       engagement: '32'
     },
     { 
       label: 'Community Board', 
-      gradient: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+      image: './assets/component-images/community.jpg',
       engagement: '28'
     },
     { 
       label: 'Waste Management', 
-      gradient: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
+      image: './assets/component-images/pollutedriver.jpg',
       engagement: '56'
     },
     { 
       label: 'Green Initiative', 
-      gradient: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
+      image: './assets/component-images/training.jpg',
       engagement: '41'
     },
     { 
       label: 'Education', 
-      gradient: 'linear-gradient(135deg, #30cfd0 0%, #330867 100%)',
+      image: './assets/component-images/community.jpg',
       engagement: '67'
     },
     { 
       label: 'Recycling', 
-      gradient: 'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)',
+      image: './assets/component-images/pollutedriver2.jpg',
       engagement: '23'
     }
   ];
@@ -141,6 +141,10 @@ export class DashboardComponent implements OnInit {
     if (hours > 0) return `${hours}h ago`;
     if (minutes > 0) return `${minutes}m ago`;
     return 'Just now';
+  }
+
+  navigateToClimateNews() {
+    this.router.navigate(['/climate-news']);
   }
 
   logout() {

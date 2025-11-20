@@ -1,0 +1,89 @@
+<div class="climatenews-container">
+  <div class="header">
+    <button class="back-btn" (click)="goBack()">← Back</button>
+    <button class="logout-btn" (click)="logout()">Logout</button>
+  </div>
+  
+  <div class="content">
+    <div class="page-header">
+      <h1 class="page-title">
+        <span class="material-symbols-outlined">public</span>
+        Climate & Environment News
+      </h1>
+      <p class="subtitle">Stay informed about the latest climate and environmental developments</p>
+    </div>
+
+    <!-- Loading State -->
+    @if (loading) {
+      <div class="loading-state">
+        <div class="spinner"></div>
+        <p>Loading latest climate news...</p>
+      </div>
+    }
+
+    <!-- Error State -->
+    @if (error && !loading) {
+      <div class="error-state">
+        <span class="material-symbols-outlined error-icon">error</span>
+        <h3>{{ errorMessage }}</h3>
+        <button class="retry-btn" (click)="retry()">
+          <span class="material-symbols-outlined">refresh</span>
+          Try Again
+        </button>
+      </div>
+    }
+
+    <!-- News Articles -->
+    @if (!loading && !error && articles.length > 0) {
+      <div class="news-grid">
+        @for (article of articles; track article.url) {
+          <div class="news-card" (click)="openArticle(article.url)">
+            @if (article.urlToImage) {
+              <div class="news-image" [style.background-image]="'url(' + article.urlToImage + ')'">
+                <div class="source-badge">{{ article.source.name }}</div>
+              </div>
+            } @else {
+              <div class="news-image placeholder">
+                <span class="material-symbols-outlined">article</span>
+                <div class="source-badge">{{ article.source.name }}</div>
+              </div>
+            }
+            
+            <div class="news-content">
+              <h3 class="news-title">{{ article.title }}</h3>
+              <p class="news-description">{{ article.description }}</p>
+              
+              <div class="news-footer">
+                <div class="news-meta">
+                  @if (article.author) {
+                    <span class="author">
+                      <span class="material-symbols-outlined">person</span>
+                      {{ article.author }}
+                    </span>
+                  }
+                  <span class="time">
+                    <span class="material-symbols-outlined">schedule</span>
+                    {{ getTimeAgo(article.publishedAt) }}
+                  </span>
+                </div>
+                <button class="read-more-btn">
+                  Read More
+                  <span class="material-symbols-outlined">arrow_forward</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    }
+
+    <!-- Empty State -->
+    @if (!loading && !error && articles.length === 0) {
+      <div class="empty-state">
+        <span class="material-symbols-outlined empty-icon">newspaper</span>
+        <h3>No News Available</h3>
+        <p>We couldn't find any climate news at the moment.</p>
+      </div>
+    }
+  </div>
+</div>

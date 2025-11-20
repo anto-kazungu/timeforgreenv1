@@ -23,7 +23,7 @@ export class ImpactReportComponent implements OnInit {
   };
 
   impactStats = [
-    { label: 'Total Donated', value: '$0', icon: 'payments', color: '#667eea', description: 'Your total contributions' },
+    { label: 'Total Donated', value: 'Ksh 0', icon: 'payments', color: '#667eea', description: 'Your total contributions' },
     { label: 'Projects Funded', value: 0, icon: 'campaign', color: '#f093fb', description: 'Projects you supported' },
     { label: 'Lives Impacted', value: 0, icon: 'favorite', color: '#43e97b', description: 'People helped' },
     { label: 'CO₂ Reduced', value: '0 tons', icon: 'eco', color: '#fa709a', description: 'Carbon offset' },
@@ -47,7 +47,7 @@ export class ImpactReportComponent implements OnInit {
     if (currentUser) {
       this.impact = this.donationService.getDonorImpact(currentUser.id);
       
-      this.impactStats[0].value = `$${this.impact.totalDonated.toLocaleString()}`;
+      this.impactStats[0].value = `Ksh ${this.impact.totalDonated.toLocaleString()}`;
       this.impactStats[1].value = this.impact.projectsFunded;
       this.impactStats[2].value = this.impact.livesImpacted;
       this.impactStats[3].value = `${this.impact.co2Reduced} tons`;
@@ -59,7 +59,7 @@ export class ImpactReportComponent implements OnInit {
   downloadReport() {
     this.dialogService.alert(
       'Report Downloaded',
-      `Your complete impact report has been downloaded. You've made a difference with $${this.impact.totalDonated.toLocaleString()} in donations!`
+      `Your complete impact report has been downloaded. You've made a difference with Ksh ${this.impact.totalDonated.toLocaleString()} in donations!`
     ).subscribe();
   }
 

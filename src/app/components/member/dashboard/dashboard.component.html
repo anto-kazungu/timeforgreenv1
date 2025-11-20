@@ -100,35 +100,30 @@
       </h2>
     </div>
 
-    <div class="trending-grid">
-      <div class="trending-item large" *ngFor="let item of trendingItems.slice(0, 2)" (click)="viewTrendingItem(item)">
-        <div class="trending-image" [style.background]="item.gradient">
-          <div class="trending-overlay">
-            <span class="trending-label">{{ item.label }}</span>
-            <span class="trending-engagement">{{ item.engagement }} active</span>
+    <div class="trending-compact-grid">
+      <div class="trending-card" *ngFor="let item of trendingItems" (click)="viewTrendingItem(item)">
+        <div class="trending-card-image" [style.background-image]="'url(' + item.image + ')'"></div>
+        <div class="trending-card-content">
+          <h4 class="trending-card-title">{{ item.label }}</h4>
+          <div class="trending-card-meta">
+            <span class="material-symbols-outlined">group</span>
+            <span>{{ item.engagement }} active</span>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="trending-grid-small">
-      <div class="trending-item small" *ngFor="let item of trendingItems.slice(2, 5)" (click)="viewTrendingItem(item)">
-        <div class="trending-image" [style.background]="item.gradient">
-          <div class="trending-overlay">
-            <span class="trending-label">{{ item.label }}</span>
-          </div>
-        </div>
+    <!-- Climate News Banner -->
+    <div class="climate-news-banner" (click)="navigateToClimateNews()">
+      <div class="banner-icon">
+        <span class="material-symbols-outlined">public</span>
       </div>
-    </div>
-
-    <div class="trending-grid">
-      <div class="trending-item large" *ngFor="let item of trendingItems.slice(5, 7)" (click)="viewTrendingItem(item)">
-        <div class="trending-image" [style.background]="item.gradient">
-          <div class="trending-overlay">
-            <span class="trending-label">{{ item.label }}</span>
-            <span class="trending-engagement">{{ item.engagement }} active</span>
-          </div>
-        </div>
+      <div class="banner-content">
+        <h3>Stay Informed About Our Planet</h3>
+        <p>Get the latest climate and environment news from around the world</p>
+      </div>
+      <div class="banner-action">
+        <span class="material-symbols-outlined">arrow_forward</span>
       </div>
     </div>
 

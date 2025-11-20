@@ -40,8 +40,8 @@
             <div class="progress-fill" [style.width.%]="getProgress(project)"></div>
           </div>
           <div class="progress-info">
-            <span class="raised">${{ project.currentAmount.toLocaleString() }} raised</span>
-            <span class="goal">of ${{ project.targetAmount.toLocaleString() }}</span>
+            <span class="raised">Ksh {{ project.currentAmount.toLocaleString() }} raised</span>
+            <span class="goal">of Ksh {{ project.targetAmount.toLocaleString() }}</span>
           </div>
         </div>
 

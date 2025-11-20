@@ -4,7 +4,7 @@ An environmental action platform connecting communities, donors, mentors, and or
 
 ---
 
-## 🌍 About
+## About
 
 Time For Green is a comprehensive platform designed to empower environmental action through:
 - **Community Building** - Connect with like-minded environmental activists
@@ -13,11 +13,11 @@ Time For Green is a comprehensive platform designed to empower environmental act
 - **Action** - Participate in events and initiatives
 - **Impact Tracking** - Measure and celebrate environmental achievements
 
-The goal is to reconnect us to the our forests and environment to save our ecosystem
+By reconnecting with our forests and environment, we ignite the change needed to protect and restore our ecosystems
 
 ---
 
-## ✨ Key Features
+## Key Features
 
 ### For Members
 - Join environmental communities
@@ -26,6 +26,7 @@ The goal is to reconnect us to the our forests and environment to save our ecosy
 - Earn XP and level up (10 levels)
 - Collect Green Points for rewards
 - Track personal environmental impact
+- Stay informed with latest climate news
 
 ### For Donors
 - Browse and fund environmental projects
@@ -57,7 +58,7 @@ The goal is to reconnect us to the our forests and environment to save our ecosy
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 - Node.js (v18 or higher)
@@ -76,12 +77,19 @@ cd timeforgreenv1
 # Install dependencies
 npm install
 
+# Configure environment variables (Important!)
+# Copy environment template and add your API keys
+cp src/environments/environment.template.ts src/environments/environment.ts
+# Edit environment.ts and add your News API key
+
 # Start development server
 ng serve
 
 # Open browser to
 http://localhost:4200
 ```
+
+**Note:** You need to configure the News API key before the Climate News feature will work. See [Environment Setup Guide](./docs/ENVIRONMENT-SETUP.md) for details.
 
 ### Build for Production
 
@@ -91,7 +99,7 @@ ng build --configuration production
 
 ---
 
-## 🔑 Test Accounts
+## Test Accounts
 
 | Role | Email | Password |
 |------|-------|----------|
@@ -103,7 +111,7 @@ ng build --configuration production
 
 ---
 
-## 📚 Documentation
+## Documentation
 
 Comprehensive documentation is available in the [`docs/`](./docs/) folder:
 
@@ -112,29 +120,33 @@ Comprehensive documentation is available in the [`docs/`](./docs/) folder:
 - [Leveling System](./docs/LEVELING-SYSTEM.md)
 - [XP vs Green Points](./docs/XP-VS-GREEN-POINTS.md)
 - [Component Structure](./docs/COMPONENT-STRUCTURE.md)
+- [Environment Setup](./docs/ENVIRONMENT-SETUP.md)
 
 ### Implementation Guides
 - [Donor Components](./docs/DONOR-COMPONENTS-COMPLETE.md)
 - [Mentor Components](./docs/MENTOR-COMPONENTS-COMPLETE.md)
 - [Dialog System](./docs/DIALOG-BOXES-IMPLEMENTATION.md)
+- [Climate News Component](./docs/CLIMATE-NEWS-COMPONENT.md)
 
 ### Bug Fixes & Updates
-**[📖 View Full Documentation Index](./docs/README.md)**
+**[View Full Documentation Index](./docs/README.md)**
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - **Framework:** Angular 18
 - **UI:** Material Design (Azure Material Theme)
 - **Icons:** Material Icons
 - **Styling:** Custom CSS
 - **State Management:** RxJS Services
+- **HTTP Client:** Angular HttpClient
+- **External APIs:** News API (newsapi.org)
 - **Storage:** LocalStorage (demo)
 
 ---
 
-## 🎨 Design System
+## Design System
 
 ### Color Palette
 - Primary Green: #40b181 (green-500)
@@ -155,7 +167,7 @@ Comprehensive documentation is available in the [`docs/`](./docs/) folder:
 
 ---
 
-## 📊 Project Structure
+## Project Structure
 
 ```
 time-for-green/
@@ -163,6 +175,10 @@ time-for-green/
 │   ├── app/
 │   │   ├── components/
 │   │   │   ├── shared/          # Shared components
+│   │   │   │   ├── climatenews/ # Climate news component
+│   │   │   │   ├── splash/      # Landing page
+│   │   │   │   ├── profile/     # Profile selection
+│   │   │   │   └── ...          # Other shared components
 │   │   │   ├── member/          # Member features
 │   │   │   ├── donors/          # Donor features
 │   │   │   ├── mentors/         # Mentor features
@@ -174,21 +190,24 @@ time-for-green/
 │   ├── assets/                  # Static assets
 │   └── styles.css               # Global styles
 ├── docs/                        # Documentation
+│   ├── CLIMATE-NEWS-COMPONENT.md
+│   ├── ROLE-BASED-SYSTEM.md
+│   └── ...                      # Other documentation
 └── README.md                    # This file
 ```
 
 ---
 
-## 🌟 Features Implemented
+## Features Implemented
 
-### ✅ Core System
+### Core System
 - Role-based authentication
 - Route guards
 - XP and leveling system
 - Green Points rewards
 - Profile management
 
-### ✅ Donor System
+### Donor System
 - Browse environmental projects
 - Donation dialogs with suggested amounts
 - Donation history with filters
@@ -196,7 +215,7 @@ time-for-green/
 - Community needs funding
 - Receipt downloads
 
-### ✅ Mentor System
+### Mentor System
 - Create training modules
 - 8 expertise areas
 - Resource management (videos, documents, links, quizzes)
@@ -205,7 +224,7 @@ time-for-green/
 - Question/Answer system
 - Schedule consultation sessions
 
-### ✅ UI/UX
+### UI/UX
 - Professional Material Design dialogs
 - No browser alerts/prompts
 - Responsive layouts
@@ -213,9 +232,55 @@ time-for-green/
 - Empty states
 - Error handling
 
+### Climate News Integration
+- Real-time climate and environment news
+- News API integration (newsapi.org)
+- 20 latest articles per fetch
+- Article filtering and validation
+- Responsive news grid layout
+- External article links
+- Time-based formatting
+- Error handling with retry
+- Role-specific news banners on all dashboards
+
 ---
 
-## 🎯 Expertise Areas (Mentors)
+## External API Integration
+
+### News API Configuration
+
+The Climate News component integrates with [News API](https://newsapi.org/) to fetch real-time climate and environment news.
+
+**API Details:**
+- **Endpoint:** `https://newsapi.org/v2/everything`
+- **API Key:** Configured via environment variables
+- **Query:** "climate environment"
+- **Page Size:** 20 articles
+- **Sort By:** Published date (newest first)
+- **Language:** English
+
+**Setup:**
+1. Get your free API key from [newsapi.org](https://newsapi.org/register)
+2. Configure in `src/environments/environment.ts`
+3. See [Environment Setup Guide](./docs/ENVIRONMENT-SETUP.md) for detailed instructions
+
+**Features:**
+- Fetches latest climate and environment news
+- Displays article images, titles, and descriptions
+- Shows publication time and source
+- Opens full articles in new tabs
+- Handles errors gracefully with retry option
+- Filters out invalid or removed articles
+
+**Rate Limits (Free Tier):**
+- 100 requests per day
+- Up to 100 results per request
+
+**Documentation:** [Climate News Component Guide](./docs/CLIMATE-NEWS-COMPONENT.md)
+
+---
+
+## Expertise Areas (Mentors)
 
 1. Environmental Law
 2. Forestry & Conservation
@@ -228,7 +293,7 @@ time-for-green/
 
 ---
 
-## 📈 Leveling System
+## Leveling System
 
 | Level | Name | XP Required |
 |-------|------|-------------|
@@ -245,7 +310,7 @@ time-for-green/
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 1. Fork the repository
 2. Create a feature branch
@@ -255,13 +320,13 @@ time-for-green/
 
 ---
 
-## 📝 License
+## License
 
 This project is part of the Wangari Maathai Hackathon.
 
 ---
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - Inspired by environmental activists worldwide
 - Named in honor of environmental champions
@@ -269,7 +334,7 @@ This project is part of the Wangari Maathai Hackathon.
 
 ---
 
-## 📞 Support
+## Support
 
 For questions or issues:
 1. Check the [documentation](./docs/)
@@ -278,17 +343,28 @@ For questions or issues:
 
 ---
 
-## 🔄 Recent Updates
+## Recent Updates
 
-### Latest (November 2025)
-- ✅ Complete donor system (4 components)
-- ✅ Complete mentor system (4 components)
-- ✅ Professional dialog boxes
-- ✅ Service integration fixes
-- ✅ Comprehensive documentation
+### Latest (November 20, 2025)
+- Climate News component with News API integration
+- Real-time climate and environment news feed
+- Role-specific news banners on all dashboards
+- Currency changed from $ to Ksh (Kenyan Shilling)
+- Emoji icons replaced with Material Icons
+- Test credentials hidden in production
+- "Most Popular" label removed
+- Project renamed from "Just Go Green" to "Time For Green"
+- Environment variables for API key management
+
+### Previous (November 2025)
+- Complete donor system (4 components)
+- Complete mentor system (4 components)
+- Professional dialog boxes
+- Service integration fixes
+- Comprehensive documentation
 
 ---
 
-**Built with 💚 for the environment**
+**Built with care for the environment**
 
 [View Documentation](./docs/) | [Report Issue](#) | [Request Feature](#)

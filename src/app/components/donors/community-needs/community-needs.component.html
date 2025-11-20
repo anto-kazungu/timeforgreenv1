@@ -51,8 +51,8 @@
 
       <div class="funding-section">
         <div class="funding-header">
-          <span class="funded-amount">${{ need.fundedAmount.toLocaleString() }}</span>
-          <span class="funding-goal">of ${{ need.estimatedCost.toLocaleString() }}</span>
+          <span class="funded-amount">Ksh {{ need.fundedAmount.toLocaleString() }}</span>
+          <span class="funding-goal">of Ksh {{ need.estimatedCost.toLocaleString() }}</span>
         </div>
         <div class="progress-bar">
           <div class="progress-fill" [style.width.%]="getProgress(need)"></div>
