@@ -97,6 +97,18 @@ http://localhost:4200
 ng build --configuration production
 ```
 
+### Deploy to Vercel
+
+```bash
+# Install Vercel CLI
+npm install -g vercel
+
+# Deploy
+vercel --prod
+```
+
+See [Vercel Deployment Guide](./docs/VERCEL-DEPLOYMENT.md) for detailed instructions.
+
 ---
 
 ## Test Accounts
