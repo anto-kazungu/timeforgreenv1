@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
-import { environment } from '../../../../environments/environment';
+// import { environment } from '../../../../environments/environment';
+import { environment } from '@env/environment';
 
 interface NewsArticle {
   source: {
