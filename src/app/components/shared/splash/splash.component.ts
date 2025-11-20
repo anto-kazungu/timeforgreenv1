@@ -23,10 +23,10 @@ export class SplashComponent {
   startVideo() {
     this.videoStarted = true;
     
-    // Show GO GREEN button after 1 minute (30 seconds)
+    // Show GO GREEN button after 1 minute (20 seconds)
     setTimeout(() => {
       this.showGoGreenButton = true;
-    }, 30000); // 30000 milliseconds = 30 seconds
+    }, 20000); // 20000 milliseconds = 20 seconds
   }
 
   goToProfile() {

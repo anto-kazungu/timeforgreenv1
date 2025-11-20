@@ -1,4 +1,4 @@
-# Just Go Green 🌱
+# Time For Green
 
 An environmental action platform connecting communities, donors, mentors, and organizers to create positive environmental impact.
 
@@ -6,12 +6,14 @@ An environmental action platform connecting communities, donors, mentors, and or
 
 ## 🌍 About
 
-Just Go Green is a comprehensive platform designed to empower environmental action through:
+Time For Green is a comprehensive platform designed to empower environmental action through:
 - **Community Building** - Connect with like-minded environmental activists
 - **Education** - Learn from environmental experts across multiple fields
 - **Funding** - Support environmental projects and community needs
 - **Action** - Participate in events and initiatives
 - **Impact Tracking** - Measure and celebrate environmental achievements
+
+The goal is to reconnect us to the our forests and environment to save our ecosystem
 
 ---
 
@@ -33,7 +35,7 @@ Just Go Green is a comprehensive platform designed to empower environmental acti
 - See real-time project progress
 
 ### For Mentors
-- Share expertise in 8 environmental fields
+- Share expertise in environmental fields
 - Create educational training modules
 - Manage mentees and track progress
 - Answer questions from students
@@ -69,7 +71,7 @@ Just Go Green is a comprehensive platform designed to empower environmental acti
 git clone <repository-url>
 
 # Navigate to project directory
-cd just-go-green
+cd timeforgreenv1
 
 # Install dependencies
 npm install
@@ -117,8 +119,6 @@ Comprehensive documentation is available in the [`docs/`](./docs/) folder:
 - [Dialog System](./docs/DIALOG-BOXES-IMPLEMENTATION.md)
 
 ### Bug Fixes & Updates
-- [Mentor Dashboard Fix](./docs/MENTOR-DASHBOARD-FIX.md)
-
 **[📖 View Full Documentation Index](./docs/README.md)**
 
 ---
@@ -126,7 +126,7 @@ Comprehensive documentation is available in the [`docs/`](./docs/) folder:
 ## 🛠️ Tech Stack
 
 - **Framework:** Angular 18
-- **UI:** Material Design
+- **UI:** Material Design (Azure Material Theme)
 - **Icons:** Material Icons
 - **Styling:** Custom CSS
 - **State Management:** RxJS Services
@@ -137,11 +137,13 @@ Comprehensive documentation is available in the [`docs/`](./docs/) folder:
 ## 🎨 Design System
 
 ### Color Palette
-- Primary: Purple Gradient (#667eea → #764ba2)
-- Success: Green (#4caf50)
-- Warning: Orange (#ff9800)
-- Error: Red (#f44336)
-- Info: Blue (#2196f3)
+- Primary Green: #40b181 (green-500)
+- Dark Green: #32946e (green-700)
+- Light Green: #7ac9a7 (green-300)
+- Success: #3aa479 (green-600)
+- Warning: #f57c00 (orange)
+- Error: #d32f2f (red)
+- Info: #5dbd94 (green-400)
 
 ### Key Components
 - Card-based layouts
@@ -156,7 +158,7 @@ Comprehensive documentation is available in the [`docs/`](./docs/) folder:
 ## 📊 Project Structure
 
 ```
-just-go-green/
+time-for-green/
 ├── src/
 │   ├── app/
 │   │   ├── components/
@@ -255,7 +257,7 @@ just-go-green/
 
 ## 📝 License
 
-This project is part of the Wangari Hackathon.
+This project is part of the Wangari Maathai Hackathon.
 
 ---
 
@@ -263,7 +265,7 @@ This project is part of the Wangari Hackathon.
 
 - Inspired by environmental activists worldwide
 - Named in honor of environmental champions
-- Built for the Wangari Hackathon
+- Built for the Wangari Maathai Hackathon
 
 ---
 
