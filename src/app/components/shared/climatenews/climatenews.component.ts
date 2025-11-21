@@ -3,8 +3,6 @@ import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
-// import { environment } from '../../../../environments/environment';
-import { environment } from '@env/environment';
 
 interface NewsArticle {
   source: {
@@ -26,6 +24,11 @@ interface NewsResponse {
   articles: NewsArticle[];
 }
 
+interface AppConfig {
+  newsApiUrl: string;
+  newsApiKey: string;
+}
+
 @Component({
   selector: 'app-climatenews',
   imports: [CommonModule, HttpClientModule],
@@ -38,8 +41,8 @@ export class ClimatenewsComponent implements OnInit {
   error = false;
   errorMessage = '';
 
-  private readonly API_URL = environment.newsApi.apiUrl;
-  private readonly API_KEY = environment.newsApi.apiKey;
+  private API_URL = '';
+  private API_KEY = '';
 
   constructor(
     private http: HttpClient,
@@ -48,7 +51,23 @@ export class ClimatenewsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.fetchClimateNews();
+    this.loadConfig();
+  }
+
+  loadConfig() {
+    this.http.get<AppConfig>('/assets/config.json').subscribe({
+      next: (config) => {
+        this.API_URL = config.newsApiUrl;
+        this.API_KEY = config.newsApiKey;
+        this.fetchClimateNews();
+      },
+      error: (err) => {
+        console.error('Error loading config:', err);
+        this.error = true;
+        this.errorMessage = 'Failed to load configuration. Please try again later.';
+        this.loading = false;
+      }
+    });
   }
 
   fetchClimateNews() {
