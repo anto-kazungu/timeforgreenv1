@@ -5,7 +5,7 @@
       "src": "package.json",
       "use": "@vercel/static-build",
       "config": {
-        "distDir": "dist/timeforgreenv1"
+        "distDir": "dist/time-for-green/browser"
       }
     }
   ],
