@@ -1,10 +1,13 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { XPService } from '../../../services/xp.service';
+import { MatDialog } from '@angular/material/dialog';
+import { PointsService } from '../../../services/points.service';
+import { AlertDialogComponent } from '../../../shared/alert-dialog/alert-dialog.component';
 
 interface TreeLog {
   id: number;
+  treeCode: string;
   count: number;
   date: string;
   location: string;
@@ -12,6 +15,7 @@ interface TreeLog {
   notes: string | null;
   xpEarned: number;
   timestamp: string;
+  planterName?: string;
 }
 
 @Component({
@@ -25,6 +29,7 @@ export class TreeLoggerComponent implements OnInit {
   @Output() treesLogged = new EventEmitter<number>();
   
   showTreeForm = false;
+  showRetrievalForm = false;
   treesCount: number = 1;
   plantingDate: string = new Date().toISOString().split('T')[0];
   plantingLocation: string = '';
@@ -34,8 +39,17 @@ export class TreeLoggerComponent implements OnInit {
   treeLogSuccess = false;
   treePlantingLogs: TreeLog[] = [];
   totalTreesPlanted = 0;
+  
+  // Retrieval properties
+  searchCode: string = '';
+  retrievedTree: TreeLog | null = null;
+  retrievalMessage = '';
+  retrievalSuccess = false;
+  generatedCode: string = '';
 
-  constructor(private xpService: XPService) {}
+  private dialog = inject(MatDialog);
+
+  constructor(private pointsService: PointsService) {}
 
   ngOnInit() {
     this.loadTreePlantingLogs();
@@ -61,10 +75,14 @@ export class TreeLoggerComponent implements OnInit {
       return;
     }
 
+    // Calculate rewards: 10 XP and 5 Green Points per tree
     const xpEarned = this.treesCount * 10;
+    const greenPointsEarned = this.treesCount * 5;
+    const treeCode = this.generateTreeCode();
 
     const newLog: TreeLog = {
       id: Date.now(),
+      treeCode: treeCode,
       count: Number(this.treesCount),
       date: this.plantingDate,
       location: this.plantingLocation,
@@ -77,16 +95,95 @@ export class TreeLoggerComponent implements OnInit {
     this.treePlantingLogs.unshift(newLog);
     localStorage.setItem('treePlantingLogs', JSON.stringify(this.treePlantingLogs));
     this.calculateTotalTrees();
-    this.xpService.addXP(xpEarned, `Planted ${this.treesCount} tree${this.treesCount > 1 ? 's' : ''}`);
+    
+    // Add both Green Points and XP
+    this.pointsService.addPoints(
+      greenPointsEarned, 
+      `Planted ${this.treesCount} tree${this.treesCount > 1 ? 's' : ''}`,
+      xpEarned
+    );
 
-    this.treeLogMessage = `Successfully logged ${this.treesCount} tree${this.treesCount > 1 ? 's' : ''}! You earned ${xpEarned} XP!`;
+    this.generatedCode = treeCode;
+    this.treeLogMessage = `Successfully logged ${this.treesCount} tree${this.treesCount > 1 ? 's' : ''}! Earned ${xpEarned} XP and ${greenPointsEarned} Green Points.`;
     this.treeLogSuccess = true;
 
     setTimeout(() => {
       this.resetTreeForm();
       this.showTreeForm = false;
       this.treeLogMessage = '';
-    }, 3000);
+      this.generatedCode = '';
+    }, 5000);
+  }
+
+  generateTreeCode(): string {
+    const prefix = 'TREE';
+    const timestamp = Date.now().toString(36).toUpperCase();
+    const random = Math.random().toString(36).substring(2, 6).toUpperCase();
+    return `${prefix}-${timestamp}-${random}`;
+  }
+
+  retrieveTreeInfo() {
+    if (!this.searchCode) {
+      this.retrievalMessage = 'Please enter a tree code';
+      this.retrievalSuccess = false;
+      return;
+    }
+
+    const allLogs = localStorage.getItem('treePlantingLogs');
+    if (allLogs) {
+      const logs: TreeLog[] = JSON.parse(allLogs);
+      const found = logs.find(log => log.treeCode === this.searchCode.toUpperCase());
+
+      if (found) {
+        this.retrievedTree = found;
+        this.retrievalMessage = 'Tree information retrieved successfully!';
+        this.retrievalSuccess = true;
+      } else {
+        this.retrievedTree = null;
+        this.retrievalMessage = 'Tree code not found. Please check and try again.';
+        this.retrievalSuccess = false;
+      }
+    } else {
+      this.retrievalMessage = 'No tree records found.';
+      this.retrievalSuccess = false;
+    }
+  }
+
+  copyTreeCode(code: string) {
+    if (!code) {
+      this.dialog.open(AlertDialogComponent, {
+        data: {
+          title: 'No Code',
+          message: 'No code available to copy.',
+          type: 'error'
+        }
+      });
+      return;
+    }
+    navigator.clipboard.writeText(code).then(() => {
+      this.dialog.open(AlertDialogComponent, {
+        data: {
+          title: 'Success',
+          message: 'Tree code copied to clipboard!',
+          type: 'success'
+        }
+      });
+    }).catch(err => {
+      console.error('Failed to copy:', err);
+      this.dialog.open(AlertDialogComponent, {
+        data: {
+          title: 'Copy Failed',
+          message: `Failed to copy code. Please copy manually: ${code}`,
+          type: 'error'
+        }
+      });
+    });
+  }
+
+  resetRetrievalForm() {
+    this.searchCode = '';
+    this.retrievedTree = null;
+    this.retrievalMessage = '';
   }
 
   resetTreeForm() {

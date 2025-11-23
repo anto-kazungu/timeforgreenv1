@@ -11,9 +11,10 @@ import { TreeLoggerComponent } from '../../shared/tree-logger/tree-logger.compon
 
 @Component({
   selector: 'app-user-profile',
+  standalone: true,
   imports: [CommonModule, FormsModule, TreeLoggerComponent],
   templateUrl: './user-profile.component.html',
-  styleUrl: './user-profile.component.css'
+  styleUrls: ['./user-profile.component.css']
 })
 export class UserProfileComponent implements OnInit {
   user: any;
@@ -40,36 +41,11 @@ export class UserProfileComponent implements OnInit {
   totalTreesPlanted = 0;
 
   achievements = [
-    {
-      icon: '🌱',
-      title: 'First Steps',
-      description: 'Join your first community',
-      unlocked: true
-    },
-    {
-      icon: '♻️',
-      title: 'Recycling Champion',
-      description: 'Participate in 5 recycling events',
-      unlocked: false
-    },
-    {
-      icon: '🌳',
-      title: 'Tree Planter',
-      description: 'Plant 10 trees',
-      unlocked: true
-    },
-    {
-      icon: '💧',
-      title: 'Water Warrior',
-      description: 'Complete water conservation training',
-      unlocked: false
-    },
-    {
-      icon: '👥',
-      title: 'Community Leader',
-      description: 'Lead a community initiative',
-      unlocked: false
-    }
+    { icon: '🌱', title: 'First Steps', description: 'Join your first community', unlocked: true },
+    { icon: '♻️', title: 'Recycling Champion', description: 'Participate in 5 recycling events', unlocked: false },
+    { icon: '🌳', title: 'Tree Planter', description: 'Plant 10 trees', unlocked: true },
+    { icon: '💧', title: 'Water Warrior', description: 'Complete water conservation training', unlocked: false },
+    { icon: '👥', title: 'Community Leader', description: 'Lead a community initiative', unlocked: false }
   ];
 
   constructor(
@@ -92,35 +68,30 @@ export class UserProfileComponent implements OnInit {
     }
 
     this.communitiesCount = this.communityService.getUserCommunities().length;
-    
-    // Get events attended count
+
     const joinedEvents = localStorage.getItem('joinedEvents');
     if (joinedEvents) {
       this.eventsAttended = JSON.parse(joinedEvents).length;
     }
-    
-    // Get trainings completed count
+
     this.trainingsCompleted = this.trainingService.getOngoingTrainings().length;
-    
-    // Subscribe to green points changes
+
     this.pointsService.points$.subscribe(points => {
       this.greenPoints = points;
     });
-    
-    // Subscribe to XP and level changes
+
     this.xpService.xp$.subscribe(xp => {
       this.userXP = xp;
       this.updateLevelInfo();
     });
-    
-    // Load tree planting data
+
     this.loadTreesPlanted();
   }
-  
+
   private updateLevelInfo() {
     const currentLevel = this.xpService.getCurrentLevel();
     const nextLevel = this.xpService.getNextLevel();
-    
+
     this.userLevel = currentLevel.level;
     this.levelName = currentLevel.name;
     this.levelIcon = currentLevel.icon;
@@ -130,6 +101,11 @@ export class UserProfileComponent implements OnInit {
     this.nextLevelName = nextLevel ? nextLevel.name : 'Max Level';
   }
 
+  // Getter to safely show progress text
+  get progressText(): string {
+    return `${this.userXP} / ${this.userXP + this.xpToNextLevel} XP`;
+  }
+
   updateProfile() {
     if (!this.firstName || !this.lastName || !this.username || !this.email) {
       this.updateMessage = 'Please fill in all required fields';
@@ -137,22 +113,18 @@ export class UserProfileComponent implements OnInit {
       return;
     }
 
-    // Update user info (in a real app, this would call an API)
     this.user.firstName = this.firstName;
     this.user.lastName = this.lastName;
     this.user.username = this.username;
     this.user.email = this.email;
     this.user.bio = this.bio;
 
-    // Update in localStorage
     localStorage.setItem('currentUser', JSON.stringify(this.user));
 
     this.updateMessage = 'Profile updated successfully!';
     this.updateSuccess = true;
 
-    setTimeout(() => {
-      this.updateMessage = '';
-    }, 3000);
+    setTimeout(() => this.updateMessage = '', 3000);
   }
 
   resetForm() {
@@ -175,11 +147,11 @@ export class UserProfileComponent implements OnInit {
   }
 
   getUnlockedCount(): number {
-    return this.achievements.filter(achievement => achievement.unlocked).length;
+    return this.achievements.filter(a => a.unlocked).length;
   }
 
-  navigateTo(route: string) {
-    this.router.navigate([route]);
+  trackByTitle(index: number, item: any) {
+    return item.title;
   }
 
   private loadTreesPlanted() {

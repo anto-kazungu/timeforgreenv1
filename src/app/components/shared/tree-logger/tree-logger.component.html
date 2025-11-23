@@ -4,10 +4,103 @@
       <span class="material-symbols-outlined section-icon">park</span>
       Tree Planting Log
     </h2>
-    <button class="action-btn" (click)="showTreeForm = !showTreeForm">
-      <span class="material-symbols-outlined">{{ showTreeForm ? 'close' : 'add' }}</span>
-      {{ showTreeForm ? 'Cancel' : 'Log Trees' }}
-    </button>
+    <div class="header-actions">
+      <button class="action-btn secondary" (click)="showRetrievalForm = !showRetrievalForm; showTreeForm = false">
+        <span class="material-symbols-outlined">{{ showRetrievalForm ? 'close' : 'search' }}</span>
+        {{ showRetrievalForm ? 'Cancel' : 'Find Tree' }}
+      </button>
+      <button class="action-btn" (click)="showTreeForm = !showTreeForm; showRetrievalForm = false">
+        <span class="material-symbols-outlined">{{ showTreeForm ? 'close' : 'add' }}</span>
+        {{ showTreeForm ? 'Cancel' : 'Log Trees' }}
+      </button>
+    </div>
+  </div>
+
+  <!-- Tree Retrieval Form -->
+  <div class="form-card retrieval-card" *ngIf="showRetrievalForm">
+    <div class="retrieval-header">
+      <span class="material-symbols-outlined">search</span>
+      <h3>Find Your Tree</h3>
+    </div>
+    <p class="retrieval-description">Enter your unique tree code to retrieve planting information</p>
+    
+    <div class="form-group">
+      <label>
+        <span class="material-symbols-outlined">qr_code</span>
+        Tree Code
+      </label>
+      <input 
+        type="text" 
+        [(ngModel)]="searchCode" 
+        name="searchCode"
+        placeholder="e.g., TREE-ABC123-XYZ4"
+        (input)="searchCode = searchCode.toUpperCase()"
+        class="code-input"
+      />
+    </div>
+
+    <div class="message" *ngIf="retrievalMessage" [class.success]="retrievalSuccess" [class.error]="!retrievalSuccess">
+      <span class="material-symbols-outlined">{{ retrievalSuccess ? 'check_circle' : 'error' }}</span>
+      {{ retrievalMessage }}
+    </div>
+
+    <div class="form-actions">
+      <button type="button" class="cancel-btn" (click)="resetRetrievalForm()">
+        <span class="material-symbols-outlined">refresh</span>
+        Reset
+      </button>
+      <button type="button" class="save-btn" (click)="retrieveTreeInfo()">
+        <span class="material-symbols-outlined">search</span>
+        Search
+      </button>
+    </div>
+
+    <!-- Retrieved Tree Information -->
+    <div class="retrieved-tree-info" *ngIf="retrievedTree">
+      <div class="info-header">
+        <span class="material-symbols-outlined">info</span>
+        <h4>Tree Information</h4>
+      </div>
+      <div class="info-grid">
+        <div class="info-item">
+          <span class="info-label">Tree Code</span>
+          <div class="code-display">
+            <span class="info-value code">{{ retrievedTree?.treeCode }}</span>
+            <button class="copy-btn" (click)="copyTreeCode(retrievedTree?.treeCode || '')" title="Copy code">
+              <span class="material-symbols-outlined">content_copy</span>
+            </button>
+          </div>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Number of Trees</span>
+          <span class="info-value">{{ retrievedTree.count }} {{ retrievedTree.count === 1 ? 'Tree' : 'Trees' }}</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Planting Date</span>
+          <span class="info-value">{{ formatDate(retrievedTree.date) }}</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Location</span>
+          <span class="info-value">{{ retrievedTree.location }}</span>
+        </div>
+        <div class="info-item" *ngIf="retrievedTree.species">
+          <span class="info-label">Species</span>
+          <span class="info-value">{{ retrievedTree.species }}</span>
+        </div>
+        <div class="info-item" *ngIf="retrievedTree.notes">
+          <span class="info-label">Notes</span>
+          <span class="info-value">{{ retrievedTree.notes }}</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">XP Earned</span>
+          <span class="info-value xp">{{ retrievedTree.xpEarned }} XP</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Logged On</span>
+          <span class="info-value">{{ formatDate(retrievedTree.timestamp) }}</span>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- Tree Logging Form -->
@@ -83,12 +176,22 @@
         ></textarea>
       </div>
 
-      @if (treeLogMessage) {
-        <div class="message" [class.success]="treeLogSuccess" [class.error]="!treeLogSuccess">
-          <span class="material-symbols-outlined">{{ treeLogSuccess ? 'check_circle' : 'error' }}</span>
-          {{ treeLogMessage }}
+      <div class="message" *ngIf="treeLogMessage" [class.success]="treeLogSuccess" [class.error]="!treeLogSuccess">
+        <span class="material-symbols-outlined">{{ treeLogSuccess ? 'check_circle' : 'error' }}</span>
+        <div class="message-content">
+          <p>{{ treeLogMessage }}</p>
+          <div class="code-display-success" *ngIf="generatedCode">
+            <span class="code-label">Your Tree Code:</span>
+            <div class="code-box">
+              <span class="code-value">{{ generatedCode }}</span>
+              <button class="copy-btn-small" (click)="copyTreeCode(generatedCode)" title="Copy code">
+                <span class="material-symbols-outlined">content_copy</span>
+              </button>
+            </div>
+            <span class="code-hint">Save this code to track your tree!</span>
+          </div>
         </div>
-      }
+      </div>
 
       <div class="form-actions">
         <button type="button" class="cancel-btn" (click)="resetTreeForm()">
@@ -103,43 +206,37 @@
     </form>
   </div>
 
-  <!-- Tree Planting History -->
-  <div class="tree-history" *ngIf="treePlantingLogs.length > 0">
-    <h3 class="history-title">
-      <span class="material-symbols-outlined">history</span>
-      Planting History
-    </h3>
-    <div class="tree-log-grid">
-      <div class="tree-log-card" *ngFor="let log of treePlantingLogs">
-        <div class="tree-log-header">
-          <div class="tree-count-badge">
-            <span class="material-symbols-outlined">park</span>
-            <span class="tree-count">{{ log.count }} {{ log.count === 1 ? 'Tree' : 'Trees' }}</span>
-          </div>
-          <span class="log-date">{{ formatDate(log.date) }}</span>
+  <!-- Recent Tree Codes -->
+  <div class="recent-codes" *ngIf="treePlantingLogs.length > 0">
+    <div class="recent-header">
+      <h3 class="recent-title">
+        <span class="material-symbols-outlined">history</span>
+        Recent Tree Codes
+      </h3>
+      <span class="total-count">{{ totalTreesPlanted }} trees planted</span>
+    </div>
+    <div class="codes-grid">
+      <div class="code-card" *ngFor="let log of treePlantingLogs.slice(0, 3)">
+        <div class="code-card-header">
+          <span class="material-symbols-outlined code-icon">qr_code</span>
+          <span class="tree-count-mini">{{ log.count }} {{ log.count === 1 ? 'tree' : 'trees' }}</span>
         </div>
-        <div class="tree-log-details">
-          <div class="detail-item">
-            <span class="material-symbols-outlined">location_on</span>
-            <span>{{ log.location }}</span>
-          </div>
-          <div class="detail-item" *ngIf="log.species">
-            <span class="material-symbols-outlined">nature</span>
-            <span>{{ log.species }}</span>
-          </div>
-          <div class="detail-item" *ngIf="log.notes">
-            <span class="material-symbols-outlined">description</span>
-            <span>{{ log.notes }}</span>
-          </div>
+        <div class="code-value-display">
+          <span class="code-text">{{ log?.treeCode }}</span>
+          <button class="copy-btn-mini" (click)="copyTreeCode(log?.treeCode || '')" title="Copy">
+            <span class="material-symbols-outlined">content_copy</span>
+          </button>
         </div>
-        <div class="tree-log-footer">
-          <span class="xp-earned">
-            <span class="material-symbols-outlined">stars</span>
-            +{{ log.xpEarned }} XP
-          </span>
+        <div class="code-meta">
+          <span class="code-date">{{ formatDate(log.date) }}</span>
+          <span class="code-xp">+{{ log.xpEarned }} XP</span>
         </div>
       </div>
     </div>
+    <p class="search-hint">
+      <span class="material-symbols-outlined">info</span>
+      Use "Find Tree" to view complete details for any tree code
+    </p>
   </div>
 
   <div class="empty-state" *ngIf="treePlantingLogs.length === 0 && !showTreeForm">
