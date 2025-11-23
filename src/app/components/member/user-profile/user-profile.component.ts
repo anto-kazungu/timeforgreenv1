@@ -7,10 +7,11 @@ import { CommunityService } from '../../../services/community.service';
 import { TrainingService } from '../../../services/training.service';
 import { PointsService } from '../../../services/points.service';
 import { XPService } from '../../../services/xp.service';
+import { TreeLoggerComponent } from '../../shared/tree-logger/tree-logger.component';
 
 @Component({
   selector: 'app-user-profile',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, TreeLoggerComponent],
   templateUrl: './user-profile.component.html',
   styleUrl: './user-profile.component.css'
 })
@@ -36,6 +37,7 @@ export class UserProfileComponent implements OnInit {
   updateMessage = '';
   updateSuccess = false;
   editMode = false;
+  totalTreesPlanted = 0;
 
   achievements = [
     {
@@ -110,6 +112,9 @@ export class UserProfileComponent implements OnInit {
       this.userXP = xp;
       this.updateLevelInfo();
     });
+    
+    // Load tree planting data
+    this.loadTreesPlanted();
   }
   
   private updateLevelInfo() {
@@ -175,5 +180,17 @@ export class UserProfileComponent implements OnInit {
 
   navigateTo(route: string) {
     this.router.navigate([route]);
+  }
+
+  private loadTreesPlanted() {
+    const logs = localStorage.getItem('treePlantingLogs');
+    if (logs) {
+      const treeLogs = JSON.parse(logs);
+      this.totalTreesPlanted = treeLogs.reduce((total: number, log: any) => total + log.count, 0);
+    }
+  }
+
+  onTreesLogged(total: number) {
+    this.totalTreesPlanted = total;
   }
 }

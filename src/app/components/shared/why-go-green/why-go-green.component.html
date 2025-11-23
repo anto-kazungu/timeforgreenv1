@@ -1,169 +1,294 @@
 <div class="why-container">
+  <!-- Hero Section with Parallax Effect -->
   <div class="hero-section">
+    <div class="hero-background"></div>
     <div class="hero-content">
-      <img src="./assets/logov2.png" alt="Just Go Green Logo" class="hero-logo">
-      <h1>
-        <span class="material-symbols-outlined hero-icon">public</span>
-        Why Go Green?
+      <img src="./assets/logov2.png" alt="Time For Green Logo" class="hero-logo">
+      <h1 class="hero-title">
+        <span class="title-line">Why Go</span>
+        <span class="title-highlight">Green?</span>
       </h1>
-      <p class="hero-subtitle">Understanding the urgency of environmental conservation</p>
+      <p class="hero-subtitle">Join the movement to protect our planet and create a sustainable future</p>
+      <div class="scroll-indicator">
+        <span class="material-symbols-outlined">expand_more</span>
+      </div>
     </div>
   </div>
 
-  <div class="content">
-    <div class="info-card">
-      <div class="card-image" style="background: linear-gradient(135deg, rgba(255,107,107,0.8), rgba(255,159,64,0.8)), url('./assets/component-images/road-pollution.jpg'); background-size: cover; background-position: center;">
-        <div class="card-icon">
+  <!-- Stats Overview -->
+  <div class="stats-section">
+    <div class="stats-container">
+      <div class="stat-card">
+        <div class="stat-icon climate">
+          <span class="material-symbols-outlined">thermostat</span>
+        </div>
+        <div class="stat-content">
+          <h3 class="stat-number">+1.5°C</h3>
+          <p class="stat-label">Global Temperature Rise</p>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon biodiversity">
+          <span class="material-symbols-outlined">pets</span>
+        </div>
+        <div class="stat-content">
+          <h3 class="stat-number">1M+</h3>
+          <p class="stat-label">Species at Risk</p>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon water">
+          <span class="material-symbols-outlined">water_drop</span>
+        </div>
+        <div class="stat-content">
+          <h3 class="stat-number">2.2B</h3>
+          <p class="stat-label">Without Safe Water</p>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon pollution">
+          <span class="material-symbols-outlined">delete</span>
+        </div>
+        <div class="stat-content">
+          <h3 class="stat-number">8M</h3>
+          <p class="stat-label">Tons Plastic/Year</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="content-section">
+    <div class="section-header">
+      <h2>The Challenges We Face</h2>
+      <p>Understanding the environmental crisis is the first step toward meaningful action</p>
+    </div>
+
+    <!-- Climate Crisis -->
+    <div class="issue-card left">
+      <div class="issue-image climate-bg">
+        <div class="issue-overlay"></div>
+        <div class="issue-icon">
           <span class="material-symbols-outlined">thermostat</span>
         </div>
       </div>
-      <div class="card-content">
-        <h2>Climate Crisis</h2>
+      <div class="issue-content">
+        <div class="issue-badge climate">Climate Crisis</div>
+        <h3>Our Planet is Warming</h3>
         <p>
-          Our planet is warming at an unprecedented rate. Global temperatures have risen by 1.1°C since pre-industrial times, 
-          leading to more frequent extreme weather events, melting ice caps, and rising sea levels. Scientists warn that we have 
-          less than a decade to take decisive action to prevent catastrophic climate change.
+          Global temperatures have risen by 1.1°C since pre-industrial times, leading to more frequent 
+          extreme weather events, melting ice caps, and rising sea levels. Scientists warn that we have 
+          less than a decade to take decisive action.
         </p>
-        <div class="stat-highlight">
-          <span class="stat-number">1.5°C</span>
-          <span class="stat-label">Critical warming threshold</span>
+        <div class="issue-stats">
+          <div class="mini-stat">
+            <span class="mini-number">1.5°C</span>
+            <span class="mini-label">Critical threshold</span>
+          </div>
+          <div class="mini-stat">
+            <span class="mini-number">2030</span>
+            <span class="mini-label">Deadline for action</span>
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="info-card">
-      <div class="card-image" style="background: linear-gradient(135deg, rgba(76,175,80,0.8), rgba(56,142,60,0.8)), url('./assets/component-images/community.jpg'); background-size: cover; background-position: center;">
-        <div class="card-icon">
+    <!-- Biodiversity Loss -->
+    <div class="issue-card right">
+      <div class="issue-content">
+        <div class="issue-badge biodiversity">Biodiversity Loss</div>
+        <h3>Sixth Mass Extinction</h3>
+        <p>
+          Over 1 million species are at risk of extinction, disrupting ecosystems that have taken millions 
+          of years to develop. Every species plays a crucial role in maintaining the delicate balance of 
+          our planet's ecosystems.
+        </p>
+        <div class="issue-stats">
+          <div class="mini-stat">
+            <span class="mini-number">1M+</span>
+            <span class="mini-label">Species threatened</span>
+          </div>
+          <div class="mini-stat">
+            <span class="mini-number">75%</span>
+            <span class="mini-label">Habitat loss</span>
+          </div>
+        </div>
+      </div>
+      <div class="issue-image biodiversity-bg">
+        <div class="issue-overlay"></div>
+        <div class="issue-icon">
           <span class="material-symbols-outlined">pets</span>
         </div>
       </div>
-      <div class="card-content">
-        <h2>Biodiversity Loss</h2>
-        <p>
-          We're experiencing the sixth mass extinction event in Earth's history, but this time it's human-caused. 
-          Over 1 million species are at risk of extinction, disrupting ecosystems that have taken millions of years to develop. 
-          Every species plays a crucial role in maintaining the delicate balance of our planet's ecosystems.
-        </p>
-        <div class="stat-highlight">
-          <span class="stat-number">1M+</span>
-          <span class="stat-label">Species at risk</span>
-        </div>
-      </div>
     </div>
 
-    <div class="info-card">
-      <div class="card-image" style="background: linear-gradient(135deg, rgba(33,150,243,0.8), rgba(25,118,210,0.8)), url('./assets/component-images/river.jpg'); background-size: cover; background-position: center;">
-        <div class="card-icon">
+    <!-- Water Scarcity -->
+    <div class="issue-card left">
+      <div class="issue-image water-bg">
+        <div class="issue-overlay"></div>
+        <div class="issue-icon">
           <span class="material-symbols-outlined">water_drop</span>
         </div>
       </div>
-      <div class="card-content">
-        <h2>Water Scarcity</h2>
+      <div class="issue-content">
+        <div class="issue-badge water">Water Scarcity</div>
+        <h3>Our Most Vital Resource</h3>
         <p>
-          Clean water is becoming increasingly scarce. By 2025, half of the world's population will live in water-stressed areas. 
-          Pollution, over-extraction, and climate change are threatening our most vital resource. Every drop counts, and 
-          conservation efforts today will determine water availability for future generations.
+          By 2025, half of the world's population will live in water-stressed areas. Pollution, 
+          over-extraction, and climate change are threatening clean water access. Every drop counts, 
+          and conservation efforts today determine water availability for future generations.
         </p>
-        <div class="stat-highlight">
-          <span class="stat-number">2.2B</span>
-          <span class="stat-label">People lack safe drinking water</span>
+        <div class="issue-stats">
+          <div class="mini-stat">
+            <span class="mini-number">2.2B</span>
+            <span class="mini-label">Lack safe water</span>
+          </div>
+          <div class="mini-stat">
+            <span class="mini-number">50%</span>
+            <span class="mini-label">In water stress by 2025</span>
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="info-card">
-      <div class="card-image" style="background: linear-gradient(135deg, rgba(156,39,176,0.8), rgba(123,31,162,0.8)), url('./assets/component-images/pollutedriver.jpg'); background-size: cover; background-position: center;">
-        <div class="card-icon">
+    <!-- Plastic Pollution -->
+    <div class="issue-card right">
+      <div class="issue-content">
+        <div class="issue-badge pollution">Plastic Pollution</div>
+        <h3>Choking Our Oceans</h3>
+        <p>
+          Every year, 8 million tons of plastic waste enter our oceans, harming marine life and entering 
+          our food chain. Microplastics have been found everywhere from the deepest ocean trenches to the 
+          highest mountain peaks.
+        </p>
+        <div class="issue-stats">
+          <div class="mini-stat">
+            <span class="mini-number">8M</span>
+            <span class="mini-label">Tons yearly</span>
+          </div>
+          <div class="mini-stat">
+            <span class="mini-number">2050</span>
+            <span class="mini-label">More plastic than fish</span>
+          </div>
+        </div>
+      </div>
+      <div class="issue-image pollution-bg">
+        <div class="issue-overlay"></div>
+        <div class="issue-icon">
           <span class="material-symbols-outlined">delete</span>
         </div>
       </div>
-      <div class="card-content">
-        <h2>Plastic Pollution</h2>
-        <p>
-          Every year, 8 million tons of plastic waste enter our oceans, harming marine life and entering our food chain. 
-          Microplastics have been found in the deepest ocean trenches and highest mountain peaks. If current trends continue, 
-          there will be more plastic than fish in the ocean by 2050.
-        </p>
-        <div class="stat-highlight">
-          <span class="stat-number">8M</span>
-          <span class="stat-label">Tons of plastic in oceans yearly</span>
-        </div>
-      </div>
     </div>
 
-    <div class="info-card">
-      <div class="card-image" style="background: linear-gradient(135deg, rgba(139,195,74,0.8), rgba(104,159,56,0.8)), url('./assets/component-images/training.jpg'); background-size: cover; background-position: center;">
-        <div class="card-icon">
+    <!-- Deforestation -->
+    <div class="issue-card left">
+      <div class="issue-image forest-bg">
+        <div class="issue-overlay"></div>
+        <div class="issue-icon">
           <span class="material-symbols-outlined">park</span>
         </div>
       </div>
-      <div class="card-content">
-        <h2>Deforestation</h2>
+      <div class="issue-content">
+        <div class="issue-badge forest">Deforestation</div>
+        <h3>Losing Earth's Lungs</h3>
         <p>
-          Forests are the lungs of our planet, yet we're losing them at an alarming rate. Every minute, an area of forest 
-          the size of 27 football fields is destroyed. Deforestation contributes to climate change, destroys habitats, 
-          and threatens indigenous communities who depend on forests for their survival.
+          Every minute, an area of forest the size of 27 football fields is destroyed. Deforestation 
+          contributes to climate change, destroys habitats, and threatens indigenous communities who 
+          depend on forests for their survival.
         </p>
-        <div class="stat-highlight">
-          <span class="stat-number">10M</span>
-          <span class="stat-label">Hectares lost annually</span>
+        <div class="issue-stats">
+          <div class="mini-stat">
+            <span class="mini-number">10M</span>
+            <span class="mini-label">Hectares lost/year</span>
+          </div>
+          <div class="mini-stat">
+            <span class="mini-number">27</span>
+            <span class="mini-label">Football fields/minute</span>
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="info-card">
-      <div class="card-image" style="background: linear-gradient(135deg, rgba(158,158,158,0.8), rgba(97,97,97,0.8)), url('./assets/component-images/pollutedriver2.jpg'); background-size: cover; background-position: center;">
-        <div class="card-icon">
+    <!-- Air Pollution -->
+    <div class="issue-card right">
+      <div class="issue-content">
+        <div class="issue-badge air">Air Pollution</div>
+        <h3>The Air We Breathe</h3>
+        <p>
+          Air pollution kills 7 million people every year and affects billions more. From vehicle emissions 
+          to industrial pollutants, the air we breathe is increasingly toxic. Clean air is a fundamental 
+          human right that we must fight to protect.
+        </p>
+        <div class="issue-stats">
+          <div class="mini-stat">
+            <span class="mini-number">7M</span>
+            <span class="mini-label">Deaths annually</span>
+          </div>
+          <div class="mini-stat">
+            <span class="mini-number">91%</span>
+            <span class="mini-label">Breathe polluted air</span>
+          </div>
+        </div>
+      </div>
+      <div class="issue-image air-bg">
+        <div class="issue-overlay"></div>
+        <div class="issue-icon">
           <span class="material-symbols-outlined">factory</span>
         </div>
       </div>
-      <div class="card-content">
-        <h2>Air Pollution</h2>
-        <p>
-          Air pollution kills 7 million people every year and affects billions more. From vehicle emissions to industrial 
-          pollutants, the air we breathe is increasingly toxic. Children, elderly, and those with respiratory conditions 
-          are particularly vulnerable. Clean air is a fundamental human right that we must fight to protect.
-        </p>
-        <div class="stat-highlight">
-          <span class="stat-number">7M</span>
-          <span class="stat-label">Deaths annually from air pollution</span>
-        </div>
-      </div>
     </div>
+  </div>
 
-    <div class="action-section">
-      <h2>
-        <span class="material-symbols-outlined action-icon">star</span>
-        The Time to Act is NOW
-      </h2>
-      <p class="action-text">
-        Every action counts. Whether it's reducing waste, conserving water, planting trees, or joining a community initiative, 
-        your contribution matters. Together, we can create a sustainable future for generations to come.
+  <!-- Call to Action Section -->
+  <div class="cta-section">
+    <div class="cta-content">
+      <div class="cta-icon-wrapper">
+        <span class="material-symbols-outlined">eco</span>
+      </div>
+      <h2>The Time to Act is NOW</h2>
+      <p class="cta-description">
+        Every action counts. Whether it's reducing waste, conserving water, planting trees, or joining 
+        a community initiative, your contribution matters. Together, we can create a sustainable future 
+        for generations to come.
       </p>
-      
-      <div class="benefits-grid">
-        <div class="benefit-item">
-          <span class="material-symbols-outlined benefit-icon">favorite</span>
-          <span class="benefit-text">Healthier Planet</span>
+
+      <div class="impact-grid">
+        <div class="impact-item">
+          <div class="impact-icon">
+            <span class="material-symbols-outlined">favorite</span>
+          </div>
+          <h4>Healthier Planet</h4>
+          <p>Reduce pollution and protect ecosystems</p>
         </div>
-        <div class="benefit-item">
-          <span class="material-symbols-outlined benefit-icon">eco</span>
-          <span class="benefit-text">Sustainable Future</span>
+        <div class="impact-item">
+          <div class="impact-icon">
+            <span class="material-symbols-outlined">groups</span>
+          </div>
+          <h4>Community Impact</h4>
+          <p>Join thousands making a difference</p>
         </div>
-        <div class="benefit-item">
-          <span class="material-symbols-outlined benefit-icon">family_restroom</span>
-          <span class="benefit-text">Better Tomorrow</span>
+        <div class="impact-item">
+          <div class="impact-icon">
+            <span class="material-symbols-outlined">child_care</span>
+          </div>
+          <h4>Better Tomorrow</h4>
+          <p>Secure a future for next generations</p>
         </div>
-        <div class="benefit-item">
-          <span class="material-symbols-outlined benefit-icon">handshake</span>
-          <span class="benefit-text">Community Impact</span>
+        <div class="impact-item">
+          <div class="impact-icon">
+            <span class="material-symbols-outlined">handshake</span>
+          </div>
+          <h4>Collective Action</h4>
+          <p>Together we're stronger</p>
         </div>
       </div>
 
-      <button class="go-green-btn" (click)="goToProfile()">
+      <button class="cta-button" (click)="goToProfile()">
+        <span class="button-text">Start Your Green Journey</span>
         <span class="material-symbols-outlined">arrow_forward</span>
-        Go Green Now
       </button>
+
+      <p class="cta-note">Join our community and start making an impact today</p>
     </div>
   </div>
 </div>

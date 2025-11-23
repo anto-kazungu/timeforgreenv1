@@ -334,7 +334,7 @@ The Climate News component integrates with [News API](https://newsapi.org/) to f
 
 ## License
 
-This project is part of the Wangari Maathai Hackathon.
+This project is part of the Inaugural Wangari Maathai Hackathon
 
 ---
 
@@ -342,7 +342,7 @@ This project is part of the Wangari Maathai Hackathon.
 
 - Inspired by environmental activists worldwide
 - Named in honor of environmental champions
-- Built for the Wangari Maathai Hackathon
+- Built for the Inaugural Wangari Maathai Hackathon
 
 ---
 

@@ -20,6 +20,7 @@ export class DonorDashboardComponent implements OnInit {
   userLevel = 4;
   levelName = 'Champion';
   levelIcon = 'volunteer_activism';
+  totalTreesPlanted = 0;
   
   recentDonations: Donation[] = [];
   activeProjects: Project[] = [];
@@ -36,6 +37,7 @@ export class DonorDashboardComponent implements OnInit {
   stats = [
     { label: 'Total Donated', value: 'Ksh 0', icon: 'payments', color: '#667eea' },
     { label: 'Projects Funded', value: 0, icon: 'campaign', color: '#f093fb' },
+    { label: 'Trees Planted', value: 0, icon: 'park', color: '#00d084' },
     { label: 'Lives Impacted', value: 0, icon: 'favorite', color: '#43e97b' },
     { label: 'CO₂ Reduced', value: '0 tons', icon: 'eco', color: '#fa709a' }
   ];
@@ -107,11 +109,23 @@ export class DonorDashboardComponent implements OnInit {
     // Calculate impact
     this.donationImpact = this.donationService.getDonorImpact(donorId);
 
+    // Load trees planted
+    this.loadTreesPlanted();
+
     // Update stats
     this.stats[0].value = `Ksh ${this.donationImpact.totalDonated.toLocaleString()}`;
     this.stats[1].value = this.donationImpact.projectsFunded;
-    this.stats[2].value = this.donationImpact.livesImpacted;
-    this.stats[3].value = `${this.donationImpact.co2Reduced} tons`;
+    this.stats[2].value = this.totalTreesPlanted;
+    this.stats[3].value = this.donationImpact.livesImpacted;
+    this.stats[4].value = `${this.donationImpact.co2Reduced} tons`;
+  }
+
+  private loadTreesPlanted() {
+    const logs = localStorage.getItem('treePlantingLogs');
+    if (logs) {
+      const treeLogs = JSON.parse(logs);
+      this.totalTreesPlanted = treeLogs.reduce((total: number, log: any) => total + log.count, 0);
+    }
   }
 
   navigateTo(route: string) {

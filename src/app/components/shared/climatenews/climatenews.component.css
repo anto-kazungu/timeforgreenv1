@@ -1,33 +1,46 @@
 .climatenews-container {
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, 
+    #e8f5f0 0%,
+    #c6e7d9 25%,
+    #a0d8c0 50%,
+    #7ac9a7 75%,
+    #5dbd94 100%);
   padding-bottom: 2rem;
+  font-family: 'Poppins', sans-serif;
 }
 
 .header {
   display: flex;
   justify-content: space-between;
-  padding: 1rem;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
+  padding: 1.5rem 2rem;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 4px 20px rgba(0, 208, 132, 0.1);
+  border-bottom: 1px solid rgba(0, 208, 132, 0.2);
 }
 
 .back-btn,
 .logout-btn {
-  padding: 0.5rem 1rem;
+  padding: 0.75rem 1.5rem;
   border: none;
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.2);
-  color: white;
+  border-radius: 25px;
+  background: rgba(0, 208, 132, 0.1);
+  color: #00d084;
   cursor: pointer;
   font-size: 0.9rem;
-  transition: all 0.3s ease;
+  font-weight: 500;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-family: 'Poppins', sans-serif;
 }
 
 .back-btn:hover,
 .logout-btn:hover {
-  background: rgba(255, 255, 255, 0.3);
+  background: #00d084;
+  color: white;
   transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 208, 132, 0.3);
 }
 
 .content {
@@ -39,40 +52,55 @@
 .page-header {
   text-align: center;
   margin-bottom: 3rem;
-  color: white;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 24px;
+  padding: 3rem 2rem;
+  box-shadow: 0 8px 32px rgba(0, 208, 132, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .page-title {
   font-size: 2.5rem;
-  font-weight: 700;
+  font-weight: 800;
   margin-bottom: 0.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
+  color: #2d3748;
 }
 
 .page-title .material-symbols-outlined {
   font-size: 3rem;
+  color: #00d084;
 }
 
 .subtitle {
   font-size: 1.1rem;
-  opacity: 0.9;
+  color: #4a5568;
+  font-weight: 400;
 }
 
 /* Loading State */
 .loading-state {
   text-align: center;
   padding: 4rem 2rem;
-  color: white;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 24px;
+  margin: 2rem;
+  box-shadow: 0 8px 32px rgba(0, 208, 132, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .spinner {
   width: 50px;
   height: 50px;
-  border: 4px solid rgba(255, 255, 255, 0.3);
-  border-top-color: white;
+  border: 4px solid rgba(0, 208, 132, 0.3);
+  border-top-color: #00d084;
   border-radius: 50%;
   animation: spin 1s linear infinite;
   margin: 0 auto 1rem;
@@ -86,33 +114,40 @@
 .error-state {
   text-align: center;
   padding: 4rem 2rem;
-  color: white;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 24px;
+  margin: 2rem;
+  box-shadow: 0 8px 32px rgba(0, 208, 132, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .error-icon {
   font-size: 4rem;
   margin-bottom: 1rem;
-  opacity: 0.8;
+  color: #00d084;
 }
 
 .retry-btn {
   margin-top: 1.5rem;
   padding: 0.75rem 1.5rem;
   border: none;
-  border-radius: 8px;
-  background: white;
-  color: #667eea;
+  border-radius: 25px;
+  background: linear-gradient(135deg, #00d084 0%, #00b870 100%);
+  color: white;
   font-weight: 600;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-family: 'Poppins', sans-serif;
 }
 
 .retry-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 6px 20px rgba(0, 208, 132, 0.3);
 }
 
 /* News Grid */
@@ -123,17 +158,21 @@
 }
 
 .news-card {
-  background: white;
-  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 20px;
   overflow: hidden;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 16px rgba(0, 208, 132, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .news-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  transform: translateY(-8px);
+  box-shadow: 0 12px 32px rgba(0, 208, 132, 0.2);
+  border-color: rgba(0, 208, 132, 0.3);
 }
 
 .news-image {
@@ -225,10 +264,10 @@
 }
 
 .read-more-btn {
-  padding: 0.5rem 1rem;
+  padding: 0.6rem 1.2rem;
   border: none;
-  border-radius: 6px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 20px;
+  background: linear-gradient(135deg, #00d084 0%, #00b870 100%);
   color: white;
   font-weight: 600;
   font-size: 0.85rem;
@@ -236,11 +275,13 @@
   display: flex;
   align-items: center;
   gap: 0.25rem;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-family: 'Poppins', sans-serif;
 }
 
 .read-more-btn:hover {
-  transform: scale(1.05);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 208, 132, 0.3);
 }
 
 .read-more-btn .material-symbols-outlined {

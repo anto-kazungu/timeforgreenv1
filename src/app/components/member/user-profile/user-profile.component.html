@@ -102,6 +102,15 @@
           </div>
         </div>
         <div class="stat-card">
+          <div class="stat-icon" style="color: #00d084;">
+            <span class="material-symbols-outlined">park</span>
+          </div>
+          <div class="stat-info">
+            <span class="stat-value">{{ totalTreesPlanted }}</span>
+            <span class="stat-label">Trees Planted</span>
+          </div>
+        </div>
+        <div class="stat-card">
           <div class="stat-icon" style="color: #764ba2;">
             <span class="material-symbols-outlined">groups</span>
           </div>
@@ -264,136 +273,9 @@
       </div>
     </div>
 
-    <!-- Achievements Section (Members Only) -->
-    <div class="section" *ngIf="user?.role === 'member'">
-      <div class="section-header">
-        <h2>
-          <span class="material-symbols-outlined section-icon">emoji_events</span>
-          Achievements
-        </h2>
-        <span class="achievement-count">{{ getUnlockedCount() }}/{{ achievements.length }} Unlocked</span>
-      </div>
-
-      <div class="achievements-grid">
-        <div class="achievement-card" *ngFor="let achievement of achievements" [class.unlocked]="achievement.unlocked">
-          <div class="achievement-icon">
-            <span class="achievement-emoji">{{ achievement.icon }}</span>
-            <div class="achievement-status">
-              <span class="material-symbols-outlined" *ngIf="achievement.unlocked">check_circle</span>
-              <span class="material-symbols-outlined" *ngIf="!achievement.unlocked">lock</span>
-            </div>
-          </div>
-          <div class="achievement-info">
-            <h3>{{ achievement.title }}</h3>
-            <p>{{ achievement.description }}</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Quick Actions Section -->
-    <div class="section">
-      <div class="section-header">
-        <h2>
-          <span class="material-symbols-outlined section-icon">bolt</span>
-          Quick Actions
-        </h2>
-      </div>
-
-      <div class="actions-grid" *ngIf="user?.role === 'member'">
-        <button class="action-card" (click)="navigateTo('/community')">
-          <span class="material-symbols-outlined action-icon">groups</span>
-          <span class="action-label">My Communities</span>
-        </button>
-        <button class="action-card" (click)="navigateTo('/trainings')">
-          <span class="material-symbols-outlined action-icon">school</span>
-          <span class="action-label">Training Modules</span>
-        </button>
-        <button class="action-card" (click)="navigateTo('/events')">
-          <span class="material-symbols-outlined action-icon">event</span>
-          <span class="action-label">Upcoming Events</span>
-        </button>
-        <button class="action-card" (click)="navigateTo('/rewards')">
-          <span class="material-symbols-outlined action-icon">redeem</span>
-          <span class="action-label">Redeem Rewards</span>
-        </button>
-      </div>
-
-      <div class="actions-grid" *ngIf="user?.role === 'admin'">
-        <button class="action-card" (click)="navigateTo('/admin')">
-          <span class="material-symbols-outlined action-icon">dashboard</span>
-          <span class="action-label">Admin Dashboard</span>
-        </button>
-        <button class="action-card" (click)="navigateTo('/admin')">
-          <span class="material-symbols-outlined action-icon">people</span>
-          <span class="action-label">User Management</span>
-        </button>
-        <button class="action-card" (click)="navigateTo('/admin')">
-          <span class="material-symbols-outlined action-icon">article</span>
-          <span class="action-label">Content Management</span>
-        </button>
-        <button class="action-card" (click)="navigateTo('/admin')">
-          <span class="material-symbols-outlined action-icon">report</span>
-          <span class="action-label">Reports</span>
-        </button>
-      </div>
-
-      <div class="actions-grid" *ngIf="user?.role === 'mentor'">
-        <button class="action-card" (click)="navigateTo('/mentor')">
-          <span class="material-symbols-outlined action-icon">dashboard</span>
-          <span class="action-label">Mentor Dashboard</span>
-        </button>
-        <button class="action-card" (click)="navigateTo('/mentor/create-training')">
-          <span class="material-symbols-outlined action-icon">add_circle</span>
-          <span class="action-label">Create Training</span>
-        </button>
-        <button class="action-card" (click)="navigateTo('/mentor/modules')">
-          <span class="material-symbols-outlined action-icon">library_books</span>
-          <span class="action-label">Manage Modules</span>
-        </button>
-        <button class="action-card" (click)="navigateTo('/mentor/mentees')">
-          <span class="material-symbols-outlined action-icon">school</span>
-          <span class="action-label">View Mentees</span>
-        </button>
-      </div>
-
-      <div class="actions-grid" *ngIf="user?.role === 'donor'">
-        <button class="action-card" (click)="navigateTo('/donor')">
-          <span class="material-symbols-outlined action-icon">dashboard</span>
-          <span class="action-label">Donor Dashboard</span>
-        </button>
-        <button class="action-card" (click)="navigateTo('/donor/projects')">
-          <span class="material-symbols-outlined action-icon">nature</span>
-          <span class="action-label">Browse Projects</span>
-        </button>
-        <button class="action-card" (click)="navigateTo('/donor/history')">
-          <span class="material-symbols-outlined action-icon">history</span>
-          <span class="action-label">Donation History</span>
-        </button>
-        <button class="action-card" (click)="navigateTo('/donor/impact')">
-          <span class="material-symbols-outlined action-icon">analytics</span>
-          <span class="action-label">Impact Report</span>
-        </button>
-      </div>
-
-      <div class="actions-grid" *ngIf="user?.role === 'organizer'">
-        <button class="action-card" (click)="navigateTo('/organizer')">
-          <span class="material-symbols-outlined action-icon">dashboard</span>
-          <span class="action-label">Organizer Dashboard</span>
-        </button>
-        <button class="action-card" (click)="navigateTo('/organizer/create-community')">
-          <span class="material-symbols-outlined action-icon">add_circle</span>
-          <span class="action-label">Create Community</span>
-        </button>
-        <button class="action-card" (click)="navigateTo('/organizer/manage')">
-          <span class="material-symbols-outlined action-icon">settings</span>
-          <span class="action-label">Manage Communities</span>
-        </button>
-        <button class="action-card" (click)="navigateTo('/organizer/posts')">
-          <span class="material-symbols-outlined action-icon">post_add</span>
-          <span class="action-label">Community Posts</span>
-        </button>
-      </div>
+    <!-- Tree Planting Log Section (All roles except admin) -->
+    <div class="section" *ngIf="user?.role !== 'admin'">
+      <app-tree-logger (treesLogged)="onTreesLogged($event)"></app-tree-logger>
     </div>
   </div>
 </div>

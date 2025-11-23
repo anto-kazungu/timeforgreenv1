@@ -24,11 +24,13 @@ export class OrganizerDashboardComponent implements OnInit {
   totalMembers = 0;
   totalPosts = 0;
   activeEvents = 0;
+  totalTreesPlanted = 0;
 
   stats = [
     { label: 'Communities', value: 0, icon: 'groups', color: 'var(--green-600)' },
     { label: 'Total Members', value: 0, icon: 'people', color: 'var(--green-500)' },
-    { label: 'Posts', value: 0, icon: 'article', color: 'var(--green-400)' },
+    { label: 'Trees Planted', value: 0, icon: 'park', color: 'var(--green-400)' },
+    { label: 'Posts', value: 0, icon: 'article', color: 'var(--green-300)' },
     { label: 'Active Events', value: 0, icon: 'event', color: 'var(--green-700)' }
   ];
 
@@ -86,11 +88,23 @@ export class OrganizerDashboardComponent implements OnInit {
     this.totalPosts = this.managedCommunities.reduce((sum, comm) => sum + comm.feeds.length, 0);
     this.activeEvents = 3; // Mock data - can be extended with events service
 
+    // Load trees planted
+    this.loadTreesPlanted();
+
     // Update stats array
     this.stats[0].value = this.managedCommunities.length;
     this.stats[1].value = this.totalMembers;
-    this.stats[2].value = this.totalPosts;
-    this.stats[3].value = this.activeEvents;
+    this.stats[2].value = this.totalTreesPlanted;
+    this.stats[3].value = this.totalPosts;
+    this.stats[4].value = this.activeEvents;
+  }
+
+  private loadTreesPlanted() {
+    const logs = localStorage.getItem('treePlantingLogs');
+    if (logs) {
+      const treeLogs = JSON.parse(logs);
+      this.totalTreesPlanted = treeLogs.reduce((total: number, log: any) => total + log.count, 0);
+    }
   }
 
   navigateTo(route: string) {

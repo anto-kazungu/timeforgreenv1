@@ -19,6 +19,7 @@ export class MentorDashboardComponent implements OnInit {
   userLevel = 3;
   levelName = 'Expert';
   levelIcon = 'school';
+  totalTreesPlanted = 0;
   
   trainingModules: TrainingModule[] = [];
   recentMentees: Mentee[] = [];
@@ -27,6 +28,7 @@ export class MentorDashboardComponent implements OnInit {
   stats = [
     { label: 'Training Modules', value: 0, icon: 'library_books', color: '#667eea' },
     { label: 'Active Mentees', value: 0, icon: 'people', color: '#f093fb' },
+    { label: 'Trees Planted', value: 0, icon: 'park', color: '#00d084' },
     { label: 'Total Enrollments', value: 0, icon: 'school', color: '#43e97b' },
     { label: 'Avg Rating', value: 0, icon: 'star', color: '#fa709a' }
   ];
@@ -98,10 +100,22 @@ export class MentorDashboardComponent implements OnInit {
       ? this.trainingModules.reduce((sum, m) => sum + m.rating, 0) / this.trainingModules.length 
       : 0;
 
+    // Load trees planted
+    this.loadTreesPlanted();
+
     this.stats[0].value = this.trainingModules.length;
     this.stats[1].value = this.recentMentees.length;
-    this.stats[2].value = totalEnrollments;
-    this.stats[3].value = parseFloat(avgRating.toFixed(1));
+    this.stats[2].value = this.totalTreesPlanted;
+    this.stats[3].value = totalEnrollments;
+    this.stats[4].value = parseFloat(avgRating.toFixed(1));
+  }
+
+  private loadTreesPlanted() {
+    const logs = localStorage.getItem('treePlantingLogs');
+    if (logs) {
+      const treeLogs = JSON.parse(logs);
+      this.totalTreesPlanted = treeLogs.reduce((total: number, log: any) => total + log.count, 0);
+    }
   }
 
   navigateTo(route: string) {

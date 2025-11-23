@@ -840,3 +840,199 @@
   color: #00d084;
   margin-left: 0.3rem;
 }
+
+/* Tree Planting Log Styles */
+.tree-history {
+  margin-top: 2rem;
+}
+
+.history-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.history-title .material-symbols-outlined {
+  color: #00d084;
+  font-size: 1.5rem;
+}
+
+.tree-log-grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.tree-log-card {
+  background: linear-gradient(135deg, #f8f9ff 0%, #e8f5f0 100%);
+  border-radius: 16px;
+  padding: 1.5rem;
+  border: 2px solid rgba(0, 208, 132, 0.1);
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.tree-log-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 208, 132, 0.15);
+  border-color: rgba(0, 208, 132, 0.3);
+}
+
+.tree-log-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid rgba(0, 208, 132, 0.1);
+}
+
+.tree-count-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, #00d084 0%, #00b870 100%);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 25px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  box-shadow: 0 4px 12px rgba(0, 208, 132, 0.3);
+}
+
+.tree-count-badge .material-symbols-outlined {
+  font-size: 1.3rem;
+}
+
+.log-date {
+  font-size: 0.9rem;
+  color: #666;
+  font-weight: 500;
+}
+
+.tree-log-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+}
+
+.detail-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  color: #4a5568;
+  font-size: 0.95rem;
+}
+
+.detail-item .material-symbols-outlined {
+  font-size: 1.2rem;
+  color: #00d084;
+  flex-shrink: 0;
+}
+
+.tree-log-footer {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 1rem;
+  border-top: 2px solid rgba(0, 208, 132, 0.1);
+}
+
+.xp-earned {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: rgba(255, 215, 0, 0.2);
+  color: #d97706;
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.xp-earned .material-symbols-outlined {
+  font-size: 1.1rem;
+  color: #fbbf24;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 3rem 2rem;
+  background: linear-gradient(135deg, #f8f9ff 0%, #e8f5f0 100%);
+  border-radius: 16px;
+  border: 2px dashed rgba(0, 208, 132, 0.3);
+}
+
+.empty-icon {
+  font-size: 4rem !important;
+  color: rgba(0, 208, 132, 0.4);
+  margin-bottom: 1rem;
+}
+
+.empty-state h3 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.empty-state p {
+  color: #666;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* Form enhancements for tree logging */
+.form-group label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.form-group label .material-symbols-outlined {
+  font-size: 1.2rem;
+  color: #00d084;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .tree-log-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.8rem;
+  }
+  
+  .tree-count-badge {
+    font-size: 1rem;
+  }
+  
+  .tree-log-footer {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .tree-log-card {
+    padding: 1rem;
+  }
+  
+  .tree-count-badge {
+    font-size: 0.9rem;
+    padding: 0.4rem 0.8rem;
+  }
+  
+  .detail-item {
+    font-size: 0.85rem;
+  }
+  
+  .empty-state {
+    padding: 2rem 1rem;
+  }
+  
+  .empty-icon {
+    font-size: 3rem !important;
+  }
+}
