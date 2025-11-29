@@ -28,7 +28,7 @@ export class LevelService {
       minXP: 0,
       maxXP: 499,
       icon: 'eco',
-      color: '#e5e7eb',
+      color: '#f8f9fb',
       description: 'Just starting your green journey'
     },
     {
@@ -37,7 +37,7 @@ export class LevelService {
       minXP: 500,
       maxXP: 1499,
       icon: 'local_florist',
-      color: '#d1d5db',
+      color: '#f2f4f7',
       description: 'Making a positive impact'
     },
     {
@@ -46,7 +46,7 @@ export class LevelService {
       minXP: 1500,
       maxXP: 3499,
       icon: 'park',
-      color: '#c4c9d4',
+      color: '#ecf0f3',
       description: 'Fighting for the environment'
     },
     {
@@ -55,7 +55,7 @@ export class LevelService {
       minXP: 3500,
       maxXP: 6999,
       icon: 'shield',
-      color: '#b8bdc8',
+      color: '#e6ebef',
       description: 'Protecting our planet'
     },
     {
@@ -64,7 +64,7 @@ export class LevelService {
       minXP: 7000,
       maxXP: Infinity,
       icon: 'workspace_premium',
-      color: '#acb1bc',
+      color: '#e0e7eb',
       description: 'Environmental hero and leader'
     }
   ];
