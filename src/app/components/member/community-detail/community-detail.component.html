@@ -48,9 +48,35 @@
               placeholder="Share something with the community..."
               rows="4"
             ></textarea>
+            
+            <div class="image-upload-section">
+              <input 
+                type="file" 
+                #fileInput 
+                (change)="onImageSelected($event)"
+                accept="image/*"
+                style="display: none;"
+              >
+              <button type="button" class="image-upload-btn" (click)="fileInput.click()">
+                <span class="material-symbols-outlined">photo_camera</span>
+                Add Image
+              </button>
+              
+              @if (selectedImagePreview) {
+                <div class="image-preview">
+                  <img [src]="selectedImagePreview" alt="Preview" class="preview-image">
+                  <button type="button" class="remove-image-btn" (click)="removeImage()">
+                    <span class="material-symbols-outlined">close</span>
+                  </button>
+                </div>
+              }
+            </div>
+            
             <div class="post-form-actions">
               <button class="cancel-post-btn" (click)="cancelPost()">Cancel</button>
-              <button class="submit-post-btn" (click)="createPost()">Post</button>
+              <button class="submit-post-btn" (click)="createPost()" [disabled]="!newPostContent.trim()">
+                Post
+              </button>
             </div>
           </div>
         }
@@ -73,6 +99,11 @@
               </div>
               <div class="feed-content">
                 <p>{{ feed.content }}</p>
+                @if (feed.image) {
+                  <div class="feed-image">
+                    <img [src]="feed.image" alt="Post image" class="post-image">
+                  </div>
+                }
               </div>
               <div class="feed-actions">
                 <button class="like-btn" (click)="toggleLike(feed)">
