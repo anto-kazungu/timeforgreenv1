@@ -5,10 +5,12 @@ import { AuthService } from '../../../services/auth.service';
 import { PostService, Post } from '../../../services/post.service';
 import { PointsService } from '../../../services/points.service';
 import { XPService } from '../../../services/xp.service';
+import { CommunityService } from '../../../services/community.service';
+import { TopNavComponent } from '../../shared/top-nav/top-nav.component';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [CommonModule],
+  imports: [CommonModule, TopNavComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
@@ -64,7 +66,8 @@ export class DashboardComponent implements OnInit {
     private authService: AuthService,
     private postService: PostService,
     private pointsService: PointsService,
-    private xpService: XPService
+    private xpService: XPService,
+    private communityService: CommunityService
   ) {}
 
   ngOnInit() {
@@ -86,6 +89,9 @@ export class DashboardComponent implements OnInit {
     
     // Initial level update
     this.updateLevelInfo();
+    
+    // Load tree planting data
+    this.loadTreePlantingData();
   }
   
   private updateLevelInfo() {
@@ -149,5 +155,25 @@ export class DashboardComponent implements OnInit {
 
   logout() {
     this.authService.logout();
+  }
+
+
+
+  get totalTreesPlanted(): number {
+    const logs = localStorage.getItem('treePlantingLogs');
+    if (logs) {
+      const treeLogs = JSON.parse(logs);
+      return treeLogs.reduce((total: number, log: any) => total + log.count, 0);
+    }
+    return 0;
+  }
+
+  get communitiesCount(): number {
+    return this.communityService.getUserCommunities().length;
+  }
+  
+  private loadTreePlantingData() {
+    // This method ensures tree data is loaded on init
+    // The getter will handle the actual calculation
   }
 }

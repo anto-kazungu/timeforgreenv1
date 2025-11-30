@@ -1,0 +1,168 @@
+<div class="tree-logging-container">
+  <!-- Header -->
+  <div class="header">
+    <button class="back-btn" (click)="goBack()">
+      <span class="material-symbols-outlined">arrow_back</span>
+    </button>
+    <h1 class="page-title">Tree Logging</h1>
+    <button class="add-btn" (click)="showLogForm = true">
+      <span class="material-symbols-outlined">add</span>
+    </button>
+  </div>
+
+  <div class="content">
+    <!-- Search Bar -->
+    <div class="search-section">
+      <div class="search-bar">
+        <span class="material-symbols-outlined">search</span>
+        <input 
+          type="text" 
+          placeholder="Search by location, species, or code..." 
+          [(ngModel)]="searchQuery"
+          (input)="filterLogs()"
+        >
+        <button class="clear-btn" *ngIf="searchQuery" (click)="clearSearch()">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon green">
+          <span class="material-symbols-outlined">park</span>
+        </div>
+        <div class="stat-info">
+          <p class="stat-label">Total Trees</p>
+          <h3 class="stat-value">{{ totalTrees }}</h3>
+        </div>
+      </div>
+      
+      <div class="stat-card">
+        <div class="stat-icon blue">
+          <span class="material-symbols-outlined">eco</span>
+        </div>
+        <div class="stat-info">
+          <p class="stat-label">Green Points</p>
+          <h3 class="stat-value">{{ totalPoints }}</h3>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tree Logs List -->
+    <div class="logs-section">
+      <h2 class="section-title">Your Tree Logs</h2>
+      
+      <div class="logs-list" *ngIf="filteredLogs.length > 0">
+        <div class="log-card" *ngFor="let log of filteredLogs">
+          <div class="log-header">
+            <div class="log-icon">
+              <span class="material-symbols-outlined">forest</span>
+            </div>
+            <div class="log-main">
+              <h4 class="log-title">{{ log.count }} {{ log.count === 1 ? 'Tree' : 'Trees' }} Planted</h4>
+              <p class="log-date">{{ formatDate(log.date) }}</p>
+            </div>
+            <div class="log-badge">
+              +{{ log.points }} pts
+            </div>
+          </div>
+          
+          <div class="log-details">
+            <div class="detail-item" *ngIf="log.location">
+              <span class="material-symbols-outlined">location_on</span>
+              <span>{{ log.location }}</span>
+            </div>
+            <div class="detail-item" *ngIf="log.species">
+              <span class="material-symbols-outlined">nature</span>
+              <span>{{ log.species }}</span>
+            </div>
+            <div class="detail-item" *ngIf="log.code">
+              <span class="material-symbols-outlined">qr_code</span>
+              <span>{{ log.code }}</span>
+              <button class="copy-btn" (click)="copyCode(log.code)">
+                <span class="material-symbols-outlined">content_copy</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="empty-state" *ngIf="filteredLogs.length === 0 && !searchQuery">
+        <span class="material-symbols-outlined">forest</span>
+        <h3>No Trees Logged Yet</h3>
+        <p>Start logging your tree planting activities!</p>
+        <button class="btn-primary" (click)="showLogForm = true">Log Your First Tree</button>
+      </div>
+
+      <div class="empty-state" *ngIf="filteredLogs.length === 0 && searchQuery">
+        <span class="material-symbols-outlined">search_off</span>
+        <h3>No Results Found</h3>
+        <p>Try a different search term</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Log Form Modal -->
+  <div class="modal-overlay" *ngIf="showLogForm" (click)="showLogForm = false">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h3>Log Trees</h3>
+        <button class="close-btn" (click)="showLogForm = false">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+      
+      <form (ngSubmit)="logTrees()">
+        <div class="form-group">
+          <label>Number of Trees *</label>
+          <input 
+            type="number" 
+            [(ngModel)]="newLog.count" 
+            name="count" 
+            min="1" 
+            required
+            placeholder="Enter number of trees"
+          >
+        </div>
+        
+        <div class="form-group">
+          <label>Location *</label>
+          <input 
+            type="text" 
+            [(ngModel)]="newLog.location" 
+            name="location" 
+            required
+            placeholder="e.g., Central Park"
+          >
+        </div>
+        
+        <div class="form-group">
+          <label>Tree Species (Optional)</label>
+          <input 
+            type="text" 
+            [(ngModel)]="newLog.species" 
+            name="species"
+            placeholder="e.g., Oak, Pine, Maple"
+          >
+        </div>
+        
+        <div class="form-group">
+          <label>Notes (Optional)</label>
+          <textarea 
+            [(ngModel)]="newLog.notes" 
+            name="notes"
+            rows="3"
+            placeholder="Add any additional details..."
+          ></textarea>
+        </div>
+        
+        <div class="form-actions">
+          <button type="button" class="btn-secondary" (click)="showLogForm = false">Cancel</button>
+          <button type="submit" class="btn-primary">Log Trees</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

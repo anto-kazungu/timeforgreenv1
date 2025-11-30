@@ -19,6 +19,7 @@ import { MentorDashboardComponent } from './components/mentors/mentor-dashboard/
 import { DonorDashboardComponent } from './components/donors/donor-dashboard/donor-dashboard.component';
 import { OrganizerDashboardComponent } from './components/organizers/organizer-dashboard/organizer-dashboard.component';
 import { CreateCommunityComponent } from './components/organizers/create-community/create-community.component';
+import { TreeLoggingComponent } from './components/member/tree-logging/tree-logging.component';
 import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
@@ -34,6 +35,7 @@ export const routes: Routes = [
   // Member routes
   { path: 'dashboard', component: DashboardComponent, canActivate: [authGuard] },
   { path: 'profile-settings', component: UserProfileComponent, canActivate: [authGuard] },
+  { path: 'tree-logging', component: TreeLoggingComponent, canActivate: [authGuard] },
   { path: 'trainings', component: TrainingsComponent, canActivate: [authGuard] },
   { path: 'rewards', component: RewardsComponent, canActivate: [authGuard] },
   { path: 'events', component: EventsComponent, canActivate: [authGuard] },

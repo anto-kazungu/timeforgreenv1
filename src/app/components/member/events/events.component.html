@@ -1,12 +1,18 @@
 <div class="events-container">
-  <div class="header">
-    <button class="back-btn" (click)="goBack()">← Back</button>
-    <button class="logout-btn" (click)="logout()">Logout</button>
-  </div>
+  <!-- Top Navigation Bar -->
+  <app-top-nav pageTitle="Events" [showBackButton]="true"></app-top-nav>
   
   <div class="content">
-    <h1 class="page-title">Events</h1>
-    <p class="subtitle">Join upcoming environmental events in your community</p>
+    <!-- Hero Welcome Card -->
+    <div class="hero-card">
+      <div class="hero-content">
+        <h1 class="hero-title">Events</h1>
+        <p class="hero-subtitle">Join upcoming environmental events and make a real impact</p>
+      </div>
+      <div class="hero-illustration">
+        <span class="material-symbols-outlined hero-icon">event</span>
+      </div>
+    </div>
     
     <div class="events-list">
       <div class="event-card" *ngFor="let event of events">

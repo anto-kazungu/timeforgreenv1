@@ -6,10 +6,11 @@ import { AuthService } from '../../../services/auth.service';
 import { CommunityService, Community } from '../../../services/community.service';
 import { PointsService } from '../../../services/points.service';
 import { DialogService } from '../../../services/dialog.service';
+import { TopNavComponent } from '../../shared/top-nav/top-nav.component';
 
 @Component({
   selector: 'app-community',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, TopNavComponent],
   templateUrl: './community.component.html',
   styleUrl: './community.component.css'
 })
@@ -96,4 +97,5 @@ export class CommunityComponent implements OnInit {
   logout() {
     this.authService.logout();
   }
+
 }

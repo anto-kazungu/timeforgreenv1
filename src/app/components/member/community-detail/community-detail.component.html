@@ -93,24 +93,53 @@
                   <div class="author-avatar">{{ feed.author.charAt(0) }}</div>
                   <div class="author-info">
                     <span class="author-name">{{ feed.author }}</span>
-                    <span class="feed-time">{{ getTimeAgo(feed.timestamp) }}</span>
+                    <span class="feed-meta">
+                      <span class="author-role">Member</span>
+                      <span class="separator">•</span>
+                      <span class="feed-time">{{ getTimeAgo(feed.timestamp) }}</span>
+                    </span>
                   </div>
                 </div>
-              </div>
-              <div class="feed-content">
-                <p>{{ feed.content }}</p>
-                @if (feed.image) {
-                  <div class="feed-image">
-                    <img [src]="feed.image" alt="Post image" class="post-image">
+                @if (canDeletePost(feed)) {
+                  <div class="post-menu">
+                    <button class="post-menu-btn" (click)="togglePostMenu(feed.id)">
+                      <span class="material-symbols-outlined">more_vert</span>
+                    </button>
+                    @if (showMenuForPost === feed.id) {
+                      <div class="post-menu-dropdown">
+                        <button class="menu-item delete-item" (click)="deletePost(feed.id)">
+                          <span class="material-symbols-outlined">delete</span>
+                          Delete Post
+                        </button>
+                      </div>
+                    }
                   </div>
                 }
               </div>
+              
+              @if (feed.image) {
+                <div class="feed-image">
+                  <img [src]="feed.image" alt="Post image" class="post-image">
+                </div>
+              }
+              
+              <div class="feed-content">
+                <p>{{ feed.content }}</p>
+              </div>
+              
               <div class="feed-actions">
-                <button class="like-btn" (click)="toggleLike(feed)">
-                  <span [class.liked]="feed.liked">❤️</span> {{ feed.likes }}
+                <button class="action-btn like-btn" (click)="toggleLike(feed)" [class.active]="feed.liked">
+                  <span class="material-symbols-outlined">thumb_up</span>
+                  <span class="action-count">{{ feed.likes }}</span>
                 </button>
-                <button class="comment-btn">💬 Comment</button>
-                <button class="share-btn">🔗 Share</button>
+                <button class="action-btn comment-btn">
+                  <span class="material-symbols-outlined">chat_bubble</span>
+                  <span class="action-count">0</span>
+                </button>
+                <button class="action-btn share-btn">
+                  <span class="material-symbols-outlined">share</span>
+                  <span class="action-text">Share</span>
+                </button>
               </div>
             </div>
           </div>
