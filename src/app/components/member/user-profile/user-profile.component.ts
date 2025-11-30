@@ -2,19 +2,27 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { trigger, transition, style, animate } from '@angular/animations';
 import { AuthService } from '../../../services/auth.service';
 import { CommunityService } from '../../../services/community.service';
 import { TrainingService } from '../../../services/training.service';
 import { PointsService } from '../../../services/points.service';
 import { XPService } from '../../../services/xp.service';
-import { TreeLoggerComponent } from '../../shared/tree-logger/tree-logger.component';
 
 @Component({
   selector: 'app-user-profile',
   standalone: true,
-  imports: [CommonModule, FormsModule, TreeLoggerComponent],
+  imports: [CommonModule, FormsModule],
   templateUrl: './user-profile.component.html',
-  styleUrls: ['./user-profile.component.css']
+  styleUrls: ['./user-profile.component.css'],
+  animations: [
+    trigger('fadeIn', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('300ms', style({ opacity: 1 }))
+      ])
+    ])
+  ]
 })
 export class UserProfileComponent implements OnInit {
   user: any;
@@ -22,6 +30,7 @@ export class UserProfileComponent implements OnInit {
   lastName = '';
   username = '';
   email = '';
+  phone = '';
   bio = '';
   greenPoints = 850;
   userLevel = 1;
@@ -35,10 +44,11 @@ export class UserProfileComponent implements OnInit {
   communitiesCount = 0;
   eventsAttended = 0;
   trainingsCompleted = 0;
+  totalTreesPlanted = 0;
   updateMessage = '';
   updateSuccess = false;
   editMode = false;
-  totalTreesPlanted = 0;
+  showStatsModal = false;
 
   achievements = [
     { icon: '🌱', title: 'First Steps', description: 'Join your first community', unlocked: true },
@@ -164,5 +174,36 @@ export class UserProfileComponent implements OnInit {
 
   onTreesLogged(total: number) {
     this.totalTreesPlanted = total;
+  }
+
+  getUserInitials(): string {
+    if (this.user && this.user.firstName && this.user.lastName) {
+      return `${this.user.firstName.charAt(0)}${this.user.lastName.charAt(0)}`.toUpperCase();
+    }
+    return 'U';
+  }
+
+  toggleEdit() {
+    this.editMode = !this.editMode;
+  }
+
+  navigateTo(section: string) {
+    switch(section) {
+      case 'personal-details':
+        this.editMode = true;
+        break;
+      case 'stats':
+        this.showStatsModal = true;
+        break;
+      case 'communities':
+        this.router.navigate(['/community']);
+        break;
+      case 'settings':
+        this.editMode = true;
+        break;
+      case 'tree-logging':
+        this.router.navigate(['/tree-logging']);
+        break;
+    }
   }
 }

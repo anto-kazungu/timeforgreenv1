@@ -1,18 +1,22 @@
 <div class="rewards-container">
-  <div class="header">
-    <button class="back-btn" (click)="goBack()">← Back</button>
-    <button class="logout-btn" (click)="logout()">Logout</button>
-  </div>
+  <!-- Top Navigation Bar -->
+  <app-top-nav pageTitle="Rewards" [showBackButton]="true"></app-top-nav>
   
   <div class="content">
-    <div class="points-card">
-      <h2>Your Green Points</h2>
-      <div class="points-display">{{ totalPoints }}</div>
-      <p>Keep going green to earn more!</p>
+    <!-- Hero Welcome Card -->
+    <div class="hero-card">
+      <div class="hero-content">
+        <h1 class="hero-title">Rewards</h1>
+        <p class="hero-subtitle">Redeem your green points for amazing rewards and benefits</p>
+        <div class="points-display">
+          <span class="points-label">Your Points:</span>
+          <span class="points-value">{{ totalPoints }}</span>
+        </div>
+      </div>
+      <div class="hero-illustration">
+        <span class="material-symbols-outlined hero-icon">redeem</span>
+      </div>
     </div>
-
-    <h1 class="page-title">Rewards</h1>
-    <p class="subtitle">Redeem your green points for amazing rewards</p>
     
     <div class="rewards-grid">
       <div class="reward-card" *ngFor="let reward of rewards">

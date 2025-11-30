@@ -21,6 +21,7 @@ export class CommunityDetailComponent implements OnInit {
   showPostForm = false;
   selectedImage: File | null = null;
   selectedImagePreview: string | null = null;
+  showMenuForPost: string | null = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -166,5 +167,35 @@ export class CommunityDetailComponent implements OnInit {
 
   logout() {
     this.authService.logout();
+  }
+
+  canDeletePost(feed: Feed): boolean {
+    const currentUser = this.authService.getCurrentUser();
+    return currentUser?.id === feed.authorId;
+  }
+
+  togglePostMenu(postId: string) {
+    this.showMenuForPost = this.showMenuForPost === postId ? null : postId;
+  }
+
+  deletePost(postId: string) {
+    this.dialogService.confirm(
+      'Delete Post',
+      'Are you sure you want to delete this post? This action cannot be undone.'
+    ).subscribe(confirmed => {
+      if (confirmed && this.community) {
+        this.communityService.deletePost(this.community.id, postId);
+        this.community = this.communityService.getCommunityById(this.community.id);
+        this.showMenuForPost = null;
+        
+        this.dialog.open(AlertDialogComponent, {
+          data: {
+            title: 'Success',
+            message: 'Post deleted successfully',
+            type: 'success'
+          }
+        });
+      }
+    });
   }
 }

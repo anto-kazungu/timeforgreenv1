@@ -6,10 +6,11 @@ import { TrainingService, Training } from '../../../services/training.service';
 import { PointsService } from '../../../services/points.service';
 import { NotificationService } from '../../../services/notification.service';
 import { DialogService } from '../../../services/dialog.service';
+import { TopNavComponent } from '../../shared/top-nav/top-nav.component';
 
 @Component({
   selector: 'app-trainings',
-  imports: [CommonModule],
+  imports: [CommonModule, TopNavComponent],
   templateUrl: './trainings.component.html',
   styleUrl: './trainings.component.css'
 })
@@ -66,4 +67,5 @@ export class TrainingsComponent implements OnInit {
   logout() {
     this.authService.logout();
   }
+
 }

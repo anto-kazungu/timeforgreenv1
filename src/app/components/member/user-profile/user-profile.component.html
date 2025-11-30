@@ -1,280 +1,169 @@
-<div class="dashboard-container">
-  <div class="header">
-    <div class="profile-section">
-      <div class="profile-avatar">
-        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Ccircle cx='30' cy='30' r='30' fill='%23FFD700'/%3E%3C/svg%3E" alt="Profile">
-      </div>
-      <div class="user-info">
-        <span class="user-name">{{ user?.firstName }} {{ user?.lastName }}</span>
-        <span class="user-level">
-          <span class="material-symbols-outlined level-icon-small">{{ levelIcon }}</span>
-          Level {{ userLevel }} - {{ levelName }}
-        </span>
+<div class="profile-container">
+  <!-- Header with Back and Edit -->
+  <div class="profile-header">
+    <button class="header-btn" (click)="goBack()">
+      <span class="material-symbols-outlined">arrow_back</span>
+    </button>
+    <h1 class="header-title">PROFILE</h1>
+    <button class="header-btn" (click)="toggleEdit()">
+      <span class="material-symbols-outlined">{{ editMode ? 'close' : 'edit' }}</span>
+    </button>
+  </div>
+
+  <!-- Profile Card -->
+  <div class="profile-card">
+    <!-- Avatar Section -->
+    <div class="avatar-section">
+      <div class="avatar-container">
+        <div class="avatar-circle">
+          <span class="avatar-text">{{ getUserInitials() }}</span>
+        </div>
+        <button class="camera-btn" *ngIf="editMode">
+          <span class="material-symbols-outlined">photo_camera</span>
+        </button>
       </div>
     </div>
-    
-    <div class="header-actions">
-      <button class="back-btn" (click)="goBack()">
-        <span class="material-symbols-outlined">arrow_back</span>
-        Back
+
+    <!-- User Info -->
+    <div class="user-info-section">
+      <h2 class="user-name">{{ user?.firstName }} {{ user?.lastName }}</h2>
+      <p class="user-subtitle">Level {{ userLevel }} - {{ levelName }}</p>
+      <p class="user-bio">{{ user?.bio || 'Environmental enthusiast making a difference' }}</p>
+    </div>
+
+    <!-- Contact Info -->
+    <div class="contact-info">
+      <div class="contact-item">
+        <span class="material-symbols-outlined">phone</span>
+        <span>{{ user?.phone || '+1 234 567 8900' }}</span>
+      </div>
+      <div class="contact-item">
+        <span class="material-symbols-outlined">email</span>
+        <span>{{ user?.email }}</span>
+      </div>
+    </div>
+
+    <!-- Menu Items -->
+    <div class="menu-section">
+      <button class="menu-item" (click)="navigateTo('personal-details')">
+        <span class="menu-text">Personal Details</span>
+        <span class="material-symbols-outlined">arrow_forward</span>
       </button>
-      <button class="logout-btn" (click)="logout()">
+      
+      <button class="menu-item" (click)="navigateTo('stats')">
+        <span class="menu-text">My Stats & Achievements</span>
+        <span class="material-symbols-outlined">arrow_forward</span>
+      </button>
+      
+      <button class="menu-item" (click)="navigateTo('tree-logging')">
+        <span class="menu-text">Tree Logging</span>
+        <span class="material-symbols-outlined">arrow_forward</span>
+      </button>
+      
+      <button class="menu-item" (click)="navigateTo('communities')">
+        <span class="menu-text">My Communities</span>
+        <span class="material-symbols-outlined">arrow_forward</span>
+      </button>
+      
+      <button class="menu-item" (click)="navigateTo('settings')">
+        <span class="menu-text">Settings</span>
+        <span class="material-symbols-outlined">arrow_forward</span>
+      </button>
+      
+      <button class="menu-item logout-item" (click)="logout()">
+        <span class="menu-text">Logout</span>
         <span class="material-symbols-outlined">logout</span>
-        Logout
       </button>
     </div>
   </div>
 
-  <div class="content">
-    <div class="welcome-section">
-      <h1 class="greeting">Profile Settings</h1>
-      <p class="tagline">
-        Manage your account and track your environmental journey 
-        <span class="material-symbols-outlined tagline-icon">eco</span>
-      </p>
+  <!-- Edit Form Modal -->
+  <div class="edit-modal" *ngIf="editMode" [@fadeIn]>
+    <div class="modal-content">
+      <h3>Edit Profile</h3>
+      <form (ngSubmit)="updateProfile()">
+        <div class="form-group">
+          <label>First Name</label>
+          <input type="text" [(ngModel)]="firstName" name="firstName" required>
+        </div>
+        
+        <div class="form-group">
+          <label>Last Name</label>
+          <input type="text" [(ngModel)]="lastName" name="lastName" required>
+        </div>
+        
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" [(ngModel)]="email" name="email" required>
+        </div>
+        
+        <div class="form-group">
+          <label>Phone</label>
+          <input type="tel" [(ngModel)]="phone" name="phone">
+        </div>
+        
+        <div class="form-group">
+          <label>Bio</label>
+          <textarea [(ngModel)]="bio" name="bio" rows="3"></textarea>
+        </div>
+        
+        <div class="form-actions">
+          <button type="button" class="btn-cancel" (click)="toggleEdit()">Cancel</button>
+          <button type="submit" class="btn-save">Save Changes</button>
+        </div>
+      </form>
     </div>
+  </div>
 
-    <!-- Profile Overview Section -->
-    <div class="section">
-      <div class="section-header">
-        <h2>
-          <span class="material-symbols-outlined section-icon">account_circle</span>
-          Profile Overview
-        </h2>
-        <button class="action-btn" (click)="editMode = !editMode">
-          <span class="material-symbols-outlined">{{ editMode ? 'close' : 'edit' }}</span>
-          {{ editMode ? 'Cancel' : 'Edit Profile' }}
+  <!-- Stats Modal -->
+  <div class="edit-modal" *ngIf="showStatsModal" [@fadeIn] (click)="showStatsModal = false">
+    <div class="modal-content stats-modal" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h3>My Stats & Achievements</h3>
+        <button class="close-btn" (click)="showStatsModal = false">
+          <span class="material-symbols-outlined">close</span>
         </button>
       </div>
-
-      <div class="profile-overview-card">
-        <div class="profile-avatar-section">
-          <div class="profile-avatar-large">
-            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Ccircle cx='60' cy='60' r='60' fill='%23FFD700'/%3E%3C/svg%3E" alt="Profile">
-            <button class="change-photo-btn" *ngIf="editMode">
-              <span class="material-symbols-outlined">photo_camera</span>
-            </button>
-          </div>
-          <div class="user-details">
-            <h3>{{ user?.firstName }} {{ user?.lastName }}</h3>
-            <p class="user-email">{{ user?.email }}</p>
-            <div class="level-badge" [style.background]="levelColor">
-              <div class="level-info">
-                <span class="level-title">Level {{ userLevel }} - {{ levelName }}</span>
-                <div class="level-progress-container">
-                  <div class="level-progress-bar" [style.width.%]="levelProgress"></div>
-                </div>
-                <span class="level-progress-text">{{ levelProgress }}% to {{ nextLevelName }} ({{ xpToNextLevel }} XP needed)</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Stats Section -->
-    <div class="section">
-      <div class="section-header">
-        <h2>
-          <span class="material-symbols-outlined section-icon">analytics</span>
-          Your Stats
-        </h2>
-      </div>
-
-      <div class="stats-grid" *ngIf="user?.role !== 'admin'">
-        <div class="stat-card">
-          <div class="stat-icon" style="color: #10a37f;">
+      
+      <div class="stats-content">
+        <div class="stats-grid-modal">
+          <div class="stat-item">
             <span class="material-symbols-outlined">eco</span>
+            <p class="stat-label">Green Points</p>
+            <p class="stat-value">{{ greenPoints }}</p>
           </div>
-          <div class="stat-info">
-            <span class="stat-value">{{ greenPoints }}</span>
-            <span class="stat-label">Green Points</span>
-          </div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-icon" style="color: #667eea;">
+          
+          <div class="stat-item">
             <span class="material-symbols-outlined">military_tech</span>
+            <p class="stat-label">Level</p>
+            <p class="stat-value">{{ userLevel }}</p>
           </div>
-          <div class="stat-info">
-            <span class="stat-value">Level {{ userLevel }}</span>
-            <span class="stat-label">{{ levelName }}</span>
-          </div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-icon" style="color: #00d084;">
+          
+          <div class="stat-item">
             <span class="material-symbols-outlined">park</span>
+            <p class="stat-label">Trees Planted</p>
+            <p class="stat-value">{{ totalTreesPlanted }}</p>
           </div>
-          <div class="stat-info">
-            <span class="stat-value">{{ totalTreesPlanted }}</span>
-            <span class="stat-label">Trees Planted</span>
-          </div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-icon" style="color: #764ba2;">
+          
+          <div class="stat-item">
             <span class="material-symbols-outlined">groups</span>
+            <p class="stat-label">Communities</p>
+            <p class="stat-value">{{ communitiesCount }}</p>
           </div>
-          <div class="stat-info">
-            <span class="stat-value">{{ communitiesCount }}</span>
-            <span class="stat-label">Communities</span>
-          </div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-icon" style="color: #f093fb;">
+          
+          <div class="stat-item">
             <span class="material-symbols-outlined">school</span>
+            <p class="stat-label">Trainings</p>
+            <p class="stat-value">{{ trainingsCompleted }}</p>
           </div>
-          <div class="stat-info">
-            <span class="stat-value">{{ trainingsCompleted }}</span>
-            <span class="stat-label">Trainings</span>
-          </div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-icon" style="color: #f5576c;">
+          
+          <div class="stat-item">
             <span class="material-symbols-outlined">event</span>
-          </div>
-          <div class="stat-info">
-            <span class="stat-value">{{ eventsAttended }}</span>
-            <span class="stat-label">Events</span>
+            <p class="stat-label">Events</p>
+            <p class="stat-value">{{ eventsAttended }}</p>
           </div>
         </div>
       </div>
-
-      <div class="stats-grid" *ngIf="user?.role === 'admin'">
-        <div class="stat-card">
-          <div class="stat-icon" style="color: #667eea;">
-            <span class="material-symbols-outlined">shield</span>
-          </div>
-          <div class="stat-info">
-            <span class="stat-value">Admin</span>
-            <span class="stat-label">System Role</span>
-          </div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-icon" style="color: #764ba2;">
-            <span class="material-symbols-outlined">verified</span>
-          </div>
-          <div class="stat-info">
-            <span class="stat-value">Full Access</span>
-            <span class="stat-label">Permissions</span>
-          </div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-icon" style="color: #10a37f;">
-            <span class="material-symbols-outlined">check_circle</span>
-          </div>
-          <div class="stat-info">
-            <span class="stat-value">Active</span>
-            <span class="stat-label">System Status</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Personal Information Section -->
-    <div class="section" *ngIf="editMode">
-      <div class="section-header">
-        <h2>
-          <span class="material-symbols-outlined section-icon">edit</span>
-          Edit Personal Information
-        </h2>
-      </div>
-
-      <div class="form-card">
-        <form (ngSubmit)="updateProfile()">
-          <div class="form-row">
-            <div class="form-group">
-              <label>
-                <span class="material-symbols-outlined">person</span>
-                First Name
-              </label>
-              <input 
-                type="text" 
-                [(ngModel)]="firstName" 
-                name="firstName"
-                placeholder="Enter first name"
-                required
-              />
-            </div>
-            
-            <div class="form-group">
-              <label>
-                <span class="material-symbols-outlined">person</span>
-                Last Name
-              </label>
-              <input 
-                type="text" 
-                [(ngModel)]="lastName" 
-                name="lastName"
-                placeholder="Enter last name"
-                required
-              />
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label>
-              <span class="material-symbols-outlined">alternate_email</span>
-              Username
-            </label>
-            <input 
-              type="text" 
-              [(ngModel)]="username" 
-              name="username"
-              placeholder="Enter username"
-              required
-            />
-          </div>
-
-          <div class="form-group">
-            <label>
-              <span class="material-symbols-outlined">email</span>
-              Email
-            </label>
-            <input 
-              type="email" 
-              [(ngModel)]="email" 
-              name="email"
-              placeholder="Enter email"
-              required
-            />
-          </div>
-
-          <div class="form-group">
-            <label>
-              <span class="material-symbols-outlined">description</span>
-              Bio
-            </label>
-            <textarea 
-              [(ngModel)]="bio" 
-              name="bio"
-              placeholder="Tell us about yourself and your environmental goals..."
-              rows="4"
-            ></textarea>
-          </div>
-
-          @if (updateMessage) {
-            <div class="message" [class.success]="updateSuccess" [class.error]="!updateSuccess">
-              <span class="material-symbols-outlined">{{ updateSuccess ? 'check_circle' : 'error' }}</span>
-              {{ updateMessage }}
-            </div>
-          }
-
-          <div class="form-actions">
-            <button type="button" class="cancel-btn" (click)="resetForm()">
-              <span class="material-symbols-outlined">refresh</span>
-              Reset
-            </button>
-            <button type="submit" class="save-btn">
-              <span class="material-symbols-outlined">save</span>
-              Save Changes
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-
-    <!-- Tree Planting Log Section (All roles except admin) -->
-    <div class="section" *ngIf="user?.role !== 'admin'">
-      <app-tree-logger (treesLogged)="onTreesLogged($event)"></app-tree-logger>
     </div>
   </div>
 </div>

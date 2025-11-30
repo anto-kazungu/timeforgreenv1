@@ -1,148 +1,113 @@
 <div class="dashboard-container">
-  <div class="header">
-    <div class="profile-section" (click)="goToProfile()">
-      <div class="profile-avatar">
-        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Ccircle cx='30' cy='30' r='30' fill='%23FFD700'/%3E%3C/svg%3E" alt="Profile">
-      </div>
-      <div class="user-info">
-        <span class="user-name">{{ userName }}</span>
-        <span class="user-level">
-          <span class="material-symbols-outlined level-icon-small">{{ levelIcon }}</span>
-          Level {{ userLevel }} - {{ levelName }}
-        </span>
-      </div>
-    </div>
-    
-    <div class="points-badge">
-      <div class="points-info">
-        <span class="points-label">Green Points</span>
-        <span class="points-value">{{ greenPoints }}</span>
-      </div>
-    </div>
-  </div>
+  <!-- Top Navigation Bar -->
+  <app-top-nav pageTitle="Dashboard" [showBackButton]="false"></app-top-nav>
 
   <div class="content">
-    <div class="welcome-section">
-      <h1 class="greeting">Welcome Back, {{ userName }}!</h1>
-      <p class="tagline">
-        Let's make the world greener together 
-        <span class="material-symbols-outlined tagline-icon">public</span>
-      </p>
+    <!-- Hero Welcome Card -->
+    <div class="hero-card">
+      <div class="hero-content">
+        <h1 class="hero-title">Hi, {{ userName }}</h1>
+        <p class="hero-subtitle">Ready to make a positive impact today?</p>
+      </div>
+      <div class="hero-illustration">
+        <span class="material-symbols-outlined hero-icon">eco</span>
+      </div>
     </div>
 
-    <nav class="nav-tabs">
-      <button 
-        class="nav-tab" 
-        [class.active]="activeTab === 'communities'"
-        (click)="navigateToTab('communities')"
-      >
-        Communities
-      </button>
-      <button 
-        class="nav-tab" 
-        [class.active]="activeTab === 'trainings'"
-        (click)="navigateToTab('trainings')"
-      >
-        Trainings
-      </button>
-      <button 
-        class="nav-tab" 
-        [class.active]="activeTab === 'rewards'"
-        (click)="navigateToTab('rewards')"
-      >
-        Rewards
-      </button>
-      <button 
-        class="nav-tab" 
-        [class.active]="activeTab === 'events'"
-        (click)="navigateToTab('events')"
-      >
-        Events
-      </button>
-    </nav>
-
-    <div class="posts-section">
-      <h2>
-        <span class="material-symbols-outlined section-icon">article</span>
-        Latest Posts
-      </h2>
-      <div class="posts-list">
-        <div class="post-card" *ngFor="let post of posts" (click)="viewPost(post.id)">
-          <div class="post-header" [style.background]="post.gradient">
-            <h3>{{ post.title }}</h3>
-            <span class="post-category">{{ post.category }}</span>
-          </div>
-          <div class="post-body">
-            <p class="post-content">{{ post.content.substring(0, 150) }}...</p>
-            <div class="post-meta">
-              <span class="post-author">By {{ post.author }}</span>
-              <span class="post-time">{{ getTimeAgo(post.timestamp) }}</span>
-            </div>
-            <div class="post-stats">
-              <span class="stat-item">
-                <span class="material-symbols-outlined stat-icon">favorite</span>
-                {{ post.likes }}
-              </span>
-              <span class="stat-item">
-                <span class="material-symbols-outlined stat-icon">chat_bubble</span>
-                {{ post.comments.length }}
-              </span>
-            </div>
-          </div>
+    <!-- Stats Overview Cards -->
+    <div class="stats-overview">
+      <div class="stat-card stat-green">
+        <div class="stat-icon">
+          <span class="material-symbols-outlined">eco</span>
+        </div>
+        <div class="stat-info">
+          <p class="stat-label">Green Points</p>
+          <h3 class="stat-value">{{ greenPoints }}</h3>
+        </div>
+      </div>
+      
+      <div class="stat-card stat-purple">
+        <div class="stat-icon">
+          <span class="material-symbols-outlined">check_circle</span>
+        </div>
+        <div class="stat-info">
+          <p class="stat-label">Level {{ userLevel }}</p>
+          <h3 class="stat-value">{{ levelName }}</h3>
+        </div>
+      </div>
+      
+      <div class="stat-card stat-pink">
+        <div class="stat-icon">
+          <span class="material-symbols-outlined">park</span>
+        </div>
+        <div class="stat-info">
+          <p class="stat-label">Trees Planted</p>
+          <h3 class="stat-value">{{ totalTreesPlanted || 0 }}</h3>
+        </div>
+      </div>
+      
+      <div class="stat-card stat-blue">
+        <div class="stat-icon">
+          <span class="material-symbols-outlined">groups</span>
+        </div>
+        <div class="stat-info">
+          <p class="stat-label">Communities</p>
+          <h3 class="stat-value">{{ communitiesCount || 0 }}</h3>
         </div>
       </div>
     </div>
 
+    <!-- Recent Activities Section -->
     <div class="section-header">
-      <h2>
-        <span class="material-symbols-outlined section-icon">local_fire_department</span>
-        Trending in Your Communities
-      </h2>
+      <h2>Recent Activities</h2>
+      <button class="view-all-btn" (click)="navigateToTab('communities')">View All</button>
     </div>
 
-    <div class="trending-compact-grid">
-      <div class="trending-card" *ngFor="let item of trendingItems" (click)="viewTrendingItem(item)">
-        <div class="trending-card-image" [style.background-image]="'url(' + item.image + ')'"></div>
-        <div class="trending-card-content">
-          <h4 class="trending-card-title">{{ item.label }}</h4>
-          <div class="trending-card-meta">
-            <span class="material-symbols-outlined">group</span>
-            <span>{{ item.engagement }} active</span>
+    <div class="activities-list">
+      <div class="activity-item" *ngFor="let post of posts.slice(0, 3)" (click)="viewPost(post.id)">
+        <div class="activity-thumbnail" [style.background]="post.gradient">
+          <span class="material-symbols-outlined">article</span>
+        </div>
+        <div class="activity-content">
+          <h4 class="activity-title">{{ post.title }}</h4>
+          <p class="activity-description">{{ post.content.substring(0, 80) }}...</p>
+          <div class="activity-meta">
+            <span class="activity-badge">{{ post.category }}</span>
+            <span class="activity-status">
+              <span class="material-symbols-outlined">visibility</span>
+              Public
+            </span>
           </div>
+        </div>
+        <div class="activity-actions">
+          <button class="icon-btn-small">
+            <span class="material-symbols-outlined">edit</span>
+          </button>
+          <button class="icon-btn-small">
+            <span class="material-symbols-outlined">delete</span>
+          </button>
         </div>
       </div>
     </div>
 
-    <!-- Climate News Banner -->
-    <div class="climate-news-banner" (click)="navigateToClimateNews()">
-      <div class="banner-icon">
-        <span class="material-symbols-outlined">public</span>
-      </div>
-      <div class="banner-content">
-        <h3>Stay Informed About Our Planet</h3>
-        <p>Get the latest climate and environment news from around the world</p>
-      </div>
-      <div class="banner-action">
-        <span class="material-symbols-outlined">arrow_forward</span>
-      </div>
-    </div>
-
-    <div class="quick-actions">
-      <h2>Quick Actions</h2>
-      <div class="actions-grid">
-        <button class="action-card" (click)="navigateToTab('communities')">
-          Join Community
-        </button>
-        <button class="action-card" (click)="navigateToTab('events')">
-          Find Events
-        </button>
-        <button class="action-card" (click)="navigateToTab('rewards')">
-          Redeem Rewards
-        </button>
-        <button class="action-card" (click)="logout()">
-          Logout
-        </button>
-      </div>
+    <!-- Quick Navigation -->
+    <div class="quick-nav-grid">
+      <button class="quick-nav-card" (click)="navigateToTab('communities')">
+        <span class="material-symbols-outlined">groups</span>
+        <span>Communities</span>
+      </button>
+      <button class="quick-nav-card" (click)="navigateToTab('trainings')">
+        <span class="material-symbols-outlined">school</span>
+        <span>Learn</span>
+      </button>
+      <button class="quick-nav-card" (click)="navigateToTab('events')">
+        <span class="material-symbols-outlined">event</span>
+        <span>Events</span>
+      </button>
+      <button class="quick-nav-card" (click)="navigateToTab('rewards')">
+        <span class="material-symbols-outlined">redeem</span>
+        <span>Rewards</span>
+      </button>
     </div>
   </div>
 </div>

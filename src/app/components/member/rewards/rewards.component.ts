@@ -5,10 +5,11 @@ import { AuthService } from '../../../services/auth.service';
 import { PointsService } from '../../../services/points.service';
 import { NotificationService } from '../../../services/notification.service';
 import { DialogService } from '../../../services/dialog.service';
+import { TopNavComponent } from '../../shared/top-nav/top-nav.component';
 
 @Component({
   selector: 'app-rewards',
-  imports: [CommonModule],
+  imports: [CommonModule, TopNavComponent],
   templateUrl: './rewards.component.html',
   styleUrl: './rewards.component.css'
 })
@@ -127,4 +128,5 @@ export class RewardsComponent implements OnInit {
   logout() {
     this.authService.logout();
   }
+
 }

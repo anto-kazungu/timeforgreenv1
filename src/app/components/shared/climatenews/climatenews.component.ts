@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
+import { TopNavComponent } from '../top-nav/top-nav.component';
 
 interface NewsArticle {
   source: {
@@ -31,7 +32,7 @@ interface AppConfig {
 
 @Component({
   selector: 'app-climatenews',
-  imports: [CommonModule, HttpClientModule],
+  imports: [CommonModule, HttpClientModule, TopNavComponent],
   templateUrl: './climatenews.component.html',
   styleUrl: './climatenews.component.css'
 })
@@ -128,4 +129,5 @@ export class ClimatenewsComponent implements OnInit {
   retry() {
     this.fetchClimateNews();
   }
+
 }

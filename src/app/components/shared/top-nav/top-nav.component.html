@@ -1,0 +1,25 @@
+<!-- Top Navigation Bar -->
+<div class="top-nav">
+  <div class="nav-left">
+    <h2 class="page-title-nav">{{ pageTitle }}</h2>
+    <p class="page-subtitle-nav">{{ getCurrentDate() }}</p>
+  </div>
+  <div class="nav-right">
+    @if (showBackButton) {
+      <button class="icon-btn" (click)="goBack()">
+        <span class="material-symbols-outlined">arrow_back</span>
+      </button>
+    }
+    <button class="icon-btn" (click)="navigateToClimateNews()">
+      <span class="material-symbols-outlined">newspaper</span>
+    </button>
+    <button class="icon-btn">
+      <span class="material-symbols-outlined">notifications</span>
+    </button>
+    <div class="user-menu" (click)="goToProfile()">
+      <div class="user-avatar">{{ getUserInitials() }}</div>
+      <span class="user-name-nav">{{ getUserName() }}</span>
+      <span class="material-symbols-outlined">expand_more</span>
+    </div>
+  </div>
+</div>
